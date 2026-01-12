@@ -92,7 +92,7 @@ export async function onRequestPost(context) {
             
             <p style="margin-top: 20px; font-size: 14px; color: #666;">
                 View and manage all messages in your 
-                <a href="https://nice.humanparadigm.org/admin/contact-messages.html" style="color: #3b82f6;">admin dashboard</a>
+                <a href="https://humanparadigm.org/admin/contact-messages.html" style="color: #3b82f6;">admin dashboard</a>
             </p>
         </div>
         <div class="footer">
@@ -117,7 +117,7 @@ ${message}
 
 ---
 Reply to: ${email}
-View all messages: https://nice.humanparadigm.org/admin/contact-messages.html
+View all messages: https://humanparadigm.org/admin/contact-messages.html
         `.trim();
 
         // Send email via Resend API
