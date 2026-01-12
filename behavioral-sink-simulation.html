@@ -267,6 +267,14 @@
                             <div class="font-semibold text-green-400">✓ Sustainable Community</div>
                             <div class="text-xs text-gray-400 mt-1">Low complexity + high friction = stable equilibrium</div>
                         </button>
+                        <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('crowded-stable')">
+                            <div class="font-semibold text-green-400">✓ Crowded But Stable</div>
+                            <div class="text-xs text-gray-400 mt-1">HIGH density + LOW complexity = thriving! (Disproves density myth)</div>
+                        </button>
+                        <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('sparse-collapse')">
+                            <div class="font-semibold text-red-400">✗ Sparse But Collapsing</div>
+                            <div class="text-xs text-gray-400 mt-1">LOW density + HIGH complexity = sink! (Proves symbolic cause)</div>
+                        </button>
                         <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('modern')">
                             <div class="font-semibold text-yellow-400">⚠ Modern Urban Society</div>
                             <div class="text-xs text-gray-400 mt-1">Medium complexity + some friction = chronic stress</div>
@@ -276,7 +284,7 @@
                             <div class="text-xs text-gray-400 mt-1">High complexity + low friction = behavioral sink</div>
                         </button>
                         <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('social-media')">
-                            <div class="font-semibold text-red-400">✗ Social Media Dynamics</div>
+                            <div class="font-semibold text-red-400">✗ Digital Dystopia</div>
                             <div class="text-xs text-gray-400 mt-1">Extreme complexity + zero friction = rapid collapse</div>
                         </button>
                     </div>
@@ -487,8 +495,16 @@
                 }
                 
                 // ============================================================
-                // STRESS CALCULATION - Core Calhoun mechanism
-                // Key insight: It's NOT density alone, it's density + complexity WITHOUT friction
+                // STRESS CALCULATION - NiCE Framework / Calhoun Reinterpretation
+                // 
+                // KEY INSIGHT: Density does NOT cause behavioral sink!
+                // The sink is caused by SYMBOLIC DYSREGULATION:
+                // - High symbolic complexity (elaborate social hierarchies)
+                // - Low environmental friction (no reality feedback)
+                // - This causes symbolic structures to DECOUPLE from biological needs
+                // 
+                // Even crowded mice with simple social structures remain healthy.
+                // Even sparse mice with complex decoupled hierarchies collapse.
                 // ============================================================
                 
                 const nearbyAgents = agents.filter(other => 
@@ -496,46 +512,59 @@
                     Math.hypot(this.x - other.x, this.y - other.y) < 60
                 ).length;
                 
-                // Density stress: Only kicks in when CROWDED (>4 nearby)
-                // Low density = zero density stress, period.
-                const densityStress = Math.max(0, (nearbyAgents - 4) * 8);
+                // SYMBOLIC COMPLEXITY is the PRIMARY stress driver
+                // This represents the elaboration of social hierarchies beyond biological utility
+                // At low complexity (1.0-1.5x), social structures serve biological needs = no stress
+                // At high complexity (>3x), social hierarchies become ends in themselves = high stress
+                const symbolicStress = Math.max(0, (params.symbolicComplexity - 1.5) * 25);
                 
-                // Symbolic complexity stress: THE key Calhoun variable
-                // Low complexity (1.0-1.5x) = essentially zero complexity stress
-                // This is what makes "sustainable community" work
-                const complexityStress = Math.max(0, (params.symbolicComplexity - 1.5) * 20);
+                // FRICTION determines whether symbolic stress accumulates or self-corrects
+                // High friction = consequences are felt, maladaptive behaviors extinguish
+                // Low friction = symbolic pathology spreads unchecked
+                // This is the "utopia" trap: abundance removes natural feedback loops
+                const frictionProtection = params.environmentalFriction * 2; // 0-2 scale
+                const effectiveSymbolicStress = symbolicStress / (1 + frictionProtection);
                 
-                // FRICTION MITIGATES STRESS - this is crucial
-                // High friction means consequences are felt, behaviors self-correct
-                // Low friction = stress accumulates without feedback
-                const frictionMitigation = 1 + params.environmentalFriction * 1.5;
-                const totalStress = Math.max(0, (densityStress + complexityStress) / frictionMitigation);
+                // Density contributes ONLY as an AMPLIFIER of existing symbolic stress
+                // Crowding doesn't cause the sink - it just makes symbolic pathology spread faster
+                // With low symbolic complexity, even high density is fine (like stable animal colonies)
+                const densityAmplifier = nearbyAgents > 5 ? 1 + (nearbyAgents - 5) * 0.1 : 1.0;
                 
-                this.stressed = totalStress > 30;
+                // Total stress = symbolic stress (amplified by density if symbolic stress exists)
+                const totalStress = effectiveSymbolicStress * densityAmplifier;
+                
+                this.stressed = totalStress > 20;
                 
                 // ============================================================
-                // HEALTH DYNAMICS - Balanced for stability in good conditions
+                // HEALTH DYNAMICS - Symbolic dysregulation damages health
                 // ============================================================
                 
                 const resourceFactor = params.resourceAbundance / 100;
                 
                 if (this.stressed) {
-                    // Stress damages health - but at reasonable rates
-                    const stressDamage = (totalStress / 100) * 0.12;
+                    // Stress from SYMBOLIC DYSREGULATION damages health
+                    // This is the mechanism: elaborate status competitions, meaningless hierarchies
+                    // These behaviors consume energy without serving biological needs
+                    const stressDamage = (totalStress / 100) * 0.15;
                     this.health -= stressDamage;
-                    // Reproductive health is MORE sensitive to complexity stress (Calhoun's key finding)
-                    this.reproductiveHealth -= stressDamage * (1 + params.symbolicComplexity * 0.3);
+                    
+                    // REPRODUCTIVE HEALTH is ESPECIALLY sensitive to symbolic stress
+                    // This is Calhoun's key finding: "beautiful ones" stopped mating entirely
+                    // because their behaviors became about symbolic status, not reproduction
+                    const reproductiveDamage = stressDamage * (1.5 + params.symbolicComplexity * 0.2);
+                    this.reproductiveHealth -= reproductiveDamage;
                 }
                 
-                // Health recovery - resources help, but baseline recovery exists
-                const baseRecovery = 0.15;
-                const resourceRecovery = 0.1 * resourceFactor;
+                // Health recovery - resources help
+                const baseRecovery = 0.12;
+                const resourceRecovery = 0.08 * resourceFactor;
                 this.health += baseRecovery + resourceRecovery;
                 
-                // Reproductive health recovery - ONLY when not stressed
-                // This creates the key dynamic: chronic stress = reproductive collapse
+                // Reproductive health recovery - ONLY when not stressed AND friction is present
+                // Friction represents real-world feedback that grounds behavior in biology
                 if (!this.stressed) {
-                    const reproRecovery = 0.2 * resourceFactor * (1 + params.environmentalFriction * 0.5);
+                    const frictionRecoveryBonus = 1 + params.environmentalFriction;
+                    const reproRecovery = 0.15 * resourceFactor * frictionRecoveryBonus;
                     this.reproductiveHealth += reproRecovery;
                 }
                 
@@ -654,29 +683,51 @@
             );
             
             // ============================================================
-            // REPRODUCTION RATE - The key Calhoun dynamic
+            // REPRODUCTION RATE - NiCE Framework / Calhoun Reinterpretation
             // ============================================================
-            // In good conditions: Steady reproduction maintains population
-            // High complexity + low friction: Reproductive collapse (the sink)
+            // 
+            // KEY INSIGHT: Reproduction collapse is caused by SYMBOLIC DYSREGULATION,
+            // not by density or resource scarcity!
+            // 
+            // In Calhoun's experiments, mice had UNLIMITED food, water, and space.
+            // Yet reproduction collapsed. Why? Because:
+            // 1. Elaborate social hierarchies (symbolic complexity) developed
+            // 2. These hierarchies served STATUS, not biological reproduction
+            // 3. Without environmental friction, pathological behaviors spread
+            // 4. "Beautiful ones" groomed themselves; aggressive males fought for status
+            // 5. Neither behavior served reproduction - both are symbolic, not biological
+            //
+            // The sink occurs when symbolic systems DECOUPLE from biological imperatives.
+            // ============================================================
             
             const resourceFactor = Math.min(1.5, params.resourceAbundance / 100);
             
-            // Complexity penalty - but LOW complexity (< 1.5) means NO penalty
-            // This is critical: sustainable communities MUST be able to maintain population
-            const complexityFactor = params.symbolicComplexity < 1.5 
-                ? 1.0 
-                : Math.max(0.1, 1 - (params.symbolicComplexity - 1.5) * 0.2);
+            // THE CORE MECHANISM: Symbolic complexity vs friction
+            // Low complexity OR high friction = reproduction stays healthy
+            // High complexity AND low friction = reproductive collapse
             
-            // Friction HELPS reproduction (grounded behaviors = healthy mating)
-            const frictionBonus = 1 + params.environmentalFriction * 0.3;
+            const symbolicDecoupling = Math.max(0, params.symbolicComplexity - 1.5);
+            const frictionGrounding = params.environmentalFriction;
             
-            // Density factor - gentle curve, not harsh cutoff
-            const targetPop = params.populationDensity * 2;
-            const densityFactor = Math.max(0.2, 1 - Math.pow(agents.length / targetPop, 2) * 0.5);
+            // Decoupling ratio: how much symbolic complexity exceeds friction's ability to ground it
+            const decouplingRatio = symbolicDecoupling / (0.5 + frictionGrounding);
             
-            // Base rate: In perfect conditions, ~10% of fertile agents reproduce per cycle
-            const baseRate = 0.12;
-            const reproductionRate = baseRate * resourceFactor * complexityFactor * frictionBonus * densityFactor;
+            // Reproduction factor: 1.0 = healthy, approaches 0 as decoupling increases
+            // This is exponential decay - small decoupling is fine, extreme decoupling kills reproduction
+            const symbolicReproFactor = Math.exp(-decouplingRatio * 0.5);
+            
+            // Friction ACTIVELY helps reproduction (grounded social behaviors)
+            const frictionBonus = 1 + frictionGrounding * 0.2;
+            
+            // Natural density regulation - but gentle, not harsh
+            // Even at high density, if symbolic complexity is low, reproduction continues
+            const spacePerAgent = (canvas.width * canvas.height) / Math.max(1, agents.length);
+            const minComfortableSpace = 800; // pixels^2 per agent
+            const spaceComfort = Math.min(1.2, spacePerAgent / minComfortableSpace);
+            
+            // Base rate: healthy population reproduces steadily
+            const baseRate = 0.15;
+            const reproductionRate = baseRate * resourceFactor * symbolicReproFactor * frictionBonus * spaceComfort;
             
             // Process reproduction
             fertileAgents.forEach(parent => {
@@ -985,43 +1036,59 @@
                 });
             }
             
-            // Analyze population density
+            // Analyze population density - NOTE: Density is NOT a primary cause!
+            // This diagnosis is informational, not predictive of collapse
             if (params.populationDensity < 70) {
                 diagnosis.push({
-                    icon: '✓',
-                    color: 'text-green-400',
-                    text: 'Low-moderate density: Space for social bonds without overcrowding stress'
+                    icon: 'ℹ',
+                    color: 'text-blue-400',
+                    text: 'Low-moderate density: Comfortable spacing (but density is NOT the key factor)'
                 });
             } else if (params.populationDensity < 120) {
                 diagnosis.push({
+                    icon: 'ℹ',
+                    color: 'text-blue-400',
+                    text: 'High density: More contact, but stable if symbolic complexity stays low'
+                });
+            } else {
+                diagnosis.push({
+                    icon: 'ℹ',
+                    color: 'text-blue-400',
+                    text: 'Very high density: Can still thrive with simple social structures + high friction'
+                });
+            }
+            
+            // THE KEY DIAGNOSTIC: Symbolic complexity / friction ratio
+            // This is what actually determines behavioral sink, NOT density
+            const symbolicDecoupling = Math.max(0, params.symbolicComplexity - 1.5);
+            const decouplingRatio = symbolicDecoupling / (0.5 + params.environmentalFriction);
+            
+            if (decouplingRatio > 5) {
+                diagnosis.push({
+                    icon: '🚨',
+                    color: 'text-red-400',
+                    text: 'BEHAVIORAL SINK: Symbolic structures completely decoupled from biological reality'
+                });
+                overallRisk = 'critical';
+            } else if (decouplingRatio > 3) {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-orange-400',
+                    text: 'DANGER: High symbolic decoupling - reproduction declining'
+                });
+                if (overallRisk !== 'critical') overallRisk = 'high';
+            } else if (decouplingRatio > 1.5) {
+                diagnosis.push({
                     icon: '⚠',
                     color: 'text-yellow-400',
-                    text: 'High density: Increased contact stress, requires low complexity to remain stable'
+                    text: 'STRESS: Moderate decoupling - friction partially compensating'
                 });
                 if (overallRisk === 'low') overallRisk = 'medium';
             } else {
                 diagnosis.push({
-                    icon: '✗',
-                    color: 'text-red-400',
-                    text: 'Extreme density: Chronic overcrowding stress amplifies symbolic complexity effects'
-                });
-                if (overallRisk !== 'critical') overallRisk = 'high';
-            }
-            
-            // Calculate interaction effects
-            const complexityFrictionRatio = params.symbolicComplexity / (params.environmentalFriction + 0.1);
-            if (complexityFrictionRatio > 10) {
-                diagnosis.push({
-                    icon: '✗',
-                    color: 'text-red-400',
-                    text: 'CRITICAL: Complexity vastly exceeds friction - rapid collapse imminent'
-                });
-                overallRisk = 'critical';
-            } else if (complexityFrictionRatio < 2 && params.symbolicComplexity < 2) {
-                diagnosis.push({
                     icon: '✓',
                     color: 'text-green-400',
-                    text: 'Excellent balance: Friction sufficient to ground low-complexity social structures'
+                    text: 'GROUNDED: Symbolic structures aligned with biological needs'
                 });
             }
             
@@ -1154,28 +1221,42 @@
                     resourceAbundance: 200,
                     symbolicComplexity: 7.0,
                     environmentalFriction: 0.05,
-                    description: 'COLLAPSE: Resources abundant but extreme symbolic complexity with no friction → behavioral sink'
+                    description: 'BEHAVIORAL SINK: Abundant resources but extreme symbolic complexity (status hierarchies) with no friction → reproductive collapse despite plenty'
+                },
+                'crowded-stable': {
+                    populationDensity: 150,
+                    resourceAbundance: 100,
+                    symbolicComplexity: 1.3,
+                    environmentalFriction: 0.7,
+                    description: 'HIGH DENSITY BUT STABLE: Proves density alone does NOT cause sink! Simple social structures + high friction = thriving population even when crowded'
+                },
+                'sparse-collapse': {
+                    populationDensity: 30,
+                    resourceAbundance: 150,
+                    symbolicComplexity: 8.0,
+                    environmentalFriction: 0.1,
+                    description: 'SPARSE BUT COLLAPSING: Low density, abundant resources, but extreme symbolic complexity → behavioral sink proves it is NOT about density!'
                 },
                 'modern': {
                     populationDensity: 80,
                     resourceAbundance: 120,
                     symbolicComplexity: 4.0,
                     environmentalFriction: 0.3,
-                    description: 'STRESS: Moderate complexity, some friction → chronic stress but survivable'
+                    description: 'MODERN SOCIETY: Moderate symbolic complexity, some friction → chronic stress, declining reproduction'
                 },
                 'social-media': {
-                    populationDensity: 150,
+                    populationDensity: 100,
                     resourceAbundance: 180,
                     symbolicComplexity: 9.0,
                     environmentalFriction: 0.02,
-                    description: 'RAPID COLLAPSE: Extreme complexity, near-zero friction → fastest path to extinction'
+                    description: 'DIGITAL DYSTOPIA: Extreme symbolic complexity (social media status), near-zero friction → rapid behavioral sink'
                 },
                 'sustainable': {
-                    populationDensity: 50,
+                    populationDensity: 60,
                     resourceAbundance: 110,
                     symbolicComplexity: 1.2,
                     environmentalFriction: 0.8,
-                    description: 'EQUILIBRIUM: Low complexity, high friction, adequate resources → stable thriving population'
+                    description: 'SUSTAINABLE: Low symbolic complexity, high friction → stable thriving population'
                 }
             };
             
