@@ -403,21 +403,24 @@
         
         // Agent class
         class Agent {
-            constructor(x, y) {
+            constructor(x, y, inherited = null) {
                 this.x = x;
                 this.y = y;
                 this.vx = (Math.random() - 0.5) * 2;
                 this.vy = (Math.random() - 0.5) * 2;
                 this.size = 6;
                 this.health = 100;
-                this.reproductiveHealth = 100;
+                // Offspring can inherit reduced reproductive health from stressed parents
+                this.reproductiveHealth = inherited ? Math.min(100, inherited + 20) : 100;
                 this.socialStatus = Math.random() * 100;
                 this.withdrawn = false;
                 this.stressed = false;
                 this.violent = false;
                 this.age = 0;
-                this.maxAge = 400 + Math.random() * 400; // More variable lifespan
+                // Base lifespan - but actual death depends on CONDITIONS not just age
+                this.baseLifespan = 600 + Math.random() * 400;
                 this.color = this.getColor();
+                this.lastReproduced = -100; // Cooldown tracking
             }
             
             getColor() {
@@ -428,20 +431,41 @@
                 return '#3b82f6'; // Blue - healthy
             }
             
+            // Calculate if agent should die - Calhoun-accurate: healthy conditions = long life
+            shouldDie() {
+                // Health-based death (starvation, violence, etc.)
+                if (this.health <= 0) return true;
+                
+                // Age-related mortality increases with age, but HEALTHY agents live longer
+                const ageRatio = this.age / this.baseLifespan;
+                
+                // In GOOD conditions (low complexity, high friction), agents live much longer
+                const conditionBonus = (2 - params.symbolicComplexity * 0.15) * (1 + params.environmentalFriction);
+                const effectiveAgeRatio = ageRatio / Math.max(0.5, conditionBonus);
+                
+                // Very low mortality until old age
+                if (effectiveAgeRatio < 0.7) return false;
+                
+                // Gradual increase in mortality after 70% of effective lifespan
+                const mortalityChance = Math.pow(effectiveAgeRatio - 0.7, 2) * 0.01;
+                return Math.random() < mortalityChance;
+            }
+            
             update() {
                 this.age++;
                 
-                // Apply environmental friction
-                this.vx *= (1 - params.environmentalFriction * 0.01);
-                this.vy *= (1 - params.environmentalFriction * 0.01);
+                // Movement - friction affects damping but agents can still move
+                const dampingFactor = 0.98 - (params.environmentalFriction * 0.03);
+                this.vx *= dampingFactor;
+                this.vy *= dampingFactor;
                 
-                // Random walk with reduced friction in low-friction environments
-                const walkForce = (1 - params.environmentalFriction * 0.01) * 0.5;
+                // Random walk - all agents wander
+                const walkForce = 0.3;
                 this.vx += (Math.random() - 0.5) * walkForce;
                 this.vy += (Math.random() - 0.5) * walkForce;
                 
                 // Speed limit
-                const maxSpeed = 3;
+                const maxSpeed = 2.5;
                 const speed = Math.sqrt(this.vx**2 + this.vy**2);
                 if (speed > maxSpeed) {
                     this.vx = (this.vx / speed) * maxSpeed;
@@ -462,53 +486,96 @@
                     this.y = Math.max(this.size, Math.min(canvas.height - this.size, this.y));
                 }
                 
-                // Calculate stress from density and symbolic complexity
+                // ============================================================
+                // STRESS CALCULATION - Core Calhoun mechanism
+                // Key insight: It's NOT density alone, it's density + complexity WITHOUT friction
+                // ============================================================
+                
                 const nearbyAgents = agents.filter(other => 
                     other !== this && 
-                    Math.hypot(this.x - other.x, this.y - other.y) < 50
+                    Math.hypot(this.x - other.x, this.y - other.y) < 60
                 ).length;
                 
-                // Rebalanced: Lower density stress baseline, make complexity actually matter
-                const densityStress = Math.max(0, (nearbyAgents - 3) * 10); // Only stressful when >3 nearby
-                const complexityStress = Math.max(0, (params.symbolicComplexity - 1) * 15);
-                const totalStress = densityStress + complexityStress;
+                // Density stress: Only kicks in when CROWDED (>4 nearby)
+                // Low density = zero density stress, period.
+                const densityStress = Math.max(0, (nearbyAgents - 4) * 8);
                 
-                this.stressed = totalStress > 40;
+                // Symbolic complexity stress: THE key Calhoun variable
+                // Low complexity (1.0-1.5x) = essentially zero complexity stress
+                // This is what makes "sustainable community" work
+                const complexityStress = Math.max(0, (params.symbolicComplexity - 1.5) * 20);
                 
-                // Health degradation from stress - scaled by actual stress level
-                if (this.stressed) {
-                    const stressDamage = (totalStress / 100) * 0.15; // Max 0.15/frame at 100 stress
-                    this.health -= stressDamage;
-                    this.reproductiveHealth -= stressDamage * params.symbolicComplexity * 0.5;
-                } else {
-                    // Slow natural recovery when NOT stressed
-                    this.health += 0.1;
-                    this.reproductiveHealth += 0.05;
-                }
+                // FRICTION MITIGATES STRESS - this is crucial
+                // High friction means consequences are felt, behaviors self-correct
+                // Low friction = stress accumulates without feedback
+                const frictionMitigation = 1 + params.environmentalFriction * 1.5;
+                const totalStress = Math.max(0, (densityStress + complexityStress) / frictionMitigation);
                 
-                // Resource recovery - much stronger, scales with abundance
+                this.stressed = totalStress > 30;
+                
+                // ============================================================
+                // HEALTH DYNAMICS - Balanced for stability in good conditions
+                // ============================================================
+                
                 const resourceFactor = params.resourceAbundance / 100;
-                const densityBonus = Math.max(0.3, 1 - (agents.length / (params.populationDensity * 3)));
-                const frictionBonus = params.environmentalFriction; // High friction = more grounding = faster recovery
-                this.health += 0.2 * resourceFactor * densityBonus * (1 + frictionBonus);
                 
-                // Reproductive health recovery - faster when conditions are good
-                if (!this.stressed && this.reproductiveHealth < 100) {
-                    this.reproductiveHealth += 0.15 * resourceFactor * (1 + frictionBonus);
+                if (this.stressed) {
+                    // Stress damages health - but at reasonable rates
+                    const stressDamage = (totalStress / 100) * 0.12;
+                    this.health -= stressDamage;
+                    // Reproductive health is MORE sensitive to complexity stress (Calhoun's key finding)
+                    this.reproductiveHealth -= stressDamage * (1 + params.symbolicComplexity * 0.3);
                 }
                 
-                // Behavioral sink symptoms
-                if (this.reproductiveHealth < 30) {
-                    // High symbolic complexity + low reproductive health = violence OR withdrawal
-                    if (params.symbolicComplexity > 3 && Math.random() < 0.001) {
-                        this.violent = Math.random() < 0.5;
-                        this.withdrawn = !this.violent;
+                // Health recovery - resources help, but baseline recovery exists
+                const baseRecovery = 0.15;
+                const resourceRecovery = 0.1 * resourceFactor;
+                this.health += baseRecovery + resourceRecovery;
+                
+                // Reproductive health recovery - ONLY when not stressed
+                // This creates the key dynamic: chronic stress = reproductive collapse
+                if (!this.stressed) {
+                    const reproRecovery = 0.2 * resourceFactor * (1 + params.environmentalFriction * 0.5);
+                    this.reproductiveHealth += reproRecovery;
+                }
+                
+                // ============================================================
+                // BEHAVIORAL SINK SYMPTOMS - Only emerge under specific conditions
+                // ============================================================
+                
+                // Violence and withdrawal only emerge when:
+                // 1. Reproductive health is low (chronic stress effect)
+                // 2. Symbolic complexity is HIGH (not just any stress)
+                // This matches Calhoun: "beautiful ones" and violent males emerged ONLY 
+                // in high-complexity, frictionless environments
+                
+                if (this.reproductiveHealth < 30 && params.symbolicComplexity > 2.5) {
+                    // High complexity + reproductive failure = behavioral pathology
+                    const pathologyChance = 0.002 * (params.symbolicComplexity - 2);
+                    if (Math.random() < pathologyChance) {
+                        if (Math.random() < 0.5) {
+                            this.violent = true;
+                            this.withdrawn = false;
+                        } else {
+                            this.withdrawn = true;
+                            this.violent = false;
+                        }
                     }
                 }
                 
-                // Social withdrawal from chronic stress
-                if (totalStress > 60 && Math.random() < 0.005) {
+                // Social withdrawal from CHRONIC high stress (not acute)
+                if (totalStress > 50 && this.stressed && Math.random() < 0.002) {
                     this.withdrawn = true;
+                }
+                
+                // RECOVERY from pathological states - possible if conditions improve!
+                // This is key: Calhoun noted that removing mice to better conditions
+                // sometimes allowed recovery (if not too far gone)
+                if ((this.violent || this.withdrawn) && !this.stressed && this.reproductiveHealth > 60) {
+                    if (Math.random() < 0.01) {
+                        this.violent = false;
+                        this.withdrawn = false;
+                    }
                 }
                 
                 // Clamp values
@@ -566,48 +633,68 @@
             };
         }
         
-        // Reproduction logic - rebalanced for stability
+        // Reproduction logic - Calhoun-accurate: healthy populations reproduce steadily
+        // Only under behavioral sink conditions does reproduction collapse
         function reproduce() {
-            if (agents.length >= params.populationDensity * 5) return; // Higher cap
+            // Soft population cap based on space, not hard limit
+            const spaceArea = canvas.width * canvas.height;
+            const agentArea = Math.PI * 30 * 30; // Comfortable space per agent
+            const comfortableCap = Math.floor(spaceArea / agentArea) * 1.5;
             
-            const healthyAgents = agents.filter(a => 
+            if (agents.length >= comfortableCap) return;
+            
+            // Find reproductively capable agents
+            const fertileAgents = agents.filter(a => 
                 !a.withdrawn && 
                 !a.violent && 
-                a.reproductiveHealth > 40 && // Lower threshold
-                a.health > 40 &&
-                a.age > 30 // Shorter maturity time
+                a.reproductiveHealth > 50 && 
+                a.health > 50 &&
+                a.age > 50 && // Maturity
+                (time - a.lastReproduced) > 100 // Cooldown between births
             );
             
-            // Reproduction rate - much more generous at low complexity
-            const baseRate = 0.08 * (params.resourceAbundance / 100); // 4x higher base
-            const complexityPenalty = 1 / (1 + params.symbolicComplexity * 0.3); // Less harsh
-            const targetPop = params.populationDensity * 1.5;
-            const densityPenalty = Math.max(0.1, 1 - (agents.length / targetPop));
-            const frictionBonus = 1 + (params.environmentalFriction * 0.5); // Friction helps reproduction!
-            const reproductionRate = baseRate * complexityPenalty * densityPenalty * frictionBonus;
+            // ============================================================
+            // REPRODUCTION RATE - The key Calhoun dynamic
+            // ============================================================
+            // In good conditions: Steady reproduction maintains population
+            // High complexity + low friction: Reproductive collapse (the sink)
             
-            // Multiple births possible per cycle when conditions are good
-            const birthAttempts = Math.floor(healthyAgents.length / 10) + 1;
-            for (let i = 0; i < birthAttempts; i++) {
-                if (healthyAgents.length > 1 && Math.random() < reproductionRate) {
-                    const parent = healthyAgents[Math.floor(Math.random() * healthyAgents.length)];
-                    agents.push(new Agent(
-                        parent.x + (Math.random() - 0.5) * 30,
-                        parent.y + (Math.random() - 0.5) * 30
-                    ));
+            const resourceFactor = Math.min(1.5, params.resourceAbundance / 100);
+            
+            // Complexity penalty - but LOW complexity (< 1.5) means NO penalty
+            // This is critical: sustainable communities MUST be able to maintain population
+            const complexityFactor = params.symbolicComplexity < 1.5 
+                ? 1.0 
+                : Math.max(0.1, 1 - (params.symbolicComplexity - 1.5) * 0.2);
+            
+            // Friction HELPS reproduction (grounded behaviors = healthy mating)
+            const frictionBonus = 1 + params.environmentalFriction * 0.3;
+            
+            // Density factor - gentle curve, not harsh cutoff
+            const targetPop = params.populationDensity * 2;
+            const densityFactor = Math.max(0.2, 1 - Math.pow(agents.length / targetPop, 2) * 0.5);
+            
+            // Base rate: In perfect conditions, ~10% of fertile agents reproduce per cycle
+            const baseRate = 0.12;
+            const reproductionRate = baseRate * resourceFactor * complexityFactor * frictionBonus * densityFactor;
+            
+            // Process reproduction
+            fertileAgents.forEach(parent => {
+                if (Math.random() < reproductionRate) {
+                    const child = new Agent(
+                        parent.x + (Math.random() - 0.5) * 40,
+                        parent.y + (Math.random() - 0.5) * 40,
+                        parent.reproductiveHealth // Pass parent's reproductive health for inheritance
+                    );
+                    agents.push(child);
+                    parent.lastReproduced = time;
                 }
-            }
+            });
         }
         
-        // Death logic - with longevity bonus for low-complexity environments
+        // Death logic - Calhoun-accurate: healthy conditions = long life
         function removeDead() {
-            agents = agents.filter(a => {
-                if (a.health <= 0) return false;
-                // Low complexity = longer life
-                const complexityLifeBonus = Math.max(1, 2 - (params.symbolicComplexity * 0.1));
-                const adjustedMaxAge = a.maxAge * complexityLifeBonus;
-                return a.age < adjustedMaxAge;
-            });
+            agents = agents.filter(a => !a.shouldDie());
         }
         
         // Update phase
@@ -650,6 +737,14 @@
         // Update metrics display
         function updateMetrics() {
             document.getElementById('populationMetric').textContent = agents.length;
+            
+            // Handle empty population case
+            if (agents.length === 0) {
+                document.getElementById('reproductionMetric').textContent = '0%';
+                document.getElementById('pathologyMetric').textContent = 'N/A';
+                document.getElementById('withdrawalMetric').textContent = 'N/A';
+                return;
+            }
             
             const avgReproHealth = agents.reduce((sum, a) => sum + a.reproductiveHealth, 0) / agents.length;
             document.getElementById('reproductionMetric').textContent = Math.round(avgReproHealth) + '%';
@@ -710,11 +805,16 @@
             
             // Draw lines
             const datasets = [
-                { data: history.reproduction, color: '#10b981', label: 'Reproduction' },
-                { data: history.violence, color: '#ef4444', label: 'Violence' },
-                { data: history.withdrawal, color: '#6b7280', label: 'Withdrawal' },
-                { data: history.pathology, color: '#f59e0b', label: 'Total Pathology' }
+                { data: history.reproduction, color: '#10b981', label: 'Repro Health %' },
+                { data: history.violence, color: '#ef4444', label: 'Violence %' },
+                { data: history.withdrawal, color: '#6b7280', label: 'Withdrawal %' },
+                { data: history.pathology, color: '#f59e0b', label: 'Pathology %' }
             ];
+            
+            // Also draw population as a scaled line
+            const maxPop = Math.max(...history.population, params.populationDensity * 2);
+            const popData = history.population.map(p => (p / maxPop) * 100);
+            datasets.unshift({ data: popData, color: '#3b82f6', label: `Population (/${maxPop})` });
             
             datasets.forEach(dataset => {
                 ctx.strokeStyle = dataset.color;
