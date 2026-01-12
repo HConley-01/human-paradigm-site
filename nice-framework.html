@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The NiCE Framework - Nature • Consciousness • Environment</title>
+    <meta name="description" content="A unified triadic systems approach to understanding human behavior, cognition, and societal dynamics through the inseparable interdependence of Nature, Consciousness, and Environment.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nature: '#22c55e',
+                        consciousness: '#3b82f6', 
+                        environment: '#f59e0b',
+                        background: '#0f172a',
+                        card: 'rgba(255,255,255,0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; min-height: 100vh; }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
+        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; }
+        .glass-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+        .domain-card { transition: all 0.3s ease; }
+        .domain-card:hover { transform: translateY(-4px); }
+        .nature-glow:hover { box-shadow: 0 0 30px rgba(34,197,94,0.3); }
+        .consciousness-glow:hover { box-shadow: 0 0 30px rgba(59,130,246,0.3); }
+        .environment-glow:hover { box-shadow: 0 0 30px rgba(245,158,11,0.3); }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors" style="font-family: 'Fraunces', serif;">
+                    NiCE Framework
+                </a>
+                <div class="flex gap-6 items-center">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="/nice-framework.html" class="text-blue-400 font-medium">Framework</a>
+                    <a href="/interactive-nice-explorer.html" class="text-purple-400 hover:text-purple-300 transition-colors">Interactive Explorer</a>
+                    <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Lab</a>                    <a href="/behavioral-sink-simulation.html" class="text-gray-400 hover:text-white transition-colors">Behavioral Sink</a>                    <a href="/sitemap-visual.html" class="text-gray-400 hover:text-white transition-colors">Site Map</a>
+                    <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-medium transition-colors">
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 mb-6">
+                <span class="text-sm font-medium">Comprehensive Synthesis v1.3</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-green-400 via-blue-400 to-amber-400 bg-clip-text text-transparent">
+                The NiCE Framework
+            </h1>
+            
+            <p class="text-2xl md:text-3xl text-gray-300 mb-4" style="font-family: 'Fraunces', serif;">
+                Nature • Consciousness • Environment
+            </p>
+            
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+                A unified triadic systems approach that rejects studying the brain, mind, and society in isolation. 
+                These three domains are <em>inseparably linked and co-constitute one another</em>—providing a framework 
+                for understanding human experience holistically and designing effective interventions.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/interactive-nice-explorer.html" 
+                   class="px-8 py-4 bg-gradient-to-r from-green-500 via-blue-500 to-amber-500 rounded-xl text-white font-bold text-lg hover:opacity-90 transition-opacity shadow-lg">
+                    🔬 Interactive Explorer
+                </a>
+                <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download 
+                   class="px-8 py-4 bg-white/10 border border-white/20 rounded-xl text-white font-medium text-lg hover:bg-white/20 transition-colors">
+                    📄 Download Full PDF
+                </a>
+            </div>
+            
+            <p class="text-sm text-gray-500 mt-4">R.D. Kitcey • 2026 • rkitcey@humanparadigm.org</p>
+        </div>
+    </section>
+
+    <!-- The Three Domains Section -->
+    <section class="py-16 px-6" id="domains">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">The Triadic Architecture</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Three irreducible domains that cannot be understood in isolation—each constrains and enables the others, 
+                    creating emergent patterns unpredictable from any single domain alone.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Nature -->
+                <div class="glass-card domain-card nature-glow p-8">
+                    <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
+                        <span class="text-4xl font-bold text-green-400">N</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-green-400 mb-4">Nature</h3>
+                    <p class="text-gray-300 mb-4">The biophysical substrate—genetics, physiology, metabolism, neural architecture, evolutionary adaptations, energy budgets, plasticity limits, fundamental drives.</p>
+                    
+                    <div class="p-4 bg-green-500/10 rounded-lg border border-green-500/20 mb-4">
+                        <h4 class="font-semibold text-green-300 mb-2">Key Principle</h4>
+                        <p class="text-sm text-gray-400"><strong>Finite Energy & Plasticity</strong>—The brain uses ~20% of metabolic energy; learning has costs bounded by neuroplasticity windows.</p>
+                    </div>
+                    
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Evolutionary adaptations shape cognition</li>
+                        <li>• Metabolic constraints limit processing</li>
+                        <li>• Biological needs drive behavior</li>
+                        <li>• Mortality creates meaning and urgency</li>
+                    </ul>
+                </div>
+
+                <!-- Consciousness -->
+                <div class="glass-card domain-card consciousness-glow p-8">
+                    <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-6">
+                        <span class="text-4xl font-bold text-blue-400">C</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blue-400 mb-4">Consciousness</h3>
+                    <p class="text-gray-300 mb-4">The experiential/cognitive domain—phenomenality (qualia), access awareness, metacognition, narrative self, symbolic processing, predictive processing.</p>
+                    
+                    <div class="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20 mb-4">
+                        <h4 class="font-semibold text-blue-300 mb-2">Key Principle</h4>
+                        <p class="text-sm text-gray-400"><strong>Recursive Self-Modeling</strong>—Consciousness actively models itself within its model of the world, generating agency and identity.</p>
+                    </div>
+                    
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Narrative constructs temporal continuity</li>
+                        <li>• Symbols enable abstract reasoning</li>
+                        <li>• Meaning-making drives motivation</li>
+                        <li>• Attention shapes perceived reality</li>
+                    </ul>
+                </div>
+
+                <!-- Environment -->
+                <div class="glass-card domain-card environment-glow p-8">
+                    <div class="w-16 h-16 rounded-full bg-amber-500/20 flex items-center justify-center mb-6">
+                        <span class="text-4xl font-bold text-amber-400">E</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-amber-400 mb-4">Environment</h3>
+                    <p class="text-gray-300 mb-4">The contextual niche—physical ecosystems, social institutions, cultural priors, symbolic systems, tools, incentives, laws, infrastructure.</p>
+                    
+                    <div class="p-4 bg-amber-500/10 rounded-lg border border-amber-500/20 mb-4">
+                        <h4 class="font-semibold text-amber-300 mb-2">Key Principle</h4>
+                        <p class="text-sm text-gray-400"><strong>Niche Construction</strong>—Humans build environments that then shape us back, selecting for certain minds and behaviors.</p>
+                    </div>
+                    
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li>• Institutions scaffold behavior</li>
+                        <li>• Culture transmits priors</li>
+                        <li>• Tools extend capabilities</li>
+                        <li>• Incentives direct attention</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mutual Constitution -->
+            <div class="glass-card p-8 mt-12">
+                <div class="flex items-start gap-6">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-500 via-blue-500 to-amber-500 flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">⟳</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Mutual Constitution</h3>
+                        <p class="text-gray-300 leading-relaxed mb-4">
+                            These three domains are not separate aspects that can be studied independently—they are <strong>mutually constitutive</strong>. 
+                            Remove any one component and the system collapses:
+                        </p>
+                        <ul class="text-gray-400 space-y-2">
+                            <li>• <strong>Without Nature:</strong> Disembodied narrative agents have no constraints, needs, or mortality</li>
+                            <li>• <strong>Without Consciousness:</strong> Non-narrative embodied beings lack temporal coherence and meaning</li>
+                            <li>• <strong>Without Environment:</strong> Agents have no context for choice, learning, or social scaffolding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Domain Interactions Section -->
+    <section class="py-16 px-6 border-t border-white/10" id="interactions">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">How Domains Interact</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Three types of relations operate between N-C-E domains at different timescales, 
+                    explaining both stability and change in human systems.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Constitutive -->
+                <div class="glass-card p-8">
+                    <div class="text-3xl mb-4">🔗</div>
+                    <h3 class="text-2xl font-bold text-purple-400 mb-2">Constitutive Relations</h3>
+                    <p class="text-sm text-purple-300 mb-4">Synchronic — "What Is"</p>
+                    <p class="text-gray-300 mb-4">Structural coupling that makes a state what it is <em>at a given moment</em>. Neural patterns (N) <strong>constitute</strong> experience (C)—they don't cause it like billiard balls.</p>
+                    <div class="p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                        <p class="text-sm text-gray-400"><strong>Example:</strong> Seeing a red stop sign requires wavelength (E), retinal cones (N), and phenomenal "redness" (C) simultaneously—none is prior.</p>
+                    </div>
+                </div>
+
+                <!-- Causal -->
+                <div class="glass-card p-8">
+                    <div class="text-3xl mb-4">⚡</div>
+                    <h3 class="text-2xl font-bold text-cyan-400 mb-2">Causal Relations</h3>
+                    <p class="text-sm text-cyan-300 mb-4">Diachronic — "What Changes"</p>
+                    <p class="text-gray-300 mb-4">How present states influence future states across time. Each domain can causally affect the others through specific mechanisms.</p>
+                    <div class="space-y-2 text-sm text-gray-400">
+                        <p><strong>C → N:</strong> Conscious practice rewires brain</p>
+                        <p><strong>E → C:</strong> Cultural tools structure thought</p>
+                        <p><strong>N → E:</strong> Biological needs drive world-building</p>
+                        <p><strong>N → C:</strong> Biology determines consciousness quality</p>
+                        <p><strong>C → E:</strong> Goals lead to designing institutions</p>
+                        <p><strong>E → N:</strong> Environment shapes development</p>
+                    </div>
+                </div>
+
+                <!-- Enabling -->
+                <div class="glass-card p-8">
+                    <div class="text-3xl mb-4">🌱</div>
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Enabling Relations</h3>
+                    <p class="text-sm text-emerald-300 mb-4">Contextual — "What Allows"</p>
+                    <p class="text-gray-300 mb-4">Background conditions that make trajectories possible without directly causing them.</p>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                            <p class="text-sm text-gray-400"><strong>Literacy (E)</strong> enables complex abstract thought (C)</p>
+                        </div>
+                        <div class="p-3 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                            <p class="text-sm text-gray-400"><strong>Biosphere (N)</strong> enables civilization (E)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temporal Dynamics -->
+            <div class="glass-card p-8">
+                <h3 class="text-2xl font-bold mb-6">Temporal Dynamics</h3>
+                <p class="text-gray-400 mb-6">Different domains operate at characteristic timescales, creating potential for misalignment:</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        <h4 class="font-semibold text-blue-300 mb-2">Short-Term (ms–days)</h4>
+                        <p class="text-sm text-gray-400"><strong>C dominant</strong>—Neural signaling, perception, conversation, immediate decisions</p>
+                    </div>
+                    <div class="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                        <h4 class="font-semibold text-green-300 mb-2">Medium-Term (weeks–years)</h4>
+                        <p class="text-sm text-gray-400"><strong>N-C interplay</strong>—Skill acquisition, habit formation, neuroplasticity, identity development</p>
+                    </div>
+                    <div class="p-4 bg-amber-500/10 rounded-lg border border-amber-500/20">
+                        <h4 class="font-semibold text-amber-300 mb-2">Long-Term (generations)</h4>
+                        <p class="text-sm text-gray-400"><strong>E dominant</strong>—Cultural evolution, institutional change, Bayesian prior updating across populations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Asymmetric Propagation Section -->
+    <section class="py-16 px-6 border-t border-white/10" id="asymmetric">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">The Asymmetric Propagation Law</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    The core dynamic explaining civilizational drift, institutional decay, and why good intentions systematically fail.
+                </p>
+            </div>
+
+            <!-- Core Statement -->
+            <div class="glass-card p-8 mb-8 border-l-4 border-red-500">
+                <p class="text-2xl text-gray-200 leading-relaxed" style="font-family: 'Fraunces', serif;">
+                    "Dysfunction propagates automatically across N-C-E levels; improvement propagates only conditionally."
+                </p>
+            </div>
+
+            <!-- Thermodynamic Foundation -->
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="glass-card p-8">
+                    <h3 class="text-2xl font-bold text-red-400 mb-4">🔥 Thermodynamic Foundation</h3>
+                    <p class="text-gray-300 mb-4">This asymmetry derives directly from the <strong>Second Law of Thermodynamics</strong>:</p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-red-500/10 rounded-lg border border-red-500/20">
+                            <p class="font-semibold text-red-300">Order → Disorder: AUTOMATIC</p>
+                            <p class="text-sm text-gray-400">Thermodynamically downhill, releases energy. Requires nothing.</p>
+                        </div>
+                        <div class="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                            <p class="font-semibold text-green-300">Disorder → Order: REQUIRES WORK</p>
+                            <p class="text-sm text-gray-400">Thermodynamically uphill, consumes energy. Requires continuous input.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8">
+                    <h3 class="text-2xl font-bold text-blue-400 mb-4">📐 Mathematical Model</h3>
+                    <div class="font-mono text-sm bg-black/30 p-4 rounded-lg mb-4">
+                        <p class="text-blue-300">V<sub>C</sub> >> V<sub>N</sub> > V<sub>E</sub></p>
+                        <p class="text-gray-500 mt-2">where:</p>
+                        <p class="text-gray-400">V<sub>C</sub> = velocity of symbolic propagation</p>
+                        <p class="text-gray-400">V<sub>N</sub> = velocity of biological adaptation</p>
+                        <p class="text-gray-400">V<sub>E</sub> = velocity of environmental change</p>
+                    </div>
+                    <div class="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        <p class="font-semibold text-blue-300">Decoupling Ratio: D = V<sub>C</sub> / V<sub>N</sub></p>
+                        <p class="text-sm text-gray-400 mt-2">When D > 5, reality reassertion triggers cascading collapse.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Levels -->
+            <div class="glass-card p-8 mb-12">
+                <h3 class="text-2xl font-bold mb-6">Decoupling Risk Levels</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-green-500/20 rounded-lg text-center">
+                        <p class="text-2xl font-bold text-green-400">D &lt; 2</p>
+                        <p class="text-sm text-green-300">Low Risk</p>
+                        <p class="text-xs text-gray-500">Coupled</p>
+                    </div>
+                    <div class="p-4 bg-yellow-500/20 rounded-lg text-center">
+                        <p class="text-2xl font-bold text-yellow-400">D 2-4</p>
+                        <p class="text-sm text-yellow-300">Moderate</p>
+                        <p class="text-xs text-gray-500">Early warning</p>
+                    </div>
+                    <div class="p-4 bg-orange-500/20 rounded-lg text-center">
+                        <p class="text-2xl font-bold text-orange-400">D 4-6</p>
+                        <p class="text-sm text-orange-300">High Risk</p>
+                        <p class="text-xs text-gray-500">Intervention needed</p>
+                    </div>
+                    <div class="p-4 bg-red-500/20 rounded-lg text-center">
+                        <p class="text-2xl font-bold text-red-400">D &gt; 6</p>
+                        <p class="text-sm text-red-300">Critical</p>
+                        <p class="text-xs text-gray-500">Collapse imminent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historical Cases -->
+            <div class="glass-card p-8">
+                <h3 class="text-2xl font-bold mb-6">Historical Cases</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-white/10">
+                                <th class="text-left p-3 text-gray-400">Case</th>
+                                <th class="text-center p-3 text-gray-400">Period</th>
+                                <th class="text-center p-3 text-gray-400">Ratio</th>
+                                <th class="text-left p-3 text-gray-400">Outcome</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-white/5">
+                                <td class="p-3 text-gray-300">Tulip Mania</td>
+                                <td class="p-3 text-center text-gray-400">1636-37</td>
+                                <td class="p-3 text-center text-red-400 font-bold">19.0</td>
+                                <td class="p-3 text-gray-400">Prices fell 99% overnight</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="p-3 text-gray-300">Weimar Hyperinflation</td>
+                                <td class="p-3 text-center text-gray-400">1921-23</td>
+                                <td class="p-3 text-center text-red-400 font-bold">32.7</td>
+                                <td class="p-3 text-gray-400">Prices doubled every 3.7 days</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="p-3 text-gray-300">2008 Financial Crisis</td>
+                                <td class="p-3 text-center text-gray-400">2007-08</td>
+                                <td class="p-3 text-center text-orange-400 font-bold">5.7</td>
+                                <td class="p-3 text-gray-400">Derivatives $600T vs assets $60T</td>
+                            </tr>
+                            <tr class="border-b border-white/5">
+                                <td class="p-3 text-gray-300">Pre-Industrial Economy</td>
+                                <td class="p-3 text-center text-gray-400">Pre-1750</td>
+                                <td class="p-3 text-center text-green-400 font-bold">1.25</td>
+                                <td class="p-3 text-gray-400">Stable—commodity money coupled</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Key Insight -->
+            <div class="glass-card p-8 mt-8 border-l-4 border-amber-500">
+                <h4 class="font-bold text-amber-400 mb-2">KEY INSIGHT</h4>
+                <p class="text-gray-300 leading-relaxed">
+                    <strong>"NO ONE INTENDED THIS"</strong>—Pure thermodynamic cascade. Initial perturbation propagates through N-C-E system, 
+                    each degradation triggers cascading degradations, positive feedback loops emerge, system spirals toward collapse. 
+                    No conspiracy, stupidity, or moral decline required—just physics.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- S.C.I.E.N.C.E. Inventory Section -->
+    <section class="py-16 px-6 border-t border-white/10" id="science">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">The S.C.I.E.N.C.E. Inventory</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    A systematic anatomy providing an intrinsic inventory of the human-ecological organism. 
+                    To ask "What is y(our) S.C.I.E.N.C.E.?" is to undertake a holistic diagnostic.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- S -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-2xl font-bold text-pink-400">S</span>
+                        <h3 class="text-xl font-bold text-pink-400">Socio-Relational</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Networks of social relationships, kinship structures, power dynamics, and human connections forming relational fabric.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Social instincts (N) + social cognition (C) + institutional scaffolding (E)</p>
+                </div>
+
+                <!-- C -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-2xl font-bold text-purple-400">C</span>
+                        <h3 class="text-xl font-bold text-purple-400">Contextual</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Cultural, spatial, and temporal frameworks providing meaning. Context determines how information is interpreted.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Shapes biological responses (N) + structures attention (C) + constitutes environment (E)</p>
+                </div>
+
+                <!-- I -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center text-2xl font-bold text-indigo-400">I</span>
+                        <h3 class="text-xl font-bold text-indigo-400">Intuitive</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Cognitive biases, heuristics, embodied knowledge, pre-reflective processes guiding judgment. System 1 thinking.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Neural architecture (N) + substrate of experience (C) + trained by environment (E)</p>
+                </div>
+
+                <!-- E -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center text-2xl font-bold text-cyan-400">E</span>
+                        <h3 class="text-xl font-bold text-cyan-400">Engineered</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Technological, institutional, and designed systems extending capabilities and shaping behavior.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Extends biology (N) + structures attention (C) + constitutes built environment (E)</p>
+                </div>
+
+                <!-- N -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-2xl font-bold text-green-400">N</span>
+                        <h3 class="text-xl font-bold text-green-400">Natural</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Ecological, thermodynamic, biophysical realities constraining all systems. Laws of physics that cannot be negotiated.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Biophysical base (N) + sets consciousness parameters (C) + foundation for all E</p>
+                </div>
+
+                <!-- C2 -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center text-2xl font-bold text-amber-400">C</span>
+                        <h3 class="text-xl font-bold text-amber-400">Constitutive</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Legal, political, institutional frameworks establishing rules—defining rights, responsibilities, legitimate authority.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Must accommodate biology (N) + shapes moral reasoning (C) + codified institutions (E)</p>
+                </div>
+
+                <!-- E2 -->
+                <div class="glass-card p-6 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-12 rounded-full bg-teal-500/20 flex items-center justify-center text-2xl font-bold text-teal-400">E</span>
+                        <h3 class="text-xl font-bold text-teal-400">Environmental</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3">Feedback systems, boundary conditions, planetary constraints defining ultimate context for civilization.</p>
+                    <p class="text-xs text-gray-500"><strong>NiCE:</strong> Shapes adaptive traits (N) + informs planning (C) + meta-environment containing all E</p>
+                </div>
+            </div>
+
+            <!-- Five Nested Diagnostics -->
+            <div class="glass-card p-8 mt-12">
+                <h3 class="text-2xl font-bold mb-6">Five Nested Diagnostics</h3>
+                <div class="grid md:grid-cols-5 gap-4">
+                    <div class="p-4 bg-white/5 rounded-lg text-center">
+                        <p class="text-2xl mb-2">1️⃣</p>
+                        <p class="font-semibold text-sm">Constitution</p>
+                        <p class="text-xs text-gray-500">"What are we made of?"</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-lg text-center">
+                        <p class="text-2xl mb-2">2️⃣</p>
+                        <p class="font-semibold text-sm">Mechanics</p>
+                        <p class="text-xs text-gray-500">"How do parts interact?"</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-lg text-center">
+                        <p class="text-2xl mb-2">3️⃣</p>
+                        <p class="font-semibold text-sm">Logic</p>
+                        <p class="text-xs text-gray-500">"Why do effects cohere?"</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-lg text-center">
+                        <p class="text-2xl mb-2">4️⃣</p>
+                        <p class="font-semibold text-sm">Drift</p>
+                        <p class="text-xs text-gray-500">"Where do systems fail?"</p>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-lg text-center">
+                        <p class="text-2xl mb-2">5️⃣</p>
+                        <p class="font-semibold text-sm">Prevention</p>
+                        <p class="text-xs text-gray-500">"How to prevent failure?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Constraint Frameworks Section -->
+    <section class="py-16 px-6 border-t border-white/10" id="frameworks">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Constraint Frameworks</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Four complementary frameworks for diagnosing and designing interventions, each targeting different aspects of system dynamics.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- FORCES -->
+                <div class="glass-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-4xl">⚡</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-red-400">FORCES</h3>
+                            <p class="text-sm text-red-300">Vectors of Motion</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">What <em>drives</em> and distorts system behavior—the directional pressures shaping outcomes.</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="p-2 bg-red-500/10 rounded"><strong>F</strong>low</div>
+                        <div class="p-2 bg-red-500/10 rounded"><strong>O</strong>pacity</div>
+                        <div class="p-2 bg-red-500/10 rounded"><strong>R</strong>igidity</div>
+                        <div class="p-2 bg-red-500/10 rounded"><strong>C</strong>oupling</div>
+                        <div class="p-2 bg-red-500/10 rounded"><strong>E</strong>ntropy</div>
+                        <div class="p-2 bg-red-500/10 rounded"><strong>S</strong>cale</div>
+                    </div>
+                </div>
+
+                <!-- GRAVITY -->
+                <div class="glass-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-4xl">🌍</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-purple-400">GRAVITY</h3>
+                            <p class="text-sm text-purple-300">Field of Inevitability</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">The <em>attractors</em> and inertia that bend trajectories—structural constraints pulling systems toward particular states.</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="p-2 bg-purple-500/10 rounded"><strong>G</strong>overnance</div>
+                        <div class="p-2 bg-purple-500/10 rounded"><strong>R</strong>isk</div>
+                        <div class="p-2 bg-purple-500/10 rounded"><strong>A</strong>gency</div>
+                        <div class="p-2 bg-purple-500/10 rounded"><strong>V</strong>alue</div>
+                        <div class="p-2 bg-purple-500/10 rounded"><strong>I</strong>nformation</div>
+                        <div class="p-2 bg-purple-500/10 rounded"><strong>T</strong>ime</div>
+                        <div class="p-2 bg-purple-500/10 rounded col-span-2"><strong>Y</strong>ield</div>
+                    </div>
+                </div>
+
+                <!-- ANCHORS -->
+                <div class="glass-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-4xl">⚓</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-400">ANCHORS</h3>
+                            <p class="text-sm text-blue-300">Stabilizing Tethers</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">What <em>grounds</em> a system to reality—fixed points preventing complete symbolic drift.</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="p-2 bg-blue-500/10 rounded"><strong>A</strong>gency</div>
+                        <div class="p-2 bg-blue-500/10 rounded"><strong>N</strong>orms</div>
+                        <div class="p-2 bg-blue-500/10 rounded"><strong>C</strong>ontrol</div>
+                        <div class="p-2 bg-blue-500/10 rounded"><strong>H</strong>ierarchy</div>
+                        <div class="p-2 bg-blue-500/10 rounded"><strong>O</strong>bligation</div>
+                        <div class="p-2 bg-blue-500/10 rounded"><strong>R</strong>isk</div>
+                        <div class="p-2 bg-blue-500/10 rounded col-span-2"><strong>S</strong>cale</div>
+                    </div>
+                </div>
+
+                <!-- PRIMES -->
+                <div class="glass-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-4xl">💎</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-amber-400">PRIMES</h3>
+                            <p class="text-sm text-amber-300">Fundamental Constants</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">The <em>invariant limits</em>—irreducible constraints that cannot be eliminated, only managed.</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="p-2 bg-amber-500/10 rounded"><strong>P</strong>ower</div>
+                        <div class="p-2 bg-amber-500/10 rounded"><strong>R</strong>isk</div>
+                        <div class="p-2 bg-amber-500/10 rounded"><strong>I</strong>nformation</div>
+                        <div class="p-2 bg-amber-500/10 rounded"><strong>M</strong>oney</div>
+                        <div class="p-2 bg-amber-500/10 rounded"><strong>E</strong>nergy</div>
+                        <div class="p-2 bg-amber-500/10 rounded"><strong>S</strong>cale</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How They Work Together -->
+            <div class="glass-card p-8 mt-8">
+                <h3 class="text-xl font-bold mb-4">How They Work Together</h3>
+                <p class="text-gray-400">Together, these convert the descriptive anatomy of S.C.I.E.N.C.E. into a <strong>predictive mechanics of civilization</strong>—each quantifying a distinct class of constraint (kinetic, gravitational, stabilizing, invariant), allowing diagnoses to be tested, modeled, and falsified across scales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical Applications Section -->
+    <section class="py-16 px-6 border-t border-white/10" id="applications">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Practical Applications</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    From clinical diagnosis to organizational design—the NiCE Framework reveals multi-domain causation 
+                    and intervention leverage points invisible to single-discipline analysis.
+                </p>
+            </div>
+
+            <!-- Application 1: Depression Triadic Analysis -->
+            <div class="glass-card p-8 mb-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-4xl">🧠</span>
+                    <div>
+                        <h3 class="text-2xl font-bold">Clinical Example: Major Depression</h3>
+                        <p class="text-gray-400">Triadic analysis reveals why single-domain treatments often fail</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <!-- N Analysis -->
+                    <div class="p-5 bg-gradient-to-br from-green-500/10 to-green-900/10 rounded-xl border border-green-500/20">
+                        <h4 class="text-lg font-bold text-green-400 mb-3">Naturalis (N)</h4>
+                        <ul class="text-sm text-gray-300 space-y-2">
+                            <li>• HPA axis dysregulation</li>
+                            <li>• Inflammatory markers elevated</li>
+                            <li>• Sleep architecture disrupted</li>
+                            <li>• Neurotransmitter imbalances</li>
+                            <li>• Genetic predispositions</li>
+                        </ul>
+                        <p class="text-xs text-green-300 mt-3"><strong>Typical intervention:</strong> SSRIs, sleep hygiene</p>
+                    </div>
+
+                    <!-- C Analysis -->
+                    <div class="p-5 bg-gradient-to-br from-blue-500/10 to-blue-900/10 rounded-xl border border-blue-500/20">
+                        <h4 class="text-lg font-bold text-blue-400 mb-3">Cognitum (C)</h4>
+                        <ul class="text-sm text-gray-300 space-y-2">
+                            <li>• Negative cognitive triad</li>
+                            <li>• Rumination patterns</li>
+                            <li>• Meaning/purpose deficits</li>
+                            <li>• Identity fragmentation</li>
+                            <li>• Learned helplessness</li>
+                        </ul>
+                        <p class="text-xs text-blue-300 mt-3"><strong>Typical intervention:</strong> CBT, meaning therapy</p>
+                    </div>
+
+                    <!-- E Analysis -->
+                    <div class="p-5 bg-gradient-to-br from-amber-500/10 to-amber-900/10 rounded-xl border border-amber-500/20">
+                        <h4 class="text-lg font-bold text-amber-400 mb-3">Externus (E)</h4>
+                        <ul class="text-sm text-gray-300 space-y-2">
+                            <li>• Social isolation</li>
+                            <li>• Economic precarity</li>
+                            <li>• Toxic work environment</li>
+                            <li>• Housing instability</li>
+                            <li>• Healthcare access barriers</li>
+                        </ul>
+                        <p class="text-xs text-amber-300 mt-3"><strong>Typical intervention:</strong> Social work, policy</p>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-5 rounded-xl">
+                    <h4 class="font-bold text-lg mb-3">🔗 NiCE Insight: Cross-Domain Causation</h4>
+                    <p class="text-gray-300 text-sm mb-3">
+                        Depression is rarely "just biological" or "just cognitive." The framework reveals:
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li><strong>E → N:</strong> Chronic job stress elevates cortisol, altering brain chemistry</li>
+                        <li><strong>N → C:</strong> Inflammation impairs prefrontal function, reinforcing negative cognition</li>
+                        <li><strong>C → E:</strong> Hopelessness reduces job-seeking, deepening economic precarity</li>
+                        <li><strong>E → C:</strong> Social media comparison fuels rumination and identity fragmentation</li>
+                    </ul>
+                    <p class="text-emerald-400 text-sm mt-4">
+                        <strong>Multi-lever intervention:</strong> Addressing only one domain often fails because the other domains 
+                        continuously recreate the conditions for relapse. Effective treatment requires coordinated intervention across all three.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Application 2: Organizational Cascade -->
+            <div class="glass-card p-8 mb-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-4xl">🏛️</span>
+                    <div>
+                        <h3 class="text-2xl font-bold">Organizational Example: Institutional Drift</h3>
+                        <p class="text-gray-400">How the Asymmetric Propagation Law explains organizational collapse</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-4">The Cascade Mechanism</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl">1️⃣</span>
+                                <div>
+                                    <p class="font-semibold text-amber-400">E-Domain Innovation</p>
+                                    <p class="text-sm text-gray-400">New technology or policy introduced (V<sub>E</sub> = months)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl">2️⃣</span>
+                                <div>
+                                    <p class="font-semibold text-blue-400">C-Domain Lag</p>
+                                    <p class="text-sm text-gray-400">Meaning systems, training, culture can't keep pace (V<sub>C</sub> = years)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl">3️⃣</span>
+                                <div>
+                                    <p class="font-semibold text-green-400">N-Domain Stress</p>
+                                    <p class="text-sm text-gray-400">Biological costs: burnout, chronic stress, health decline (V<sub>N</sub> = decades)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl">4️⃣</span>
+                                <div>
+                                    <p class="font-semibold text-red-400">Feedback Collapse</p>
+                                    <p class="text-sm text-gray-400">Degraded humans create degraded institutions; cycle accelerates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-lg mb-4">Real-World Pattern</h4>
+                        <div class="bg-white/5 p-4 rounded-lg text-sm">
+                            <p class="text-gray-300 mb-3">
+                                <strong>Example: Healthcare System</strong>
+                            </p>
+                            <ul class="text-gray-400 space-y-2">
+                                <li><strong>E:</strong> EHR mandates, productivity metrics, admin burden (fast change)</li>
+                                <li><strong>C:</strong> Professional identity erosion, moral injury, meaning loss (slow adaptation)</li>
+                                <li><strong>N:</strong> Physician burnout epidemic, 300-400 suicides/year (very slow recovery)</li>
+                            </ul>
+                            <p class="text-red-400 mt-3">
+                                <strong>Decoupling Ratio D ≈ 4:</strong> E-changes outpace C and N adaptation by factor of 4×, 
+                                creating chronic mismatch. The "physician shortage" is partly a retention crisis caused by 
+                                N-C-E desynchronization.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 p-5 rounded-xl">
+                    <h4 class="font-bold text-lg mb-3">🎯 Intervention Design Principles</h4>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div class="p-3 bg-green-500/10 rounded-lg">
+                            <p class="font-semibold text-green-400">Pace-Layer Matching</p>
+                            <p class="text-gray-400">Slow E-changes to match N and C adaptation speeds</p>
+                        </div>
+                        <div class="p-3 bg-blue-500/10 rounded-lg">
+                            <p class="font-semibold text-blue-400">C-Domain Investment</p>
+                            <p class="text-gray-400">Accelerate meaning-making, training, cultural adaptation</p>
+                        </div>
+                        <div class="p-3 bg-amber-500/10 rounded-lg">
+                            <p class="font-semibold text-amber-400">N-Domain Protection</p>
+                            <p class="text-gray-400">Buffer biological systems from chronic mismatch stress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application 3: Policy Design -->
+            <div class="glass-card p-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-4xl">📊</span>
+                    <div>
+                        <h3 class="text-2xl font-bold">Policy Design: The Insanity Quotient</h3>
+                        <p class="text-gray-400">Quantifying civilization's departure from sustainable coherence</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-3">The Metric</h4>
+                        <div class="bg-white/5 p-4 rounded-lg mb-4">
+                            <p class="text-center text-2xl font-mono mb-2">IQ = Σ(D<sub>i</sub> × W<sub>i</sub>) / n</p>
+                            <p class="text-xs text-gray-500 text-center">Where D = decoupling ratio, W = domain weight, n = domains measured</p>
+                        </div>
+                        <p class="text-sm text-gray-400">
+                            The Insanity Quotient measures how far a system's symbolic operations (policies, beliefs, practices) 
+                            have drifted from the biophysical and cognitive realities they claim to represent.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-3">Interpretation Scale</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between p-2 bg-green-500/10 rounded">
+                                <span>IQ &lt; 2</span>
+                                <span class="text-green-400">Coherent—sustainable adaptation</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-yellow-500/10 rounded">
+                                <span>IQ 2-4</span>
+                                <span class="text-yellow-400">Strained—mounting tensions</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-orange-500/10 rounded">
+                                <span>IQ 4-6</span>
+                                <span class="text-orange-400">Critical—intervention required</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-red-500/10 rounded">
+                                <span>IQ &gt; 6</span>
+                                <span class="text-red-400">Terminal—collapse trajectory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 p-4 border border-cyan-500/30 rounded-lg bg-cyan-500/5">
+                    <p class="text-cyan-300 text-sm">
+                        <strong>Policy Implication:</strong> Any policy that increases the decoupling ratio—accelerating E-domain 
+                        changes without corresponding C and N investments—will predictably increase system fragility, regardless 
+                        of stated intentions. The framework provides a falsifiable metric for evaluating policy coherence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-500">© 2026 Robert D. Kitcey • rkitcey@lernaean.net • ORCID: 0009-0004-8679-9155</p>
+        </div>
+    </footer>
+</body>
+</html>

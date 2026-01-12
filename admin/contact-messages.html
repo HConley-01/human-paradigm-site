@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages | Admin | NiCE Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; min-height: 100vh; }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
+        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+        .message-card { transition: all 0.3s ease; }
+        .message-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+        .status-new { border-left: 4px solid #3b82f6; }
+        .status-read { border-left: 4px solid #eab308; }
+        .status-replied { border-left: 4px solid #22c55e; }
+        .status-archived { border-left: 4px solid #6b7280; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors">
+                    NiCE Framework
+                </a>
+                <div class="flex gap-6 items-center">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="/admin/" class="text-gray-400 hover:text-white transition-colors">Admin</a>
+                    <span class="text-blue-400 font-semibold">Contact Messages</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4">Contact Messages</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Manage all contact form submissions and inquiries
+            </p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="grid md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-card p-5 text-center">
+                <div class="text-3xl font-bold text-blue-400" id="stat-new">0</div>
+                <div class="text-sm text-gray-400">New</div>
+            </div>
+            <div class="glass-card p-5 text-center">
+                <div class="text-3xl font-bold text-yellow-400" id="stat-read">0</div>
+                <div class="text-sm text-gray-400">Read</div>
+            </div>
+            <div class="glass-card p-5 text-center">
+                <div class="text-3xl font-bold text-green-400" id="stat-replied">0</div>
+                <div class="text-sm text-gray-400">Replied</div>
+            </div>
+            <div class="glass-card p-5 text-center">
+                <div class="text-3xl font-bold text-gray-400" id="stat-total">0</div>
+                <div class="text-sm text-gray-400">Total</div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="glass-card p-4 mb-6 flex flex-wrap gap-4 items-center">
+            <label class="text-sm text-gray-400">Filter by:</label>
+            <select id="filter-status" class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm">
+                <option value="all">All Statuses</option>
+                <option value="new">New</option>
+                <option value="read">Read</option>
+                <option value="replied">Replied</option>
+                <option value="archived">Archived</option>
+            </select>
+            <input type="text" id="search-input" placeholder="Search messages..." 
+                   class="bg-white/10 border border-white/20 rounded px-3 py-2 text-white text-sm flex-1 min-w-[200px]">
+            <button onclick="messageManager.exportReport()" 
+                    class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded text-sm font-semibold transition-colors">
+                📥 Export Report
+            </button>
+            <button onclick="messageManager.markAllRead()" 
+                    class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded text-sm font-semibold transition-colors">
+                ✓ Mark All Read
+            </button>
+        </div>
+
+        <!-- Messages Container -->
+        <div id="messages-container" class="space-y-4">
+            <!-- Messages will be rendered here -->
+        </div>
+
+        <div id="no-messages" class="glass-card p-12 text-center hidden">
+            <span class="text-6xl block mb-4">📬</span>
+            <p class="text-xl text-gray-400">No messages match your filters</p>
+        </div>
+    </div>
+
+    <script>
+        // Message Manager
+        class MessageManager {
+            constructor() {
+                this.messages = this.loadMessages();
+                this.init();
+            }
+
+            loadMessages() {
+                const stored = localStorage.getItem('nice-contact-messages');
+                return stored ? JSON.parse(stored) : [];
+            }
+
+            saveMessages() {
+                localStorage.setItem('nice-contact-messages', JSON.stringify(this.messages));
+            }
+
+            updateStatus(messageId, newStatus) {
+                const message = this.messages.find(m => m.id === messageId);
+                if (message) {
+                    message.status = newStatus;
+                    this.saveMessages();
+                    this.render();
+                }
+            }
+
+            deleteMessage(messageId) {
+                if (!confirm('Are you sure you want to delete this message?')) return;
+                
+                this.messages = this.messages.filter(m => m.id !== messageId);
+                this.saveMessages();
+                this.render();
+            }
+
+            markAllRead() {
+                this.messages.forEach(m => {
+                    if (m.status === 'new') {
+                        m.status = 'read';
+                    }
+                });
+                this.saveMessages();
+                this.render();
+            }
+
+            getFilteredMessages() {
+                let filtered = this.messages;
+
+                const statusFilter = document.getElementById('filter-status').value;
+                if (statusFilter !== 'all') {
+                    filtered = filtered.filter(m => m.status === statusFilter);
+                }
+
+                const searchTerm = document.getElementById('search-input').value.toLowerCase();
+                if (searchTerm) {
+                    filtered = filtered.filter(m => 
+                        m.name.toLowerCase().includes(searchTerm) ||
+                        m.email.toLowerCase().includes(searchTerm) ||
+                        m.message.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // Sort by timestamp (newest first)
+                return filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            }
+
+            updateStats() {
+                const stats = {
+                    new: this.messages.filter(m => m.status === 'new').length,
+                    read: this.messages.filter(m => m.status === 'read').length,
+                    replied: this.messages.filter(m => m.status === 'replied').length,
+                    total: this.messages.length
+                };
+
+                document.getElementById('stat-new').textContent = stats.new;
+                document.getElementById('stat-read').textContent = stats.read;
+                document.getElementById('stat-replied').textContent = stats.replied;
+                document.getElementById('stat-total').textContent = stats.total;
+            }
+
+            render() {
+                const messages = this.getFilteredMessages();
+                const container = document.getElementById('messages-container');
+                const noMessages = document.getElementById('no-messages');
+
+                if (messages.length === 0) {
+                    container.classList.add('hidden');
+                    noMessages.classList.remove('hidden');
+                } else {
+                    container.classList.remove('hidden');
+                    noMessages.classList.add('hidden');
+                    container.innerHTML = messages.map(msg => this.renderMessage(msg)).join('');
+                }
+
+                this.updateStats();
+            }
+
+            renderMessage(msg) {
+                const statusColors = {
+                    new: 'bg-blue-500/20 text-blue-300',
+                    read: 'bg-yellow-500/20 text-yellow-300',
+                    replied: 'bg-green-500/20 text-green-300',
+                    archived: 'bg-gray-500/20 text-gray-300'
+                };
+
+                return `
+                    <div class="glass-card p-6 message-card status-${msg.status}">
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <h3 class="text-xl font-bold">${this.escapeHtml(msg.name)}</h3>
+                                    <span class="px-2 py-1 rounded text-xs font-semibold ${statusColors[msg.status]}">
+                                        ${msg.status.toUpperCase()}
+                                    </span>
+                                    <span class="text-xs text-gray-500">
+                                        ${new Date(msg.timestamp).toLocaleString()}
+                                    </span>
+                                </div>
+                                
+                                <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                                    <span>📧</span>
+                                    <a href="mailto:${msg.email}" class="hover:text-blue-400 transition-colors">
+                                        ${this.escapeHtml(msg.email)}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/5 rounded-lg p-4 mb-4">
+                            <p class="text-gray-300 whitespace-pre-wrap">${this.escapeHtml(msg.message)}</p>
+                        </div>
+
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <label class="text-sm text-gray-400">Status:</label>
+                            <select onchange="messageManager.updateStatus('${msg.id}', this.value)" 
+                                    class="bg-white/10 border border-white/20 rounded px-3 py-1 text-white text-sm">
+                                <option value="new" ${msg.status === 'new' ? 'selected' : ''}>New</option>
+                                <option value="read" ${msg.status === 'read' ? 'selected' : ''}>Read</option>
+                                <option value="replied" ${msg.status === 'replied' ? 'selected' : ''}>Replied</option>
+                                <option value="archived" ${msg.status === 'archived' ? 'selected' : ''}>Archived</option>
+                            </select>
+
+                            <a href="mailto:${msg.email}?subject=Re: Contact from NiCE Framework" 
+                               class="ml-auto bg-blue-600 hover:bg-blue-500 px-4 py-1 rounded text-sm font-semibold transition-colors">
+                                📧 Reply
+                            </a>
+                            
+                            <button onclick="messageManager.deleteMessage('${msg.id}')" 
+                                    class="bg-red-600/20 hover:bg-red-600/40 px-4 py-1 rounded text-sm font-semibold transition-colors">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            exportReport() {
+                const messages = this.getFilteredMessages();
+                
+                let report = '='.repeat(80) + '\n';
+                report += 'CONTACT MESSAGES REPORT\n';
+                report += `Generated: ${new Date().toLocaleString()}\n`;
+                report += `Total Messages: ${messages.length}\n`;
+                report += '='.repeat(80) + '\n\n';
+
+                // Group by status
+                const statuses = ['new', 'read', 'replied', 'archived'];
+                statuses.forEach(status => {
+                    const statusMessages = messages.filter(m => m.status === status);
+                    if (statusMessages.length > 0) {
+                        report += `\n${'='.repeat(80)}\n`;
+                        report += `${status.toUpperCase()} MESSAGES (${statusMessages.length})\n`;
+                        report += `${'='.repeat(80)}\n\n`;
+
+                        statusMessages.forEach((msg, index) => {
+                            report += `${index + 1}. ${msg.name} <${msg.email}>\n`;
+                            report += `   Date: ${new Date(msg.timestamp).toLocaleString()}\n`;
+                            report += `   Status: ${msg.status}\n`;
+                            report += `   Message:\n`;
+                            report += `   ${msg.message.split('\n').join('\n   ')}\n`;
+                            report += `\n${'-'.repeat(80)}\n\n`;
+                        });
+                    }
+                });
+
+                const blob = new Blob([report], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `contact-messages-${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            init() {
+                this.render();
+
+                // Filter listeners
+                document.getElementById('filter-status').addEventListener('change', () => this.render());
+                document.getElementById('search-input').addEventListener('input', () => this.render());
+            }
+        }
+
+        // Initialize manager
+        const messageManager = new MessageManager();
+    </script>
+</body>
+</html>

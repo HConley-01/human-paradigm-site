@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>The NiCE Framework: Nature, Consciousness, Environment</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="An integrated triadic framework for understanding human systems through Nature, Consciousness, and Environment. Research on symbolic drift, monetary systems, and civilizational dynamics." />
+    <meta name="keywords" content="NiCE framework, human systems, triadic framework, consciousness, embodied cognition, symbolic drift, asymmetric propagation, monetary systems, behavioral sink, civilizational dynamics, predictive processing, 4E cognition, cultural evolution, R.D. Kitcey" />
+    <meta name="author" content="R.D. Kitcey" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The NiCE Framework: Nature, Consciousness, Environment" />
+    <meta property="og:description" content="An integrated triadic framework for understanding human systems through Nature, Consciousness, and Environment. Research on symbolic drift, monetary systems, and civilizational dynamics." />
+    <meta property="og:image" content="/images/NiCE_Framework_Logo.png" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The NiCE Framework: Nature, Consciousness, Environment" />
+    <meta name="twitter:description" content="An integrated triadic framework for understanding human systems through Nature, Consciousness, and Environment." />
+    <meta name="twitter:image" content="/images/NiCE_Framework_Logo.png" />
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <link rel="canonical" href="https://yourdomain.com/" />
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,600&family=Crimson+Pro:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+  </body>
+
+</html>

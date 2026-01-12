@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Scales Timeline | NiCE Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .serif { font-family: 'Libre Baskerville', serif; }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timeline-bar {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-bar:hover {
+            opacity: 0.8;
+            filter: brightness(1.2);
+        }
+        
+        .axis-label {
+            font-size: 11px;
+            fill: #94a3b8;
+        }
+        
+        .domain-label {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .toggle-btn {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toggle-btn.active {
+            background: rgba(148, 163, 184, 0.2);
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+        
+        .detail-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .detail-panel.open {
+            max-height: 600px;
+        }
+        
+        .mismatch-indicator {
+            fill: #f59e0b;
+            opacity: 0.2;
+        }
+        
+        .zoom-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #94a3b8;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .zoom-btn:hover {
+            background: rgba(51, 65, 85, 0.8);
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+        .nav-glass {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-glass sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="text-xl font-semibold text-white hover:text-blue-400 transition-colors serif">NiCE Framework</a>
+            <div class="hidden md:flex gap-6 items-center">
+                <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                <a href="/nice-framework.html" class="text-blue-400 font-semibold hover:text-blue-300 transition-colors">NiCE Synthesis</a>
+                <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+                <a href="/sitemap-visual.html" class="text-gray-400 hover:text-white transition-colors">Site Map</a>
+                <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white text-sm font-medium transition-colors">Download PDF</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen p-4 md:p-8">
+        <!-- Header -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="text-center mb-6">
+                <h1 class="text-4xl md:text-5xl font-bold mb-3 serif bg-gradient-to-r from-blue-400 via-green-400 to-amber-400 bg-clip-text text-transparent">
+                    Temporal Scales Timeline
+                </h1>
+                <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+                    Nature, Consciousness, and Environment operate on vastly different temporal scales.
+                    Understanding these mismatches is key to the NiCE framework.
+                </p>
+            </div>
+            
+            <!-- Controls -->
+            <div class="glass-card p-6 mb-6">
+                <div class="flex flex-wrap gap-4 items-center justify-between">
+                    <!-- Domain Filters -->
+                    <div class="flex gap-3">
+                        <button id="toggle-nature" class="toggle-btn active px-4 py-2 rounded-lg border-2 border-green-500/50 text-green-400 font-semibold">
+                            <span class="mr-2">●</span> Nature
+                        </button>
+                        <button id="toggle-consciousness" class="toggle-btn active px-4 py-2 rounded-lg border-2 border-blue-500/50 text-blue-400 font-semibold">
+                            <span class="mr-2">●</span> Consciousness
+                        </button>
+                        <button id="toggle-environment" class="toggle-btn active px-4 py-2 rounded-lg border-2 border-amber-500/50 text-amber-400 font-semibold">
+                            <span class="mr-2">●</span> Environment
+                        </button>
+                    </div>
+                    
+                    <!-- Zoom Controls -->
+                    <div class="flex gap-2">
+                        <button id="zoom-in" class="zoom-btn">🔍 +</button>
+                        <button id="zoom-out" class="zoom-btn">🔍 −</button>
+                        <button id="reset-zoom" class="zoom-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline SVG -->
+        <div class="max-w-7xl mx-auto glass-card p-6 mb-8">
+            <div id="timeline-container" class="w-full" style="height: 600px;">
+                <!-- D3 will render here -->
+            </div>
+        </div>
+        
+        <!-- Detail Panel -->
+        <div class="max-w-7xl mx-auto">
+            <div id="detail-panel" class="detail-panel glass-card p-6">
+                <div id="detail-content">
+                    <p class="text-gray-400 text-center">Click on a timeline bar to see details</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Insight Box -->
+        <div class="max-w-4xl mx-auto mt-8 glass-card p-6 border-l-4 border-amber-500">
+            <h3 class="text-xl font-bold mb-3 text-amber-400 serif">Critical Insight: Temporal Mismatch</h3>
+            <p class="text-gray-300 leading-relaxed mb-3">
+                The central pathology of modern systems is <strong>temporal mismatch</strong>: symbolic systems (Consciousness) 
+                operating at near-instant speeds, demanding biological responses (Nature) that require days or weeks, 
+                while institutional structures (Environment) change over decades.
+            </p>
+            <p class="text-gray-400 text-sm italic">
+                Example: High-frequency trading operates in milliseconds, but corporate production decisions require months, 
+                and ecological recovery spans years to centuries. This creates systematic dysfunction.
+            </p>
+        </div>
+        
+        <!-- Back Button -->
+        <div class="max-w-7xl mx-auto mt-8 text-center">
+            <a href="interactive-lab.html" class="inline-block px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors">
+                ← Back to Interactive Lab
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Temporal processes data
+        const processes = [
+            // NATURE
+            { id: 'n1', domain: 'Nature', name: 'Neural Signaling', minTime: 0.001, maxTime: 1, description: 'Action potentials, synaptic transmission, reflexes', examples: ['Touching hot stove → hand withdrawal', 'Visual recognition', 'Startle response'] },
+            { id: 'n2', domain: 'Nature', name: 'Hormonal Cycles', minTime: 60, maxTime: 14400, description: 'Insulin response, cortisol rhythms, glucose regulation', examples: ['Blood sugar regulation after meals', 'Stress hormone release', 'Growth hormone pulses'] },
+            { id: 'n3', domain: 'Nature', name: 'Circadian Rhythms', minTime: 3600, maxTime: 172800, description: 'Sleep-wake cycles, body temperature, alertness patterns', examples: ['24-hour sleep cycle', 'Melatonin production', 'Core temperature variation'] },
+            { id: 'n4', domain: 'Nature', name: 'Neuroplasticity', minTime: 86400, maxTime: 2592000, description: 'Synaptic reorganization, habit formation, skill learning', examples: ['Learning to play instrument', 'Forming new habits', 'Recovery from brain injury'] },
+            { id: 'n5', domain: 'Nature', name: 'Development', minTime: 2592000, maxTime: 946080000, description: 'Childhood milestones, puberty, skill acquisition', examples: ['Language development', 'Adolescent brain maturation', 'Motor skill mastery'] },
+            { id: 'n6', domain: 'Nature', name: 'Aging & Disease', minTime: 31536000, maxTime: 3153600000, description: 'Chronic disease progression, cellular senescence', examples: ['Atherosclerosis development', 'Cognitive decline', 'Cancer progression'] },
+            { id: 'n7', domain: 'Nature', name: 'Evolution', minTime: 946080000, maxTime: 31536000000, description: 'Genetic adaptation, epigenetic inheritance', examples: ['Lactase persistence evolution', 'Altitude adaptation', 'Disease resistance'] },
+            
+            // CONSCIOUSNESS
+            { id: 'c1', domain: 'Consciousness', name: 'Perception', minTime: 0.001, maxTime: 10, description: 'Visual/auditory recognition, pattern matching', examples: ['Face recognition', 'Reading words', 'Sound localization'] },
+            { id: 'c2', domain: 'Consciousness', name: 'Conversation', minTime: 1, maxTime: 3600, description: 'Speech, dialogue, thought sequences', examples: ['Turn-taking in conversation', 'Joke comprehension', 'Mental math'] },
+            { id: 'c3', domain: 'Consciousness', name: 'Deliberation', minTime: 60, maxTime: 43200, description: 'Reading, problem-solving, decision-making', examples: ['Reading a chapter', 'Solving complex problem', 'Weighing life decision'] },
+            { id: 'c4', domain: 'Consciousness', name: 'Narrative Integration', minTime: 3600, maxTime: 604800, description: 'Belief updating, memory consolidation', examples: ['Processing difficult news', 'Integrating new information', 'Dream processing'] },
+            { id: 'c5', domain: 'Consciousness', name: 'Identity Shift', minTime: 86400, maxTime: 7776000, description: 'Perspective transformation, value changes', examples: ['Religious conversion', 'Political realignment', 'Coming out'] },
+            { id: 'c6', domain: 'Consciousness', name: 'Worldview Evolution', minTime: 2592000, maxTime: 946080000, description: 'Paradigm shifts, cultural adaptation', examples: ['Academic field shifts', 'Generational value changes', 'Ideological evolution'] },
+            { id: 'c7', domain: 'Consciousness', name: 'Digital Transmission', minTime: 0.0000001, maxTime: 1, description: 'Instant symbolic propagation across networks', examples: ['Tweet going viral', 'Stock market flash crash', 'Meme spread'] },
+            
+            // ENVIRONMENT
+            { id: 'e1', domain: 'Environment', name: 'Market Prices', minTime: 1, maxTime: 604800, description: 'Supply-demand adjustments, algorithmic trading', examples: ['High-frequency trading', 'Flash crashes', 'Commodity price spikes'] },
+            { id: 'e2', domain: 'Environment', name: 'Social Norms', minTime: 604800, maxTime: 31536000, description: 'Policy implementation, behavior pattern shifts', examples: ['Mask mandate adoption', 'Workplace culture change', 'Fashion trends'] },
+            { id: 'e3', domain: 'Environment', name: 'Infrastructure', minTime: 7776000, maxTime: 315360000, description: 'Building construction, organizational transformation', examples: ['Highway construction', 'Corporate restructuring', 'School system reform'] },
+            { id: 'e4', domain: 'Environment', name: 'Institutions', minTime: 31536000, maxTime: 3153600000, description: 'Legal systems, technological diffusion', examples: ['Civil rights legislation impact', 'Internet adoption', 'Democratic transitions'] },
+            { id: 'e5', domain: 'Environment', name: 'Cultural Transformation', minTime: 315360000, maxTime: 31536000000, description: 'Societal values, ecological succession', examples: ['Industrial Revolution', 'Forest succession', 'Urban evolution'] },
+            { id: 'e6', domain: 'Environment', name: 'Geological Cycles', minTime: 3153600000, maxTime: 315360000000, description: 'Climate patterns, tectonic processes', examples: ['Ice age cycles', 'Mountain formation', 'Ocean current shifts'] },
+        ];
+        
+        // Convert time to milliseconds for consistency
+        processes.forEach(p => {
+            p.minTime = p.minTime * 1000; // Already in seconds, convert to ms
+            p.maxTime = p.maxTime * 1000;
+        });
+        
+        // State
+        let visibleDomains = new Set(['Nature', 'Consciousness', 'Environment']);
+        let selectedProcess = null;
+        
+        // Colors
+        const domainColors = {
+            'Nature': '#10b981',
+            'Consciousness': '#3b82f6',
+            'Environment': '#f59e0b'
+        };
+        
+        // Dimensions
+        const margin = { top: 40, right: 40, bottom: 80, left: 120 };
+        const container = d3.select('#timeline-container');
+        const containerWidth = container.node().getBoundingClientRect().width;
+        const width = containerWidth - margin.left - margin.right;
+        const height = 600 - margin.top - margin.bottom;
+        
+        // Scales
+        const xScale = d3.scaleLog()
+            .domain([0.0001, 315360000000]) // 0.1ms to 10,000 years in ms
+            .range([0, width]);
+        
+        const yScale = d3.scaleBand()
+            .domain(processes.map(p => p.id))
+            .range([0, height])
+            .padding(0.1);
+        
+        // SVG
+        const svg = container.append('svg')
+            .attr('width', containerWidth)
+            .attr('height', 600);
+        
+        const g = svg.append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+        
+        // Zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.5, 10])
+            .translateExtent([[-margin.left, -margin.top], [width + margin.right, height + margin.bottom]])
+            .on('zoom', (event) => {
+                g.attr('transform', event.transform);
+            });
+        
+        svg.call(zoom);
+        
+        // X-axis
+        const xAxis = d3.axisBottom(xScale)
+            .tickValues([
+                0.001, 0.01, 0.1, 1, 10, 60, 600, 3600, // ms to seconds to minutes to hours
+                86400, 604800, 2592000, 31536000, // days to weeks to months to years
+                315360000, 3153600000, 31536000000 // decades to centuries to millennia
+            ])
+            .tickFormat(d => {
+                const seconds = d / 1000;
+                if (seconds < 0.001) return `${(seconds * 1000000).toFixed(0)}μs`;
+                if (seconds < 1) return `${(seconds * 1000).toFixed(0)}ms`;
+                if (seconds < 60) return `${seconds.toFixed(0)}s`;
+                if (seconds < 3600) return `${(seconds / 60).toFixed(0)}m`;
+                if (seconds < 86400) return `${(seconds / 3600).toFixed(0)}h`;
+                if (seconds < 604800) return `${(seconds / 86400).toFixed(0)}d`;
+                if (seconds < 31536000) return `${(seconds / 604800).toFixed(0)}w`;
+                if (seconds < 315360000) return `${(seconds / 31536000).toFixed(0)}y`;
+                if (seconds < 3153600000) return `${(seconds / 315360000).toFixed(0)}dec`;
+                return `${(seconds / 3153600000).toFixed(0)}cen`;
+            });
+        
+        g.append('g')
+            .attr('transform', `translate(0,${height})`)
+            .call(xAxis)
+            .selectAll('text')
+            .attr('class', 'axis-label')
+            .attr('transform', 'rotate(-45)')
+            .style('text-anchor', 'end');
+        
+        // Y-axis labels
+        const yAxisG = g.append('g');
+        
+        // Timeline bars
+        const bars = g.append('g').attr('class', 'bars');
+        
+        function render() {
+            const filteredProcesses = processes.filter(p => visibleDomains.has(p.domain));
+            
+            // Update y-scale
+            yScale.domain(filteredProcesses.map(p => p.id));
+            
+            // Update bars
+            const barSelection = bars.selectAll('.timeline-bar')
+                .data(filteredProcesses, d => d.id);
+            
+            barSelection.exit().remove();
+            
+            const barEnter = barSelection.enter()
+                .append('rect')
+                .attr('class', 'timeline-bar')
+                .attr('rx', 4)
+                .attr('ry', 4);
+            
+            barSelection.merge(barEnter)
+                .transition()
+                .duration(500)
+                .attr('x', d => xScale(d.minTime))
+                .attr('y', d => yScale(d.id))
+                .attr('width', d => Math.max(2, xScale(d.maxTime) - xScale(d.minTime)))
+                .attr('height', yScale.bandwidth())
+                .attr('fill', d => domainColors[d.domain])
+                .attr('opacity', d => d.id === selectedProcess?.id ? 1 : 0.7);
+            
+            barEnter.merge(barSelection)
+                .on('click', function(event, d) {
+                    selectedProcess = d;
+                    showDetail(d);
+                    render();
+                })
+                .append('title')
+                .text(d => `${d.name}\n${d.description}`);
+            
+            // Update labels
+            const labelSelection = yAxisG.selectAll('.process-label')
+                .data(filteredProcesses, d => d.id);
+            
+            labelSelection.exit().remove();
+            
+            const labelEnter = labelSelection.enter()
+                .append('text')
+                .attr('class', 'process-label domain-label')
+                .style('text-anchor', 'end');
+            
+            labelSelection.merge(labelEnter)
+                .transition()
+                .duration(500)
+                .attr('x', -10)
+                .attr('y', d => yScale(d.id) + yScale.bandwidth() / 2)
+                .attr('dy', '0.35em')
+                .attr('fill', d => domainColors[d.domain])
+                .text(d => d.name);
+        }
+        
+        function showDetail(process) {
+            const panel = document.getElementById('detail-panel');
+            const content = document.getElementById('detail-content');
+            
+            const minSec = process.minTime / 1000;
+            const maxSec = process.maxTime / 1000;
+            
+            const formatTime = (sec) => {
+                if (sec < 0.001) return `${(sec * 1000000).toFixed(1)} microseconds`;
+                if (sec < 1) return `${(sec * 1000).toFixed(1)} milliseconds`;
+                if (sec < 60) return `${sec.toFixed(1)} seconds`;
+                if (sec < 3600) return `${(sec / 60).toFixed(1)} minutes`;
+                if (sec < 86400) return `${(sec / 3600).toFixed(1)} hours`;
+                if (sec < 604800) return `${(sec / 86400).toFixed(1)} days`;
+                if (sec < 31536000) return `${(sec / 604800).toFixed(1)} weeks`;
+                if (sec < 315360000) return `${(sec / 31536000).toFixed(1)} years`;
+                if (sec < 3153600000) return `${(sec / 315360000).toFixed(1)} decades`;
+                return `${(sec / 3153600000).toFixed(1)} centuries`;
+            };
+            
+            content.innerHTML = `
+                <div class="border-l-4 pl-4" style="border-color: ${domainColors[process.domain]}">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-2xl font-bold" style="color: ${domainColors[process.domain]}">${process.name}</span>
+                        <span class="px-3 py-1 rounded-full text-sm" style="background: ${domainColors[process.domain]}33; color: ${domainColors[process.domain]}">${process.domain}</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">${process.description}</p>
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-gray-400 mb-1">Temporal Range:</p>
+                            <p class="text-lg font-semibold">${formatTime(minSec)} → ${formatTime(maxSec)}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-400 mb-1">Span:</p>
+                            <p class="text-lg font-semibold">${Math.round(maxSec / minSec).toLocaleString()}× variation</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400 mb-2">Examples:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            ${process.examples.map(ex => `<li class="text-gray-300">${ex}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            panel.classList.add('open');
+        }
+        
+        // Toggle buttons
+        document.getElementById('toggle-nature').addEventListener('click', function() {
+            if (visibleDomains.has('Nature')) {
+                visibleDomains.delete('Nature');
+                this.classList.remove('active');
+            } else {
+                visibleDomains.add('Nature');
+                this.classList.add('active');
+            }
+            render();
+        });
+        
+        document.getElementById('toggle-consciousness').addEventListener('click', function() {
+            if (visibleDomains.has('Consciousness')) {
+                visibleDomains.delete('Consciousness');
+                this.classList.remove('active');
+            } else {
+                visibleDomains.add('Consciousness');
+                this.classList.add('active');
+            }
+            render();
+        });
+        
+        document.getElementById('toggle-environment').addEventListener('click', function() {
+            if (visibleDomains.has('Environment')) {
+                visibleDomains.delete('Environment');
+                this.classList.remove('active');
+            } else {
+                visibleDomains.add('Environment');
+                this.classList.add('active');
+            }
+            render();
+        });
+        
+        // Zoom controls
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            svg.transition().call(zoom.scaleBy, 1.5);
+        });
+        
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            svg.transition().call(zoom.scaleBy, 0.67);
+        });
+        
+        document.getElementById('reset-zoom').addEventListener('click', () => {
+            svg.transition().call(zoom.transform, d3.zoomIdentity);
+        });
+        
+        // Initial render
+        render();
+    </script>
+</body>
+</html>

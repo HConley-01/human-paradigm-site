@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | NiCE Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; min-height: 100vh; }
+        h1, h2, h3 { font-family: 'Fraunces', serif; }
+        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+        .stat-card { transition: all 0.3s ease; cursor: pointer; }
+        .stat-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 2rem; height: 2rem; border-radius: 9999px; font-weight: 700; }
+        .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors">
+                    NiCE Framework
+                </a>
+                <div class="flex gap-6 items-center">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <span class="text-blue-400 font-semibold">Admin</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4">Admin Dashboard</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Site management overview and quick access to administrative functions
+            </p>
+        </div>
+
+        <!-- Main Stats Grid -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Contact Messages Card -->
+            <a href="/admin/contact-messages.html" class="glass-card p-8 stat-card block">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center text-3xl">
+                            📨
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Contact Messages</h2>
+                            <p class="text-sm text-gray-400">Form submissions & inquiries</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-400" id="messages-new">0</div>
+                        <div class="text-xs text-gray-500">New</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-400" id="messages-read">0</div>
+                        <div class="text-xs text-gray-500">Read</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gray-400" id="messages-total">0</div>
+                        <div class="text-xs text-gray-500">Total</div>
+                    </div>
+                </div>
+
+                <div id="messages-alert" class="hidden p-3 bg-blue-500/20 border border-blue-500/40 rounded-lg text-center">
+                    <span class="text-blue-300 font-semibold pulse">⚠️ You have unread messages</span>
+                </div>
+
+                <div class="mt-4 text-right text-sm text-blue-300 font-semibold">
+                    View all messages →
+                </div>
+            </a>
+
+            <!-- Known Issues Card -->
+            <a href="/known-issues.html" class="glass-card p-8 stat-card block">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center text-3xl">
+                            🐛
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Known Issues</h2>
+                            <p class="text-sm text-gray-400">Bug tracker & feature requests</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-orange-400" id="issues-open">0</div>
+                        <div class="text-xs text-gray-500">Open</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-400" id="issues-progress">0</div>
+                        <div class="text-xs text-gray-500">In Progress</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-gray-400" id="issues-total">0</div>
+                        <div class="text-xs text-gray-500">Total</div>
+                    </div>
+                </div>
+
+                <div id="issues-alert" class="hidden p-3 bg-orange-500/20 border border-orange-500/40 rounded-lg text-center">
+                    <span class="text-orange-300 font-semibold pulse">⚠️ Critical issues need attention</span>
+                </div>
+
+                <div class="mt-4 text-right text-sm text-orange-300 font-semibold">
+                    View all issues →
+                </div>
+            </a>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass-card p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
+            <div class="grid md:grid-cols-4 gap-4">
+                <a href="/admin/contact-messages.html" class="p-4 bg-blue-500/10 hover:bg-blue-500/20 rounded-lg text-center transition-colors">
+                    <div class="text-2xl mb-2">✉️</div>
+                    <div class="text-sm font-semibold">New Messages</div>
+                </a>
+                <a href="/known-issues.html" class="p-4 bg-orange-500/10 hover:bg-orange-500/20 rounded-lg text-center transition-colors">
+                    <div class="text-2xl mb-2">🔧</div>
+                    <div class="text-sm font-semibold">Manage Issues</div>
+                </a>
+                <button onclick="exportAllData()" class="p-4 bg-green-500/10 hover:bg-green-500/20 rounded-lg text-center transition-colors">
+                    <div class="text-2xl mb-2">💾</div>
+                    <div class="text-sm font-semibold">Export Data</div>
+                </button>
+                <button onclick="clearOldData()" class="p-4 bg-red-500/10 hover:bg-red-500/20 rounded-lg text-center transition-colors">
+                    <div class="text-2xl mb-2">🗑️</div>
+                    <div class="text-sm font-semibold">Clear Old Data</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="glass-card p-6">
+            <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
+            <div id="recent-activity" class="space-y-3">
+                <!-- Activity items will be added here -->
+            </div>
+            <div id="no-activity" class="text-center py-8 text-gray-500">
+                No recent activity
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard Controller
+        class AdminDashboard {
+            constructor() {
+                this.init();
+            }
+
+            loadMessages() {
+                const stored = localStorage.getItem('nice-contact-messages');
+                return stored ? JSON.parse(stored) : [];
+            }
+
+            loadIssues() {
+                const stored = localStorage.getItem('nice-issues');
+                return stored ? JSON.parse(stored) : [];
+            }
+
+            updateMessageStats() {
+                const messages = this.loadMessages();
+                const newCount = messages.filter(m => m.status === 'new').length;
+                const readCount = messages.filter(m => m.status === 'read').length;
+                
+                document.getElementById('messages-new').textContent = newCount;
+                document.getElementById('messages-read').textContent = readCount;
+                document.getElementById('messages-total').textContent = messages.length;
+
+                // Show alert if there are new messages
+                if (newCount > 0) {
+                    document.getElementById('messages-alert').classList.remove('hidden');
+                }
+            }
+
+            updateIssueStats() {
+                const issues = this.loadIssues();
+                const openCount = issues.filter(i => i.status === 'open').length;
+                const progressCount = issues.filter(i => i.status === 'in-progress').length;
+                const criticalCount = issues.filter(i => i.severity === 'critical' && i.status === 'open').length;
+                
+                document.getElementById('issues-open').textContent = openCount;
+                document.getElementById('issues-progress').textContent = progressCount;
+                document.getElementById('issues-total').textContent = issues.length;
+
+                // Show alert if there are critical issues
+                if (criticalCount > 0) {
+                    document.getElementById('issues-alert').classList.remove('hidden');
+                }
+            }
+
+            updateRecentActivity() {
+                const messages = this.loadMessages();
+                const issues = this.loadIssues();
+                const container = document.getElementById('recent-activity');
+                const noActivity = document.getElementById('no-activity');
+
+                // Combine and sort by timestamp
+                const allActivity = [
+                    ...messages.map(m => ({
+                        type: 'message',
+                        timestamp: m.timestamp,
+                        text: `New message from ${m.name}`,
+                        icon: '📨'
+                    })),
+                    ...issues.map(i => ({
+                        type: 'issue',
+                        timestamp: i.timestamp,
+                        text: `Issue: ${i.title}`,
+                        icon: i.type === 'bug' ? '🐛' : '✨'
+                    }))
+                ].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 5);
+
+                if (allActivity.length === 0) {
+                    container.classList.add('hidden');
+                    noActivity.classList.remove('hidden');
+                } else {
+                    container.classList.remove('hidden');
+                    noActivity.classList.add('hidden');
+                    container.innerHTML = allActivity.map(item => `
+                        <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                            <span class="text-xl">${item.icon}</span>
+                            <div class="flex-1">
+                                <div class="text-sm">${item.text}</div>
+                                <div class="text-xs text-gray-500">${this.formatTimestamp(item.timestamp)}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            formatTimestamp(timestamp) {
+                const date = new Date(timestamp);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMs / 3600000);
+                const diffDays = Math.floor(diffMs / 86400000);
+
+                if (diffMins < 1) return 'Just now';
+                if (diffMins < 60) return `${diffMins} min ago`;
+                if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                return date.toLocaleDateString();
+            }
+
+            init() {
+                this.updateMessageStats();
+                this.updateIssueStats();
+                this.updateRecentActivity();
+
+                // Auto-refresh every 30 seconds
+                setInterval(() => {
+                    this.updateMessageStats();
+                    this.updateIssueStats();
+                    this.updateRecentActivity();
+                }, 30000);
+            }
+        }
+
+        // Quick Actions
+        function exportAllData() {
+            const messages = localStorage.getItem('nice-contact-messages') || '[]';
+            const issues = localStorage.getItem('nice-issues') || '[]';
+            
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                messages: JSON.parse(messages),
+                issues: JSON.parse(issues)
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `nice-admin-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✓ Data exported successfully!');
+        }
+
+        function clearOldData() {
+            if (!confirm('Are you sure? This will archive messages and issues older than 30 days.')) {
+                return;
+            }
+
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+            // Archive old messages
+            const messages = JSON.parse(localStorage.getItem('nice-contact-messages') || '[]');
+            const recentMessages = messages.filter(m => new Date(m.timestamp) > thirtyDaysAgo);
+            localStorage.setItem('nice-contact-messages', JSON.stringify(recentMessages));
+
+            // Archive old closed issues
+            const issues = JSON.parse(localStorage.getItem('nice-issues') || '[]');
+            const recentIssues = issues.filter(i => 
+                i.status !== 'resolved' || new Date(i.timestamp) > thirtyDaysAgo
+            );
+            localStorage.setItem('nice-issues', JSON.stringify(recentIssues));
+
+            alert('✓ Old data archived successfully!');
+            window.location.reload();
+        }
+
+        // Initialize dashboard
+        const dashboard = new AdminDashboard();
+    </script>
+</body>
+</html>

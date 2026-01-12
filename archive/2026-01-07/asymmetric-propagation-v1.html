@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asymmetric Propagation Simulator - NiCE Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f1a;
+      color: #e8edf4;
+    }
+    .serif { font-family: 'Fraunces', serif; }
+    .glass-card {
+      background: rgba(20, 30, 48, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100, 130, 180, 0.2);
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(100, 130, 180, 0.3);
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav class="glass-card border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="text-2xl font-bold serif">NiCE Framework</span>
+      </a>
+      <div class="flex gap-6">
+        <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+        <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/interactive-lab.html" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Interactive Lab
+      </a>
+      <h1 class="text-4xl md:text-5xl font-bold serif mb-4">Asymmetric Propagation Simulator</h1>
+      <p class="text-xl text-gray-400">
+        Explore how symbol speed exceeding substance speed creates systemic fragility. Adjust the propagation 
+        rates and witness the emergent danger zones.
+      </p>
+    </div>
+
+    <!-- Simulator Card -->
+    <div class="glass-card p-8 rounded-lg mb-8">
+      <h2 class="text-2xl font-bold serif mb-6">Adjust Propagation Speeds</h2>
+      
+      <!-- Symbol Speed Slider -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Symbol Propagation Speed</label>
+          <span id="symbolValue" class="text-blue-400 font-mono">50</span>
+        </div>
+        <input type="range" id="symbolSpeed" min="0" max="100" value="50" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">How quickly ideas, narratives, and representations spread</p>
+      </div>
+
+      <!-- Substance Speed Slider -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Substance Propagation Speed</label>
+          <span id="substanceValue" class="text-emerald-400 font-mono">30</span>
+        </div>
+        <input type="range" id="substanceSpeed" min="0" max="100" value="30" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">How quickly material reality, infrastructure, and grounding changes</p>
+      </div>
+
+      <!-- Results Display -->
+      <div class="border-t border-gray-700 pt-6">
+        <h3 class="text-xl font-bold mb-4">Simulation Results</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div class="glass-card p-4 rounded">
+            <div class="text-sm text-gray-400 mb-1">Distance</div>
+            <div id="distance" class="text-3xl font-bold font-mono">20</div>
+          </div>
+          
+          <div class="glass-card p-4 rounded">
+            <div class="text-sm text-gray-400 mb-1">Risk Level</div>
+            <div id="riskLevel" class="text-2xl font-bold">Moderate</div>
+          </div>
+        </div>
+
+        <div id="warnings" class="space-y-2">
+          <!-- Warnings will be inserted here -->
+        </div>
+
+        <div class="mt-6">
+          <h4 class="font-semibold mb-2">Interpretation</h4>
+          <p id="interpretation" class="text-gray-300 text-sm">
+            <!-- Interpretation will be inserted here -->
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historical Cases -->
+    <div class="glass-card p-8 rounded-lg">
+      <h2 class="text-2xl font-bold serif mb-4">Historical Benchmark Cases</h2>
+      <p class="text-gray-400 mb-6">
+        Load real-world examples to see how asymmetric propagation manifests across different scales and domains.
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-4">
+        <button class="case-button text-left p-4 glass-card rounded hover:bg-blue-500/10 transition-colors" data-symbol="85" data-substance="25">
+          <div class="font-bold mb-1">2008 Financial Crisis</div>
+          <div class="text-sm text-gray-400">Derivatives outpaced real economy (Symbol: 85, Substance: 25)</div>
+        </button>
+
+        <button class="case-button text-left p-4 glass-card rounded hover:bg-blue-500/10 transition-colors" data-symbol="90" data-substance="15">
+          <div class="font-bold mb-1">Social Media Echo Chambers</div>
+          <div class="text-sm text-gray-400">Viral narratives vs. factual verification (Symbol: 90, Substance: 15)</div>
+        </button>
+
+        <button class="case-button text-left p-4 glass-card rounded hover:bg-blue-500/10 transition-colors" data-symbol="80" data-substance="35">
+          <div class="font-bold mb-1">Dot-com Bubble (1990s)</div>
+          <div class="text-sm text-gray-400">Market valuations vs. business fundamentals (Symbol: 80, Substance: 35)</div>
+        </button>
+
+        <button class="case-button text-left p-4 glass-card rounded hover:bg-blue-500/10 transition-colors" data-symbol="75" data-substance="40">
+          <div class="font-bold mb-1">Climate Change Discourse</div>
+          <div class="text-sm text-gray-400">Policy rhetoric vs. emissions reduction (Symbol: 75, Substance: 40)</div>
+        </button>
+
+        <button class="case-button text-left p-4 glass-card rounded hover:bg-blue-500/10 transition-colors" data-symbol="70" data-substance="50">
+          <div class="font-bold mb-1">Post-WWII Marshall Plan</div>
+          <div class="text-sm text-gray-400">Diplomatic frameworks + infrastructure investment (Symbol: 70, Substance: 50)</div>
+        </button>
+
+        <button class="case-button text-left p-4 glass-card rounded hover:bg-blue-500/10 transition-colors" data-symbol="45" data-substance="55">
+          <div class="font-bold mb-1">Nordic Social Democracy</div>
+          <div class="text-sm text-gray-400">Policy ideals + robust implementation (Symbol: 45, Substance: 55)</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const symbolSpeed = document.getElementById('symbolSpeed');
+    const substanceSpeed = document.getElementById('substanceSpeed');
+    const symbolValue = document.getElementById('symbolValue');
+    const substanceValue = document.getElementById('substanceValue');
+    const distanceEl = document.getElementById('distance');
+    const riskLevelEl = document.getElementById('riskLevel');
+    const warningsEl = document.getElementById('warnings');
+    const interpretationEl = document.getElementById('interpretation');
+
+    function getRiskLevel(distance) {
+      if (distance < 10) return { level: 'Low', color: 'text-emerald-400', bg: 'bg-emerald-500/20' };
+      if (distance < 25) return { level: 'Moderate', color: 'text-yellow-400', bg: 'bg-yellow-500/20' };
+      if (distance < 50) return { level: 'High', color: 'text-orange-400', bg: 'bg-orange-500/20' };
+      return { level: 'Critical', color: 'text-red-400', bg: 'bg-red-500/20' };
+    }
+
+    function getWarnings(distance, symbolVal, substanceVal) {
+      const warnings = [];
+      
+      if (distance > 50) {
+        warnings.push({
+          text: 'Critical gap detected! Symbolic layer is severely decoupled from material reality.',
+          severity: 'error'
+        });
+      }
+      
+      if (symbolVal > 80) {
+        warnings.push({
+          text: 'Symbol propagation is extremely rapid. Expect narrative volatility and meaning drift.',
+          severity: 'warning'
+        });
+      }
+      
+      if (substanceVal < 20) {
+        warnings.push({
+          text: 'Substance propagation is dangerously slow. Material conditions may not support symbolic structures.',
+          severity: 'warning'
+        });
+      }
+      
+      if (distance > 25 && distance <= 50) {
+        warnings.push({
+          text: 'Moderate asymmetry detected. Monitor for early signs of system fragility.',
+          severity: 'info'
+        });
+      }
+      
+      if (distance < 10 && symbolVal > substanceVal) {
+        warnings.push({
+          text: 'Healthy asymmetry: Symbols slightly lead, creating productive tension for growth.',
+          severity: 'success'
+        });
+      }
+
+      return warnings;
+    }
+
+    function getInterpretation(distance, symbolVal, substanceVal) {
+      if (distance > 50) {
+        return 'This extreme gap represents a dangerous decoupling. Symbolic structures (narratives, beliefs, market valuations) are racing far ahead of material capacity. Historical examples: 2008 financial crisis, social media misinformation cascades. High risk of sudden collapse when reality reasserts itself.';
+      } else if (distance > 25) {
+        return 'This moderate gap suggests growing fragility. The symbolic layer is outpacing substance development. While not immediately catastrophic, this pattern tends to worsen over time unless substance propagation accelerates or symbol propagation slows. Early intervention recommended.';
+      } else if (distance > 10) {
+        return 'Slight asymmetry detected. Some lead of symbols over substance is normal and can drive innovation. However, monitor to ensure the gap doesn\'t widen. This represents the "productive tension" zone where aspirations pull reality forward without losing grounding.';
+      } else {
+        if (symbolVal < substanceVal) {
+          return 'Interesting reversal: Substance leads symbols. This pattern suggests strong material foundations with underdeveloped narrative frameworks. May indicate untapped potential or communication failures. Examples: unrecognized infrastructure achievements, "stealth" progress.';
+        } else {
+          return 'Healthy synchronization. Symbolic and material layers are closely aligned. This represents robust system health where representations track reality. Examples: well-governed societies, sustainable business models, effective organizations.';
+        }
+      }
+    }
+
+    function updateSimulation() {
+      const symbolVal = parseInt(symbolSpeed.value);
+      const substanceVal = parseInt(substanceSpeed.value);
+      
+      symbolValue.textContent = symbolVal;
+      substanceValue.textContent = substanceVal;
+      
+      const distance = Math.abs(symbolVal - substanceVal);
+      distanceEl.textContent = distance;
+      
+      const risk = getRiskLevel(distance);
+      riskLevelEl.textContent = risk.level;
+      riskLevelEl.className = `text-2xl font-bold ${risk.color}`;
+      
+      const warnings = getWarnings(distance, symbolVal, substanceVal);
+      warningsEl.innerHTML = warnings.map(w => {
+        const colors = {
+          error: 'bg-red-500/20 text-red-300 border-red-500/30',
+          warning: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
+          info: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+          success: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+        };
+        return `<div class="p-3 rounded border ${colors[w.severity]}">${w.text}</div>`;
+      }).join('');
+      
+      interpretationEl.textContent = getInterpretation(distance, symbolVal, substanceVal);
+    }
+
+    symbolSpeed.addEventListener('input', updateSimulation);
+    substanceSpeed.addEventListener('input', updateSimulation);
+
+    // Historical cases
+    document.querySelectorAll('.case-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const symbol = button.dataset.symbol;
+        const substance = button.dataset.substance;
+        symbolSpeed.value = symbol;
+        substanceSpeed.value = substance;
+        updateSimulation();
+      });
+    });
+
+    // Initial update
+    updateSimulation();
+  </script>
+</body>
+</html>

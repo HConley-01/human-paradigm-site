@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Lab - NiCE Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f1a;
+      color: #e8edf4;
+    }
+    .serif { font-family: 'Fraunces', serif; }
+    .glass-card {
+      background: rgba(20, 30, 48, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100, 130, 180, 0.2);
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav class="glass-card border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="text-2xl font-bold serif">NiCE Framework</span>
+      </a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+        <a href="/nice-framework.html" class="text-gray-400 hover:text-white transition-colors">NiCE Synthesis</a>
+        <a href="/interactive-nice-explorer.html" class="text-purple-400 font-semibold hover:text-purple-300 transition-colors">Interactive Explorer</a>
+        <a href="/interactive-lab.html" class="text-white font-medium border-b-2 border-blue-400 pb-1">Lab</a>
+        <a href="/behavioral-sink-simulation.html" class="text-gray-400 hover:text-white transition-colors">Behavioral Sink</a>
+        <a href="/sitemap-visual.html" class="text-gray-400 hover:text-white transition-colors">Site Map</a>
+        <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white text-sm font-medium transition-colors">PDF</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-blue-400 mb-6">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        <span class="text-sm font-medium">Interactive Learning Tools</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 serif">
+        NiCE Framework
+        <br>
+        <span class="text-blue-400">Interactive Lab</span>
+      </h1>
+      
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+        Transform abstract theory into experientially graspable insights. Explore triadic systems dynamics 
+        through interactive visualizations, calculators, and simulations.
+      </p>
+    </div>
+
+    <!-- Visualizations Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Asymmetric Propagation -->
+      <div class="glass-card p-6 rounded-lg hover:scale-105 transition-transform">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 rounded-lg bg-blue-500/20 text-blue-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+          </div>
+          <span class="text-xs px-2 py-1 rounded bg-green-500/20 text-green-300">beginner</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2 serif">Asymmetric Propagation Simulator</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Explore how symbol speed exceeding substance speed creates systemic fragility. Includes historical cases.
+        </p>
+        <a href="/asymmetric-propagation.html" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors w-full justify-center">
+          Explore Interactive
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Behavioral Sink Simulation -->
+      <div class="glass-card p-6 rounded-lg hover:scale-105 transition-transform">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 rounded-lg bg-red-500/20 text-red-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <span class="text-xs px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">intermediate</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2 serif">Behavioral Sink Simulation</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Agent-based model of pathological behaviors from complexity overload. Calhoun's experiments reinterpreted.
+        </p>
+        <a href="/behavioral-sink-simulation.html" class="inline-flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition-colors w-full justify-center">
+          Explore Simulation
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Insanity Quotient -->
+      <div class="glass-card p-6 rounded-lg hover:scale-105 transition-transform">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 rounded-lg bg-blue-500/20 text-blue-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <span class="text-xs px-2 py-1 rounded bg-green-500/20 text-green-300">beginner</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2 serif">Insanity Quotient Calculator</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Quantify system-reality decoupling. Get personalized intervention recommendations.
+        </p>
+        <a href="/insanity-quotient.html" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors w-full justify-center">
+          Explore Interactive
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 3D Triadic Space Navigator -->
+      <div class="glass-card p-6 rounded-lg hover:scale-105 transition-transform">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 rounded-lg bg-purple-500/20 text-purple-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+            </svg>
+          </div>
+          <span class="text-xs px-2 py-1 rounded bg-red-500/20 text-red-300">advanced</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2 serif">3D Triadic Space Navigator</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Navigate Nature-Consciousness-Environment dynamics in 3D space. Visualize system trajectories.
+        </p>
+        <a href="/triadic-space.html" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-lg transition-colors w-full justify-center">
+          Explore Interactive
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Coming Soon Cards -->
+
+
+      <div class="glass-card p-6 rounded-lg hover:scale-[1.02] transition-transform">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 rounded-lg bg-gradient-to-br from-green-500/20 via-blue-500/20 to-amber-500/20">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <span class="text-xs px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">intermediate</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2 serif">Temporal Scales Timeline</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Visualize characteristic time scales of N, C, E processes. Understand temporal mismatches.
+        </p>
+        <a href="temporal-scales.html" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg w-full justify-center transition-colors">
+          Explore Timeline
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="glass-card p-6 rounded-lg hover:scale-105 transition-transform">
+        <div class="flex items-start justify-between mb-4">
+          <div class="p-3 rounded-lg bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-green-500/20">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+            </svg>
+          </div>
+          <span class="text-xs px-2 py-1 rounded bg-yellow-500/20 text-yellow-300">intermediate</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2 serif">Constraint Framework Explorer</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Guided assessment using FORCES, GRAVITY, ANCHORS, PRIMES frameworks. Systematic diagnosis and intervention design.
+        </p>
+        <a href="/constraint-framework-explorer.html" class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-lg transition-colors w-full justify-center">
+          Explore Framework
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="mt-16 glass-card p-8 rounded-lg">
+      <h2 class="text-2xl font-bold mb-4 serif">Getting Started</h2>
+      <div class="space-y-4">
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">1</div>
+          <div>
+            <h4 class="font-semibold mb-1">Start with the Basics</h4>
+            <p class="text-sm text-gray-400">
+              Begin with the <strong>Asymmetric Propagation Simulator</strong> or <strong>Insanity Quotient Calculator</strong>. 
+              These tools introduce core concepts with immediate, tangible insights.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">2</div>
+          <div>
+            <h4 class="font-semibold mb-1">Experiment Freely</h4>
+            <p class="text-sm text-gray-400">
+              Adjust parameters, load historical cases, and observe how systems respond. 
+              There's no wrong way to explore.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">3</div>
+          <div>
+            <h4 class="font-semibold mb-1">Apply to Real Scenarios</h4>
+            <p class="text-sm text-gray-400">
+              Use the tools to analyze personal situations, organizational dynamics, or societal trends.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

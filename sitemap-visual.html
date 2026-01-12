@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Map - NiCE Framework</title>
+    <meta name="description" content="Interactive visual sitemap of the NiCE Framework website - navigate the triadic systems research platform.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nature: '#22c55e',
+                        consciousness: '#3b82f6', 
+                        environment: '#f59e0b',
+                        background: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+            color: #e2e8f0; 
+            min-height: 100vh; 
+        }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
+        .glass-card { 
+            background: rgba(255,255,255,0.05); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 16px; 
+        }
+        
+        /* Mermaid Diagram Styling */
+        .mermaid {
+            background: transparent !important;
+        }
+        .mermaid svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Make nodes clickable with hover effects */
+        .mermaid .node rect,
+        .mermaid .node polygon,
+        .mermaid .node circle,
+        .mermaid .node ellipse {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .mermaid .node:hover rect,
+        .mermaid .node:hover polygon {
+            filter: brightness(1.2);
+            stroke-width: 3px;
+        }
+        
+        /* Link styling in the diagram */
+        .mermaid .edgePath path {
+            stroke-width: 2px;
+        }
+        
+        /* Node label styling */
+        .mermaid .nodeLabel {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+        
+        .site-section {
+            transition: all 0.3s ease;
+        }
+        .site-section:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors" style="font-family: 'Fraunces', serif;">
+                    NiCE Framework
+                </a>
+                <div class="hidden md:flex gap-6 items-center">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="/nice-framework.html" class="text-blue-400 font-semibold hover:text-blue-300 transition-colors">NiCE Synthesis</a>
+                    <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+                    <a href="/sitemap-visual.html" class="text-white font-medium border-b-2 border-blue-400 pb-1">Site Map</a>
+                    <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-medium transition-colors">
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 via-blue-400 to-amber-400 bg-clip-text text-transparent">
+                Site Navigation Map
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                Navigate the NiCE Framework website using the quick links below.
+            </p>
+        </div>
+    </section>
+
+    <!-- Quick Links Grid -->
+    <section class="py-12 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold mb-8 text-center">Quick Navigation</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Core Pages -->
+                <div class="glass-card p-6 site-section">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🏠</span>
+                        <h3 class="text-lg font-bold text-green-400">Core Pages</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/" class="text-gray-300 hover:text-white transition-colors">→ Homepage</a></li>
+                        <li><a href="/nice-framework.html" class="text-gray-300 hover:text-white transition-colors">→ NiCE Synthesis</a></li>
+                        <li><a href="/sitemap-visual.html" class="text-gray-300 hover:text-white transition-colors">→ Site Map</a></li>
+                    </ul>
+                </div>
+
+                <!-- Framework Sections -->
+                <div class="glass-card p-6 site-section">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">📚</span>
+                        <h3 class="text-lg font-bold text-blue-400">Framework Sections</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/nice-framework.html#domains" class="text-gray-300 hover:text-white transition-colors">→ Triadic Domains (N-C-E)</a></li>
+                        <li><a href="/nice-framework.html#interactions" class="text-gray-300 hover:text-white transition-colors">→ Domain Interactions</a></li>
+                        <li><a href="/nice-framework.html#asymmetric" class="text-gray-300 hover:text-white transition-colors">→ Asymmetric Propagation</a></li>
+                        <li><a href="/nice-framework.html#science" class="text-gray-300 hover:text-white transition-colors">→ S.C.I.E.N.C.E. Inventory</a></li>
+                        <li><a href="/nice-framework.html#frameworks" class="text-gray-300 hover:text-white transition-colors">→ Constraint Frameworks</a></li>
+                        <li><a href="/nice-framework.html#applications" class="text-gray-300 hover:text-white transition-colors">→ Practical Applications</a></li>
+                    </ul>
+                </div>
+
+                <!-- Interactive Tools -->
+                <div class="glass-card p-6 site-section">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🧪</span>
+                        <h3 class="text-lg font-bold text-amber-400">Interactive Tools</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/interactive-nice-explorer.html" class="text-purple-400 hover:text-purple-300 transition-colors font-semibold">★ Interactive Explorer (NEW)</a></li>
+                        <li><a href="/interactive-lab.html" class="text-gray-300 hover:text-white transition-colors">→ Interactive Lab Hub</a></li>
+                        <li><a href="/asymmetric-propagation.html" class="text-gray-300 hover:text-white transition-colors">→ Propagation Simulator</a></li>
+                        <li><a href="/insanity-quotient.html" class="text-gray-300 hover:text-white transition-colors">→ IQ Calculator</a></li>
+                        <li><a href="/triadic-space.html" class="text-gray-300 hover:text-white transition-colors">→ 3D Triadic Space</a></li>
+                        <li><a href="/temporal-scales.html" class="text-gray-300 hover:text-white transition-colors">→ Temporal Scales</a></li>
+                    </ul>
+                </div>
+
+                <!-- Documents -->
+                <div class="glass-card p-6 site-section">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">📄</span>
+                        <h3 class="text-lg font-bold text-purple-400">Downloads</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" class="text-gray-300 hover:text-white transition-colors">→ NiCE Synthesis (PDF)</a></li>
+                        <li><a href="/documents/Kitcey_2025-The_Human_Paradigm_v1.8.4.pdf" class="text-gray-300 hover:text-white transition-colors">→ Human Paradigm v1.8.4</a></li>
+                        <li><a href="/documents/KITCEY_Advanced_Analysis_FINAL.v.0.73.pdf" class="text-gray-300 hover:text-white transition-colors">→ Advanced Analysis v0.73</a></li>
+                        <li><a href="/documents/The_Human_Essence-an_AI_Perspective_on_Human_Nature_Kitcey_R-2024.v.0.9.pdf" class="text-gray-300 hover:text-white transition-colors">→ Human Essence v0.9</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Flow Explanation -->
+    <section class="py-12 px-6 border-t border-white/10">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-center">Site Architecture</h2>
+            <div class="glass-card p-6">
+                <div class="grid md:grid-cols-3 gap-6 text-sm">
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-green-400 font-bold">1</span>
+                        </div>
+                        <h4 class="font-semibold text-green-400 mb-2">Entry Point</h4>
+                        <p class="text-gray-400">Homepage provides overview and gateway to all content areas</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-blue-400 font-bold">2</span>
+                        </div>
+                        <h4 class="font-semibold text-blue-400 mb-2">Core Content</h4>
+                        <p class="text-gray-400">NiCE Synthesis page contains complete theoretical framework</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-amber-400 font-bold">3</span>
+                        </div>
+                        <h4 class="font-semibold text-amber-400 mb-2">Experiential Learning</h4>
+                        <p class="text-gray-400">Interactive Lab transforms theory into hands-on exploration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-500 mb-4">
+                © 2026 Robert D. Kitcey • rkitcey@humanparadigm.org • ORCID: 0009-0004-8679-9155
+            </p>
+            <div class="flex justify-center gap-6 text-sm mt-4">
+                <a href="https://humanparadigm.org" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                <a href="/nice-framework.html" class="text-gray-400 hover:text-white transition-colors">NiCE Framework</a>
+                <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Mermaid with click handling
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>

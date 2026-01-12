@@ -1,0 +1,996 @@
+{
+  "human_paradigm": {
+    "title": "The Human Paradigm",
+    "subtitle": "An Integrated Framework of Nature, Consciousness, and Environment (NiCE)",
+    "author": "R.D. Kitcey",
+    "year": "2025",
+    "version": "v1.8.4",
+    "pages": 251,
+    "sections": [
+      {
+        "id": "introduction",
+        "title": "1. Introduction"
+      },
+      {
+        "id": "abstract",
+        "title": "Abstract"
+      },
+      {
+        "id": "list_of_tables",
+        "title": "List of Tables"
+      },
+      {
+        "id": "list_of_figures",
+        "title": "List of Figures"
+      },
+      {
+        "id": "theoretical_positioning",
+        "title": "2. Theoretical Positioning"
+      },
+      {
+        "id": "1_4e_cognition_beyond_the_cartesian_mind",
+        "title": "2.1 4E Cognition: Beyond the Cartesian Mind"
+      },
+      {
+        "id": "3_predictive_processing_and_active_inference",
+        "title": "2.3 Predictive Processing and Active Inference"
+      },
+      {
+        "id": "4_developmental_systems_theory",
+        "title": "2.4 Developmental Systems Theory"
+      },
+      {
+        "id": "5_semiotics_and_peircean_triads",
+        "title": "2.5 Semiotics and Peircean Triads"
+      },
+      {
+        "id": "6_synthesis_a_pluralistic_integration",
+        "title": "2.6 Synthesis: A Pluralistic Integration"
+      },
+      {
+        "id": "7_ontological_commitments_and_the_mindbody_problem",
+        "title": "2.7 Ontological Commitments and the Mind\u2013Body Problem (NiCE)"
+      },
+      {
+        "id": "71_non-reductive_physicalism_via_triadic_constitut",
+        "title": "2.7.1 Non-reductive physicalism via triadic constitution"
+      },
+      {
+        "id": "72_worked_example_perceiving_a_red_stop_sign_at_du",
+        "title": "2.7.2 Worked example: Perceiving a red stop sign at dusk"
+      },
+      {
+        "id": "73_responsibility_without_stigma_from_victimhood_t",
+        "title": "2.7.3 Responsibility without Stigma: From Victimhood to Collaborative Empowerment"
+      },
+      {
+        "id": "74_reframing_the_hard_problem_within_nice",
+        "title": "2.7.4 Reframing the Hard Problem (within NiCE)"
+      },
+      {
+        "id": "75_one_experiment_three_levers",
+        "title": "2.7.5 One experiment, three levers)"
+      },
+      {
+        "id": "76_reciprocal_vulnerability_and_testable_principle",
+        "title": "2.7.6 Reciprocal Vulnerability and Testable Principles"
+      },
+      {
+        "id": "77_incentive_architecture_natural_corrective_and_t",
+        "title": "2.7.7 Incentive Architecture: Natural, Corrective, and Tunably Evaluated"
+      },
+      {
+        "id": "78_implementation_in_adversarial_systems_incentive",
+        "title": "2.7.8 Implementation in Adversarial Systems: Incentive-Compatible Governance"
+      },
+      {
+        "id": "8_tension_stress_and_natural_incentive_complementa",
+        "title": "2.8 Tension, Stress, and Natural Incentive: Complementary Dynamics in the Human Paradigm"
+      },
+      {
+        "id": "81_tension_informational_gap_signals",
+        "title": "2.8.1 Tension: Informational Gap Signals"
+      },
+      {
+        "id": "82_stress_energetic_and_neuromodulatory_load",
+        "title": "2.8.2 Stress: Energetic and Neuromodulatory Load"
+      },
+      {
+        "id": "83_natural_incentive_intrinsic_motivational_attrac",
+        "title": "2.8.3 Natural Incentive: Intrinsic Motivational Attractors"
+      },
+      {
+        "id": "84_comparative_dynamics",
+        "title": "2.8.4 Comparative Dynamics"
+      },
+      {
+        "id": "85_integrative_implications",
+        "title": "2.8.5 Integrative Implications"
+      },
+      {
+        "id": "9_tension_stress_and_natural_incentive_as_inherent",
+        "title": "2.9 Tension, Stress, and Natural Incentive as Inherent Human Forces"
+      },
+      {
+        "id": "91_tension",
+        "title": "2.9.1 Tension"
+      },
+      {
+        "id": "92_stress",
+        "title": "2.9.2 Stress"
+      },
+      {
+        "id": "93_natural_incentive",
+        "title": "2.9.3 Natural Incentive"
+      },
+      {
+        "id": "94_comparative_dynamics",
+        "title": "2.9.4 Comparative Dynamics"
+      },
+      {
+        "id": "95_summary",
+        "title": "2.9.5 Summary"
+      },
+      {
+        "id": "10_polycentric_scaling_cell-first_networked_scaffo",
+        "title": "2.10 Polycentric Scaling: Cell-First, Networked, Scaffolded"
+      },
+      {
+        "id": "11_tempo_of_change_nice_short-circuiting_and_the_s",
+        "title": "2.11 Tempo of Change, NiCE Short-Circuiting, and the Search for a Sweet Zone"
+      },
+      {
+        "id": "111_sudden_change_overload_as_catalyst",
+        "title": "2.11.1 Sudden Change: Overload as Catalyst"
+      },
+      {
+        "id": "112_gradual_change_biases",
+        "title": "2.11.2 Gradual Change Biases:"
+      },
+      {
+        "id": "113_the_overload_paradox",
+        "title": "2.11.3 The Overload Paradox"
+      },
+      {
+        "id": "114_toward_a_rational_sweet_zone",
+        "title": "2.11.4 Toward a Rational Sweet Zone"
+      },
+      {
+        "id": "115_implications_for_systems_engineering",
+        "title": "2.11.5 Implications for Systems Engineering"
+      },
+      {
+        "id": "116_operationalization",
+        "title": "2.11.6 Operationalization:"
+      },
+      {
+        "id": "117_summary",
+        "title": "2.11.7 Summary:"
+      },
+      {
+        "id": "what_is_our_science",
+        "title": "3. What Is Our S.C.I.E.N.C.E.?"
+      },
+      {
+        "id": "1_the_question_itself",
+        "title": "3.1. The Question Itself"
+      },
+      {
+        "id": "2_a_layered_diagnostic_architecture",
+        "title": "3.2. A Layered Diagnostic Architecture"
+      },
+      {
+        "id": "21_systemic_constitution__what_are_we_made_of",
+        "title": "3.2.1 Systemic Constitution \u2013 What are we made of?"
+      },
+      {
+        "id": "22_systemic_mechanics__how_do_components_interact",
+        "title": "3.2.2 Systemic Mechanics \u2013 How do components interact?"
+      },
+      {
+        "id": "24_systemic_irrationalization__where_and_why_do_sy",
+        "title": "3.2.4 Systemic Irrationalization \u2013 Where and why do systems drift?"
+      },
+      {
+        "id": "25_systemic_prophylaxis__how_can_natural_failures_",
+        "title": "3.2.5 Systemic Prophylaxis \u2013 How can natural failures be prevented?"
+      },
+      {
+        "id": "3_why_the_question_matters",
+        "title": "3.3. Why the Question Matters"
+      },
+      {
+        "id": "31_from_diagnosis_to_constraint_frameworks",
+        "title": "3.3.1 From Diagnosis to Constraint Frameworks"
+      },
+      {
+        "id": "32_why_a_nice_diagnosis_is_necessary",
+        "title": "3.3.2 Why a NiCE Diagnosis Is Necessary"
+      },
+      {
+        "id": "33_toward_a_quantified_human_ecology",
+        "title": "3.3.3 Toward a Quantified Human Ecology"
+      },
+      {
+        "id": "34_epilogue_from_observation_to_stewardship",
+        "title": "3.3.4 Epilogue: From Observation to Stewardship"
+      },
+      {
+        "id": "5_whats_missing_and_why_it_matters",
+        "title": "3.5 What\u2019s missing (and why it matters)"
+      },
+      {
+        "id": "6_connecting_framework_to_constraints",
+        "title": "3.6 Connecting framework to constraints"
+      },
+      {
+        "id": "7_from_inventory_to_constraint_why_the_question_of",
+        "title": "3.7 From Inventory to Constraint: Why the Question of What Is Missing Matters"
+      },
+      {
+        "id": "71_the_threshold_between_understanding_and_control",
+        "title": "3.7.1 The Threshold Between Understanding and Control"
+      },
+      {
+        "id": "72_why_systems_drift_the_problem_of_omission",
+        "title": "3.7.2 Why Systems Drift: The Problem of Omission"
+      },
+      {
+        "id": "73_from_missing_pieces_to_constraint_fields",
+        "title": "3.7.3 From Missing Pieces to Constraint Fields"
+      },
+      {
+        "id": "74_the_logic_of_closure_completeness_without_redun",
+        "title": "3.7.4 The Logic of Closure: Completeness Without Redundancy"
+      },
+      {
+        "id": "75_why_it_matters",
+        "title": "3.7.5 Why It Matters"
+      },
+      {
+        "id": "8_exploring_the_constraint_frameworks",
+        "title": "3.8 Exploring the Constraint Frameworks"
+      },
+      {
+        "id": "81_forces_the_fundamental_vectors_acting_on_scienc",
+        "title": "3.8.1 FORCES: The Fundamental Vectors Acting on S.C.I.E.N.C.E. Systems"
+      },
+      {
+        "id": "82_gravity_the_field_of_systemic_inevitability",
+        "title": "3.8.2 GRAVITY The Field of Systemic Inevitability"
+      },
+      {
+        "id": "83_anchors__the_stabilizing_vectors_of_reality",
+        "title": "3.8.3 ANCHORS \u2013 The Stabilizing Vectors of Reality"
+      },
+      {
+        "id": "84_primesthe_fundamental_constraints_of_reality",
+        "title": "3.8.4 PRIMES\u2014The Fundamental Constraints of Reality"
+      },
+      {
+        "id": "85_justice_overlay_j_distribution_due_process_and_",
+        "title": "3.8.5 Justice Overlay (J): Distribution, due process, and intergenerational stakes"
+      },
+      {
+        "id": "86_embodiment_tag_b_where_policy_hits_bodies",
+        "title": "3.8.6 Embodiment Tag (B): Where policy hits bodies"
+      },
+      {
+        "id": "86_methods_rail_m_identification_transparency_and_",
+        "title": "3.8.6 Methods Rail (M): Identification, transparency, and learning-by-doing"
+      },
+      {
+        "id": "symbolic_incentives_and_monetary_drift",
+        "title": "4. Symbolic Incentives and Monetary Drift"
+      },
+      {
+        "id": "1_rationale",
+        "title": "4.1 Rationale:"
+      },
+      {
+        "id": "2_emergent_patterns",
+        "title": "4.2 Emergent Patterns:"
+      },
+      {
+        "id": "21_recurrent_warnings_against_excessive_attachment",
+        "title": "4.2.1. Recurrent Warnings Against Excessive Attachment to Wealth"
+      },
+      {
+        "id": "22_money_as_distorter_of_human_character_and_socia",
+        "title": "4.2.2. Money as Distorter of Human Character and Social Order"
+      },
+      {
+        "id": "23_separation_of_symbol_from_substance",
+        "title": "4.2.3. Separation of Symbol from Substance"
+      },
+      {
+        "id": "24_cross-cultural_convergence_and_anthropological_",
+        "title": "4.2.4. Cross-Cultural Convergence and Anthropological Significance"
+      },
+      {
+        "id": "25_continuity_with_empirical_inquiry",
+        "title": "4.2.5. Continuity with Empirical Inquiry"
+      },
+      {
+        "id": "3\u2003nice_reading",
+        "title": "4.3\u2003NiCE reading"
+      },
+      {
+        "id": "31_nature_n",
+        "title": "4.3.1 Nature (N)"
+      },
+      {
+        "id": "32_consciousness_c",
+        "title": "4.3.2 Consciousness (C)"
+      },
+      {
+        "id": "33_environment_e",
+        "title": "4.3.3 Environment (E)"
+      },
+      {
+        "id": "4_case_study_examples",
+        "title": "4.4 Case Study Examples:"
+      },
+      {
+        "id": "41_derivatives_and_the_2008_financial_crisis",
+        "title": "4.4.1 Derivatives and the 2008 Financial Crisis"
+      },
+      {
+        "id": "42_cryptocurrencies_and_speculative_tokens",
+        "title": "4.4.2 Cryptocurrencies and Speculative Tokens"
+      },
+      {
+        "id": "43_high-frequency_trading_hft",
+        "title": "4.4.3 High-Frequency Trading (HFT)"
+      },
+      {
+        "id": "44_ecological_disconnect",
+        "title": "4.4.4 Ecological Disconnect"
+      },
+      {
+        "id": "5_conceptual_framing",
+        "title": "4.5 Conceptual Framing"
+      },
+      {
+        "id": "51_electronic_market_microstructure_extracting_ren",
+        "title": "4.5.1 Electronic market microstructure: extracting rents from speed and order flow"
+      },
+      {
+        "id": "52_derivatives_engineering_creatingrepackaging_exp",
+        "title": "4.5.2 Derivatives engineering: creating/repackaging exposures untethered to new assets"
+      },
+      {
+        "id": "53_financialization_of_commodities_prices_co-movin",
+        "title": "4.5.3 Financialization of commodities: prices co-moving with index flows"
+      },
+      {
+        "id": "54_crypto__defi_returns_from_token_mechanics_lever",
+        "title": "4.5.4 Crypto & DeFi: returns from token mechanics, leverage, and flows"
+      },
+      {
+        "id": "55_systemic_context_non-bank_leverage_as_amplifier",
+        "title": "4.5.5 Systemic context: non-bank leverage as amplifier"
+      },
+      {
+        "id": "56_conceptual_framing_use-value_vs_exchange-value",
+        "title": "4.5.6 Conceptual Framing: Use-Value vs. Exchange-Value"
+      },
+      {
+        "id": "6_causal_pathways_of_symbolic_drift",
+        "title": "4.6 Causal Pathways of Symbolic Drift"
+      },
+      {
+        "id": "61_monetary_expansion__credit_and_liquidity_increa",
+        "title": "4.6.1 Monetary expansion \u2192 credit and liquidity increase perceived abundance."
+      },
+      {
+        "id": "62_mispricing_of_ecological_scarcity__resource_dep",
+        "title": "4.6.2 Mispricing of ecological scarcity \u2192 resource depletion signals are masked."
+      },
+      {
+        "id": "63_behavioral_response__consumption_reproduction_a",
+        "title": "4.6.3 Behavioral response \u2192 consumption, reproduction, and investment overshoot natural limits."
+      },
+      {
+        "id": "64_environmental_degradation__soils_water_biodiver",
+        "title": "4.6.4 Environmental degradation \u2192 soils, water, biodiversity, and climate systems decline."
+      },
+      {
+        "id": "65_recursive_loop__environmental_damage_increases_",
+        "title": "4.6.5 Recursive loop \u2192 environmental damage increases reliance on monetary expansion to sustain appearances of prosperity."
+      },
+      {
+        "id": "61_the_tempo_paradox",
+        "title": "4.6.1 The Tempo Paradox"
+      },
+      {
+        "id": "62_twelve_mechanisms_of_incentive_misalignment_evi",
+        "title": "4.6.2 Twelve Mechanisms of Incentive Misalignment (evidence summaries)"
+      },
+      {
+        "id": "63_ten_drifted_pharmaceutical_incentives",
+        "title": "4.6.3 Ten Drifted Pharmaceutical Incentives"
+      },
+      {
+        "id": "7_money_in_maslows_hierarchy",
+        "title": "4.7 Money in Maslow\u2019s hierarchy?"
+      },
+      {
+        "id": "71_nice_analysis",
+        "title": "4.7.1 NiCE Analysis"
+      },
+      {
+        "id": "72_is_this_irrational",
+        "title": "4.7.2 Is this \u201cirrational\u201d?"
+      },
+      {
+        "id": "73_physiological_needs_food_sleep_shelter__money_a",
+        "title": "4.7.3 Physiological needs (food, sleep, shelter) \u2192 Money as constitutive access"
+      },
+      {
+        "id": "74_safety_needs_security_stability__money_as_buffe",
+        "title": "4.7.4 Safety needs (security, stability) \u2192 Money as buffer & resource"
+      },
+      {
+        "id": "75_belonging_love_affiliation",
+        "title": "4.7.5 Belonging (love, affiliation)"
+      },
+      {
+        "id": "76_esteem_competence_recognition__money_as_status_",
+        "title": "4.7.6 Esteem (competence, recognition) \u2192 Money as status signal, not essence"
+      },
+      {
+        "id": "77_self-actualization__growth__money_as_enabler_wi",
+        "title": "4.7.7 Self-actualization / growth \u2192 Money as enabler, with diminishing returns"
+      },
+      {
+        "id": "78_synthesis__guidance",
+        "title": "4.7.8 Synthesis & guidance"
+      },
+      {
+        "id": "8_monetary_signals_demographic_dynamics_and_ecolog",
+        "title": "4.8 Monetary Signals, Demographic Dynamics, and Ecological Overshoot"
+      },
+      {
+        "id": "81_start_from_ecological_reality_not_symbols",
+        "title": "4.8.1 Start from ecological reality, not symbols."
+      },
+      {
+        "id": "82_demography_mattersbut_mostly_through_momentum_a",
+        "title": "4.8.2 Demography matters\u2014but mostly through momentum and interaction with affluence/technology."
+      },
+      {
+        "id": "83_the_distributional_engine_of_impact_is_affluenc",
+        "title": "4.8.3 The distributional engine of impact is affluence-linked consumption."
+      },
+      {
+        "id": "84_align_money_with_matter_price_externalities_ind",
+        "title": "4.8.4 Align money with matter: price externalities, index to resources, and avoid lock-in."
+      },
+      {
+        "id": "85_family_policy_design_for_household_security_wit",
+        "title": "4.8.5 Family policy: design for household security without increasing throughput."
+      },
+      {
+        "id": "86_nice_framed_systems_design_implications",
+        "title": "4.8.6 NiCE Framed Systems Design Implications"
+      },
+      {
+        "id": "87_evaluation_and_learning",
+        "title": "4.8.7 Evaluation and Learning:"
+      },
+      {
+        "id": "9_neoliberal_incentives_narcissistic_selection_and",
+        "title": "4.9 Neoliberal Incentives, Narcissistic Selection, and a NiCE-Aligned Alternative"
+      },
+      {
+        "id": "91_where_the_mechanics_come_from__neoliberalism",
+        "title": "4.9.1 Where the mechanics come from \u2013 Neoliberalism"
+      },
+      {
+        "id": "92_how_neoliberal_reason_reshapes_subjectivity_and",
+        "title": "4.9.2 How neoliberal reason reshapes subjectivity (and why narcissism pays)"
+      },
+      {
+        "id": "93_consequences_versus_rewards_a_sober_balance",
+        "title": "4.9.3 Consequences versus rewards (a sober balance)"
+      },
+      {
+        "id": "94_why_these_mechanics_select_for_narcissism",
+        "title": "4.9.4 Why these mechanics select for narcissism"
+      },
+      {
+        "id": "95_rewarded_narcissism_under_neoliberal_managerial",
+        "title": "4.9.5 Rewarded Narcissism Under Neoliberal Managerialism"
+      },
+      {
+        "id": "95_synthesis_why_selection_tilts_toward_narcissism",
+        "title": "4.9.5 Synthesis: Why selection tilts toward narcissism"
+      },
+      {
+        "id": "96_a_nice-aligned_alternative_rational_testable_in",
+        "title": "4.9.6 A NiCE-aligned alternative (rational, testable, incentive-compatible)"
+      },
+      {
+        "id": "96_policy_exemplar_translation_to_practice",
+        "title": "4.9.6 Policy exemplar (translation to practice)"
+      },
+      {
+        "id": "97_comparative_claim_nice_vs_neoliberal_selection",
+        "title": "4.9.7 Comparative claim (NiCE vs. neoliberal selection)"
+      },
+      {
+        "id": "10_the_attention_economy_vs_essential_work_a_nice_",
+        "title": "4.10 The \u201cattention economy\u201d vs. essential work: A NiCE analysis of trends, mechanisms, and consequences"
+      },
+      {
+        "id": "101_framing_question",
+        "title": "4.10.1 Framing question"
+      },
+      {
+        "id": "102_what_we_know_empirically_the_supply_side_of_es",
+        "title": "4.10.2 What we know empirically (the supply side of essential work)"
+      },
+      {
+        "id": "103_what_we_know_about_the_creatorattention_econom",
+        "title": "4.10.3 What we know about the creator/attention economy"
+      },
+      {
+        "id": "104_does_the_creator_economy_cause_essential-secto",
+        "title": "4.10.4 Does the creator economy cause essential-sector shortfalls?"
+      },
+      {
+        "id": "105_why_the_visibility_premium_looks_rational_but_",
+        "title": "4.10.5 Why the \u201cvisibility premium\u201d looks rational (but isn\u2019t): a consolidated NiCE analysis \u2013 Diagnosis (NiCE): how attention markets skew value"
+      },
+      {
+        "id": "106_forward-looking_implications_and_predictions",
+        "title": "4.10.6 Forward-looking implications and predictions"
+      },
+      {
+        "id": "107_design_levers_consistent_with_nice_rational_te",
+        "title": "4.10.7 Design levers consistent with NiCE (rational, testable, incentive-compatible)"
+      },
+      {
+        "id": "108_operationalization_what_re-specifying_payoffs_",
+        "title": "4.10.8 Operationalization: what \u201cre-specifying payoffs\u201d looks like"
+      },
+      {
+        "id": "11_money_as_self-referential_signal",
+        "title": "4.11 Money as self-referential signal:"
+      },
+      {
+        "id": "111_how_money_colonizes_attention_and_motivation_c",
+        "title": "4.11.1 How money colonizes attention and motivation (C)"
+      },
+      {
+        "id": "112_when_prices_detach_from_biophysical_reality_n",
+        "title": "4.11.2 When prices detach from biophysical reality (N)"
+      },
+      {
+        "id": "113_rules_that_make_drift_look_rational_e",
+        "title": "4.11.3 Rules that make drift look \u201crational\u201d (E)"
+      },
+      {
+        "id": "12_are_we_capable_of_understanding_the_what_why_an",
+        "title": "4.12 Are we capable of understanding the \u201cwhat, why, and how\u201d?"
+      },
+      {
+        "id": "121_nice-aligned_design_practical_testable_incenti",
+        "title": "4.12.1 NiCE-aligned design (practical, testable, incentive-compatible)"
+      },
+      {
+        "id": "122_the_irrationalization_cascade_how_money_rewrit",
+        "title": "4.12.2 The Irrationalization Cascade: How Money Rewrites N\u2013C\u2013E"
+      },
+      {
+        "id": "13_money_as_a_trojan_horse_a_nice_analysis",
+        "title": "4.13 Money as a \u201cTrojan Horse\u201d? A NiCE Analysis"
+      },
+      {
+        "id": "131_mechanisms__evidence",
+        "title": "4.13.1 Mechanisms & evidence"
+      },
+      {
+        "id": "132_nice_synthesis_how_the_trojan_horse_works_and_",
+        "title": "4.13.2 NiCE synthesis: how the Trojan Horse works (and how to defang it)"
+      },
+      {
+        "id": "133_cultural_corroboration_contemporary__historica",
+        "title": "4.13.3 Cultural corroboration (contemporary & historical)"
+      },
+      {
+        "id": "134_testable_predictions__study_designs_falsifiabl",
+        "title": "4.13.4 Testable predictions & study designs (falsifiable)"
+      },
+      {
+        "id": "135_design_principles_nice-aligned_correctives",
+        "title": "4.13.5 Design principles (NiCE-aligned correctives)"
+      },
+      {
+        "id": "136_summary",
+        "title": "4.13.6 Summary"
+      },
+      {
+        "id": "14_nice_diagnosis_of_systemic_irrationalization",
+        "title": "4.14 NiCE diagnosis of systemic irrationalization"
+      },
+      {
+        "id": "141_consciousness_c_why_symbolic_money_can_oversha",
+        "title": "4.14.1 Consciousness (C): why symbolic money can overshadow material reality"
+      },
+      {
+        "id": "142_nature_n_when_prices_detach_from_biophysical_r",
+        "title": "4.14.2 Nature (N): when prices detach from biophysical reality"
+      },
+      {
+        "id": "143_environmentinstitutions_e_selection_effects_an",
+        "title": "4.14.3 Environment/Institutions (E): selection effects and rule-driven drift"
+      },
+      {
+        "id": "144_synthesis_interdependence_and_feedbacks_n__c__",
+        "title": "4.14.4 Synthesis: Interdependence and feedbacks (N \u2194 C \u2194 E)"
+      },
+      {
+        "id": "145_what_a_rational_system_requires",
+        "title": "4.14.5 What a rational system requires"
+      },
+      {
+        "id": "conceptual_clarifications",
+        "title": "5. Conceptual Clarifications"
+      },
+      {
+        "id": "1_levels_and_causation_constitutive_causal_and_ena",
+        "title": "5.1 Levels and Causation: Constitutive, Causal, and Enabling Relations"
+      },
+      {
+        "id": "11_defining_relationship_types",
+        "title": "5.1.1 Defining Relationship Types"
+      },
+      {
+        "id": "12_case_study_literacy_and_consciousness",
+        "title": "5.1.2 Case Study: Literacy and Consciousness"
+      },
+      {
+        "id": "13_clarifying_downward_causation",
+        "title": "5.1.3 Clarifying \"Downward Causation\""
+      },
+      {
+        "id": "2_consciousness_theories_a_level-pluralist_approac",
+        "title": "5.2 Consciousness Theories: A Level-Pluralist Approach"
+      },
+      {
+        "id": "21_disentangling_theories_by_domain",
+        "title": "5.2.1 Disentangling Theories by Domain"
+      },
+      {
+        "id": "22_integration_without_reduction",
+        "title": "5.2.2 Integration Without Reduction"
+      },
+      {
+        "id": "23_implications_for_the_hard_problem_bridge_to_met",
+        "title": "5.2.3 Implications for the Hard Problem (bridge to methods)"
+      },
+      {
+        "id": "3_operationalizing_key_concepts",
+        "title": "5.3 Operationalizing Key Concepts"
+      },
+      {
+        "id": "31_beings_in_tension_measurable_axes",
+        "title": "5.3.1 Beings in Tension: Measurable Axes"
+      },
+      {
+        "id": "32_the_layered_self_from_minimal_to_narrative",
+        "title": "5.3.2 The Layered Self: From Minimal to Narrative"
+      },
+      {
+        "id": "causal_models_and_empirical_framework",
+        "title": "6. Causal Models and Empirical Framework"
+      },
+      {
+        "id": "1_multi-level_causal_graph_dynamic_interactions",
+        "title": "6.1 Multi-Level Causal Graph: Dynamic Interactions"
+      },
+      {
+        "id": "11_nodes_and_edges",
+        "title": "6.1.1 Nodes and Edges"
+      },
+      {
+        "id": "12_temporal_dynamics_of_the_nce_triad",
+        "title": "6.1.2 Temporal Dynamics of the N\u2013C\u2013E Triad"
+      },
+      {
+        "id": "13_cautions_and_scope_conditions",
+        "title": "6.1.3 Cautions and scope conditions"
+      },
+      {
+        "id": "14_how_this_section_connects_to_the_energetic_prio",
+        "title": "6.1.4 How this section connects to the energetic prior"
+      },
+      {
+        "id": "2_mathematical_formalization_from_metaphor_to_mode",
+        "title": "6.2 Mathematical Formalization: From Metaphor to Model"
+      },
+      {
+        "id": "21_state-space_models_for_skill_acquisition",
+        "title": "6.2.1 State-Space Models for Skill Acquisition"
+      },
+      {
+        "id": "22_hierarchical_bayesian_models_for_cultural_learn",
+        "title": "6.2.2 Hierarchical Bayesian Models for Cultural Learning"
+      },
+      {
+        "id": "23_active_inference_for_intentional_action",
+        "title": "6.2.3 Active Inference for Intentional Action"
+      },
+      {
+        "id": "3_parameter_estimation_and_identifiability",
+        "title": "6.3 Parameter Estimation and Identifiability"
+      },
+      {
+        "id": "31_data_structure_and_parameters",
+        "title": "6.3.1 Data Structure and Parameters"
+      },
+      {
+        "id": "32_mathematical_framework",
+        "title": "6.3.2 Mathematical Framework"
+      },
+      {
+        "id": "33_identifiability_strategy",
+        "title": "6.3.3 Identifiability Strategy"
+      },
+      {
+        "id": "34_validation_protocol",
+        "title": "6.3.4 Validation Protocol"
+      },
+      {
+        "id": "35_deliverables",
+        "title": "6.3.5 Deliverables"
+      },
+      {
+        "id": "34_energetic_constraints_in_skill_acquisition",
+        "title": "6.3.4 Energetic Constraints in Skill Acquisition"
+      },
+      {
+        "id": "35_illustrative_simulation_cost-sensitive_policy_s",
+        "title": "6.3.5 Illustrative Simulation: Cost-Sensitive Policy Selection"
+      },
+      {
+        "id": "4_measurement_strategy_operationalizing_the_triad",
+        "title": "6.4 Measurement Strategy: Operationalizing the Triad"
+      },
+      {
+        "id": "41_measuring_nature_n_evolved_capacities_and_const",
+        "title": "6.4.1 Measuring Nature (N): Evolved Capacities and Constraints"
+      },
+      {
+        "id": "42_measuring_consciousness_c_lived_experience",
+        "title": "6.4.2 Measuring Consciousness (C): Lived Experience"
+      },
+      {
+        "id": "43_measuring_environment_e_constitutive_context",
+        "title": "6.4.3 Measuring Environment (E): Constitutive Context"
+      },
+      {
+        "id": "44_measuring_interactions_integrated_assessment",
+        "title": "6.4.4 Measuring Interactions: Integrated Assessment"
+      },
+      {
+        "id": "empirical_predictions_and_research_program",
+        "title": "7. Empirical Predictions and Research Program"
+      },
+      {
+        "id": "1_intervention_symmetry_multi-lever_approaches",
+        "title": "7.1 Intervention Symmetry: Multi-lever Approaches"
+      },
+      {
+        "id": "11_experimental_design",
+        "title": "7.1.1 Experimental Design:"
+      },
+      {
+        "id": "12_expected_outcomes",
+        "title": "7.1.2 Expected Outcomes:"
+      },
+      {
+        "id": "13_methodological_considerations",
+        "title": "7.1.3 Methodological Considerations:"
+      },
+      {
+        "id": "14_triadic_falsifier_rule",
+        "title": "7.1.4 Triadic falsifier rule:"
+      },
+      {
+        "id": "2_developmental_specificity_sensitive_periods",
+        "title": "7.2 Developmental Specificity: Sensitive Periods"
+      },
+      {
+        "id": "3_symbolic_mediation_representational_tools",
+        "title": "7.3 Symbolic Mediation: Representational Tools"
+      },
+      {
+        "id": "4_plasticity_bounds_constraint_priors",
+        "title": "7.4 Plasticity Bounds: Constraint Priors"
+      },
+      {
+        "id": "5_cultural_priors_and_metacognitive_bias",
+        "title": "7.5 Cultural Priors and Metacognitive Bias"
+      },
+      {
+        "id": "6_rituals_as_control_policies",
+        "title": "7.6 Rituals as Control Policies"
+      },
+      {
+        "id": "7_measurement_glossary",
+        "title": "7.7 Measurement Glossary"
+      },
+      {
+        "id": "ethical_and_normative_dimensions",
+        "title": "8. Ethical and Normative Dimensions"
+      },
+      {
+        "id": "1_responsibility_in_a_mutually_constituted_system",
+        "title": "8.1 Responsibility in a Mutually Constituted System"
+      },
+      {
+        "id": "2_respecting_plasticity_bounds_and_energy_costs",
+        "title": "8.2 Respecting Plasticity Bounds and Energy Costs"
+      },
+      {
+        "id": "3_equity_in_environmental_scaffolds",
+        "title": "8.3 Equity in Environmental Scaffolds"
+      },
+      {
+        "id": "4_transparency_in_shaping_representational_ecologi",
+        "title": "8.4 Transparency in Shaping Representational Ecologies"
+      },
+      {
+        "id": "5_balancing_stability_and_flexibility",
+        "title": "8.5 Balancing Stability and Flexibility"
+      },
+      {
+        "id": "6_governance_safeguards_and_research_ethics",
+        "title": "8.6 Governance, Safeguards, and Research Ethics"
+      },
+      {
+        "id": "7_nice__digital_panopticon_comparative_ethics_of_v",
+        "title": "8.7 NiCE \u00d7 Digital Panopticon: Comparative Ethics of Visibility"
+      },
+      {
+        "id": "71_conceptual_bridge",
+        "title": "8.7.1 Conceptual bridge"
+      },
+      {
+        "id": "72_chinauswest_contrasts_cultural_acceptance_mecha",
+        "title": "8.7.2 China\u2013US/West contrasts: cultural acceptance, mechanisms, outcomes"
+      },
+      {
+        "id": "73_where_the_harms_and_benefits_concentrate_nice_a",
+        "title": "8.7.3 Where the harms and benefits concentrate (NiCE analysis)"
+      },
+      {
+        "id": "74_design_and_governance_patterns_nicealigned",
+        "title": "8.7.4 Design and governance patterns (NiCE\u2011aligned)"
+      },
+      {
+        "id": "75_equity_and_environmental_scaffolds",
+        "title": "8.7.5 Equity and environmental scaffolds"
+      },
+      {
+        "id": "76_research_and_evaluation_agenda",
+        "title": "8.7.6 Research and evaluation agenda"
+      },
+      {
+        "id": "77_reconciling_happinesssecurity_with_autonomyfree",
+        "title": "8.7.7 Reconciling happiness/security with autonomy/freedom"
+      },
+      {
+        "id": "8_what_would_a_rational_system_look_like_nice",
+        "title": "8.8 What would a rational system look like (NiCE)?"
+      },
+      {
+        "id": "81_nature_n_respect_hard_constraints",
+        "title": "8.8.1 Nature (N): respect hard constraints"
+      },
+      {
+        "id": "82_consciousness_c_de-glamorize_overconsumption_cu",
+        "title": "8.8.2 Consciousness (C): de-glamorize overconsumption; cultivate sufficiency"
+      },
+      {
+        "id": "83_environment_e_redesign_the_incentive_architectu",
+        "title": "8.8.3 Environment (E): redesign the incentive architecture"
+      },
+      {
+        "id": "84_how_nice_diagnoses_the_rationalized_bubble_prob",
+        "title": "8.8.4 How NiCE diagnoses the \u201crationalized bubble\u201d problem\u2014honestly"
+      },
+      {
+        "id": "85_considering_a_short_defendable_universal_rule-s",
+        "title": "8.8.5 Considering a short, defendable universal rule-set"
+      },
+      {
+        "id": "9_when_is_profit_inor_antithetical_toour_best_inte",
+        "title": "8.9 When is \u201cprofit\u201d in\u2014or antithetical to\u2014our best interest? A NiCE reading"
+      },
+      {
+        "id": "91_profit_aligned_with_best_interest",
+        "title": "8.9.1 Profit aligned with best interest"
+      },
+      {
+        "id": "92_profit_antithetical_to_best_interest",
+        "title": "8.9.2 Profit antithetical to best interest"
+      },
+      {
+        "id": "93_the_fairness_trap_c_why_whatever_i_can_live_wit",
+        "title": "8.9.3 The fairness trap (C): why \u201cwhatever I can live with\u201d fails"
+      },
+      {
+        "id": "94_a_fair_proposed_improved_way_to_judge_the_nice_",
+        "title": "8.9.4 A \u2018fair\u2019 (proposed improved) way to judge: the NiCE Profit Test (summary)"
+      },
+      {
+        "id": "95_where_nice_improves_on_ideology_swaps",
+        "title": "8.9.5 Where NiCE improves on \u201cideology swaps\u201d"
+      },
+      {
+        "id": "96_the_nice_profit_test_v10__field_checklist",
+        "title": "8.9.6 The NiCE Profit Test v1.0 \u2014 field checklist"
+      },
+      {
+        "id": "conclusion_towards_a_unified_science_of_the_human",
+        "title": "9. Conclusion: Towards a Unified Science of the Human"
+      },
+      {
+        "id": "appendix_a_methods",
+        "title": "Appendix A. Methods"
+      },
+      {
+        "id": "appendix_b_empirical_supports_and_challenges_for_t",
+        "title": "Appendix B. Empirical Supports and Challenges for the Human Paradigm Framework"
+      },
+      {
+        "id": "appendix_c__nice_study_kit_measurement_program_for",
+        "title": "Appendix C.  NiCE Study Kit: Measurement Program for the Human Paradigm (2025) Study Kit for Collaborators"
+      },
+      {
+        "id": "appendix_d",
+        "title": "Appendix D:"
+      },
+      {
+        "id": "appendix_e_diagnostic_and_corrective_logic_in_the_",
+        "title": "Appendix E: Diagnostic and Corrective Logic in the Human Paradigm"
+      },
+      {
+        "id": "references",
+        "title": "References"
+      }
+    ]
+  },
+  "advanced_analysis": {
+    "title": "Intellectual Progression and Philosophical Development",
+    "subtitle": "A Comprehensive Advanced Analytical Treatment",
+    "author": "R.D. Kitcey",
+    "year": "2026",
+    "version": "v0.71",
+    "pages": 218,
+    "sections": [
+      {
+        "id": "introduction",
+        "title": "Introduction"
+      }
+    ]
+  },
+  "human_essence": {
+    "title": "The Human Essence",
+    "subtitle": "An AI Perspective on Human Nature",
+    "author": "R. Kitcey & Manus AI",
+    "year": "2024",
+    "version": "v0.9",
+    "pages": 153,
+    "sections": [
+      {
+        "id": "full_document",
+        "title": "Full Document"
+      }
+    ]
+  }
+}

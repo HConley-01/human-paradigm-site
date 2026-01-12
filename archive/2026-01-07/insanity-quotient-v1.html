@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insanity Quotient Calculator - NiCE Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f1a;
+      color: #e8edf4;
+    }
+    .serif { font-family: 'Fraunces', serif; }
+    .glass-card {
+      background: rgba(20, 30, 48, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100, 130, 180, 0.2);
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(100, 130, 180, 0.3);
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav class="glass-card border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="text-2xl font-bold serif">NiCE Framework</span>
+      </a>
+      <div class="flex gap-6">
+        <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+        <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/interactive-lab.html" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Interactive Lab
+      </a>
+      <h1 class="text-4xl md:text-5xl font-bold serif mb-4">Insanity Quotient Calculator</h1>
+      <p class="text-xl text-gray-400">
+        Quantify the degree of system-reality decoupling. Adjust the three fundamental parameters to 
+        calculate the Insanity Quotient and receive personalized intervention recommendations.
+      </p>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="glass-card p-8 rounded-lg mb-8">
+      <h2 class="text-2xl font-bold serif mb-6">Input Parameters</h2>
+      
+      <!-- Symbolic Leverage (L) -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Symbolic Leverage (L)</label>
+          <span id="leverageValue" class="text-blue-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="leverage" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Total non-financial debt / GDP (1-10 scale)</p>
+      </div>
+
+      <!-- Tempo Desynchronization (T) -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Tempo Desynchronization (T)</label>
+          <span id="tempoValue" class="text-emerald-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="tempo" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Speed/volume of financial trading relative to real economy (1-10 scale)</p>
+      </div>
+
+      <!-- Biophysical Feedback (B) -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Biophysical Feedback (B)</label>
+          <span id="biophysicalValue" class="text-green-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="biophysical" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Ecological tethering: biocapacity / footprint (1=overshoot, 10=surplus)</p>
+      </div>
+
+      <!-- Moral Constraint (M) -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Moral Constraint (M)</label>
+          <span id="moralValue" class="text-purple-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="moral" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Institutional integrity & equality (1=weak, 10=strong)</p>
+      </div>
+
+      <!-- Results Display -->
+      <div class="border-t border-gray-700 pt-6">
+        <h3 class="text-xl font-bold mb-4">Your Results</h3>
+        
+        <div class="grid md:grid-cols-3 gap-6 mb-6">
+          <div class="glass-card p-6 rounded text-center">
+            <div class="text-sm text-gray-400 mb-2">Insanity Quotient (IQₘ)</div>
+            <div id="iqScore" class="text-5xl font-bold font-mono mb-2">2.5</div>
+            <div id="iqCategory" class="inline-block px-3 py-1 rounded-full text-sm font-medium">
+              <!-- Category badge -->
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded">
+            <div class="text-sm text-gray-400 mb-2">Numerator (Abstraction)</div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>L × T</span>
+                <span id="numerator" class="font-mono">25.0</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-2">Higher = More symbolic drift</div>
+            </div>
+          </div>
+
+          <div class="glass-card p-6 rounded">
+            <div class="text-sm text-gray-400 mb-2">Denominator (Constraint)</div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>B × M</span>
+                <span id="denominator" class="font-mono">25.0</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-2">Higher = Stronger reality anchor</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interpretation -->
+        <div class="glass-card p-6 rounded mb-6">
+          <h4 class="font-semibold mb-3">Interpretation</h4>
+          <p id="interpretation" class="text-gray-300 text-sm leading-relaxed">
+            <!-- Interpretation will be inserted here -->
+          </p>
+        </div>
+
+        <!-- Interventions -->
+        <div id="interventions" class="grid md:grid-cols-2 gap-4">
+          <!-- Intervention cards will be inserted here -->
+        </div>
+      </div>
+
+      <!-- Export Button -->
+      <div class="mt-6 flex justify-end">
+        <button id="exportBtn" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          Export Report
+        </button>
+      </div>
+    </div>
+
+    <!-- Historical Benchmarks -->
+    <div class="glass-card p-8 rounded-lg">
+      <h2 class="text-2xl font-bold serif mb-4">Historical Benchmarks</h2>
+      <p class="text-gray-400 mb-6">
+        Compare your results with historical examples of varying degrees of system-reality decoupling.
+      </p>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="border-b border-gray-700">
+            <tr class="text-left">
+              <th class="pb-3 font-semibold">Case Study</th>
+              <th class="pb-3 font-semibold">Ratio</th>
+              <th class="pb-3 font-semibold">Lag</th>
+              <th class="pb-3 font-semibold">Sink</th>
+              <th class="pb-3 font-semibold">IQ</th>
+              <th class="pb-3 font-semibold">Category</th>
+            </tr>
+          </thead>
+          <tbody id="benchmarks" class="divide-y divide-gray-800">
+            <!-- Benchmark rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Methodology Documentation -->
+    <div class="glass-card p-8 rounded-lg mt-8">
+      <h2 class="text-2xl font-bold serif mb-4">Calculation Methodology</h2>
+      <p class="text-gray-400 mb-6">
+        Transparency is essential for reproducibility. Here's how the Insanity Quotient is calculated and how to measure each input factor.
+      </p>
+
+      <div class="space-y-6">
+        <!-- Formula -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">The Formula</h3>
+          <div class="glass-card p-4 rounded border border-blue-500/30 bg-blue-500/5">
+            <code class="text-blue-300 font-mono text-lg">IQ = (0.4 × Ratio) + (0.3 × Lag) + (0.3 × Sink)</code>
+          </div>
+          <p class="text-sm text-gray-400 mt-2">
+            Where each component is normalized to a 0-100 scale before applying weights.
+          </p>
+        </div>
+
+        <!-- Symbol-to-Substance Ratio -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Symbol-to-Substance Ratio (0.1-10 scale)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> How many layers of symbolic representation exist per unit of underlying material reality.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Financial Systems:</strong> Derivatives value ÷ Real asset value</p>
+            <p class="pl-4 text-gray-400">Example: 2008 had ~$600T derivatives / ~$70T real economy ≈ 8.5:1</p>
+            <p><strong>Organizations:</strong> Promises/claims ÷ Delivery capacity</p>
+            <p class="pl-4 text-gray-400">Example: Startup valuation / annual revenue ratio</p>
+            <p><strong>Individuals:</strong> Self-narrative claims ÷ Behavioral evidence</p>
+            <p class="pl-4 text-gray-400">Example: "I'm very productive" vs actual output metrics</p>
+          </div>
+        </div>
+
+        <!-- Temporal Lag -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Temporal Lag (0-60 months)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> Time between symbolic claim and material reality check.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Measurement Steps:</strong></p>
+            <ol class="list-decimal pl-6 space-y-1 text-gray-400">
+              <li>Identify when the symbolic claim became dominant (e.g., "housing never falls")</li>
+              <li>Identify when reality contradicted it (e.g., mass defaults, crash)</li>
+              <li>Calculate months between these events</li>
+            </ol>
+            <p class="mt-3"><strong>2008 Example:</strong></p>
+            <p class="pl-4 text-gray-400">Peak housing optimism: Mid-2006</p>
+            <p class="pl-4 text-gray-400">Market crash/reality check: Late 2007</p>
+            <p class="pl-4 text-gray-400">Lag: ~18 months</p>
+          </div>
+        </div>
+
+        <!-- Behavioral Sink Index -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Behavioral Sink Index (0-100 scale)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> Degree of pathological adaptation to complexity overload, based on Calhoun's behavioral sink research.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Four Components (0-25 points each):</strong></p>
+            <div class="pl-4 space-y-3 text-gray-400">
+              <div>
+                <p class="text-white">1. Status Obsession (0-25)</p>
+                <p>Compulsive displays of wealth, credentials, or dominance divorced from actual capability</p>
+              </div>
+              <div>
+                <p class="text-white">2. Reproductive Collapse (0-25)</p>
+                <p>Declining birth rates, delayed family formation, relationship dysfunction</p>
+              </div>
+              <div>
+                <p class="text-white">3. Social Withdrawal (0-25)</p>
+                <p>Atomization, loneliness, declining civic engagement, digital isolation</p>
+              </div>
+              <div>
+                <p class="text-white">4. Aggression/Violence (0-25)</p>
+                <p>Predatory behavior, fraud, regulatory capture, systemic exploitation</p>
+              </div>
+            </div>
+            <p class="mt-3"><strong>2008 Example Breakdown:</strong></p>
+            <p class="pl-4 text-gray-400">Status: 22/25 (McMansions, luxury displays)</p>
+            <p class="pl-4 text-gray-400">Reproductive: 15/25 (declining rates, delayed families)</p>
+            <p class="pl-4 text-gray-400">Withdrawal: 18/25 (declining civic bonds, atomization)</p>
+            <p class="pl-4 text-gray-400">Aggression: 20/25 (predatory lending, fraud, moral hazard)</p>
+            <p class="pl-4 text-white">Total: 75/100</p>
+          </div>
+        </div>
+
+        <!-- Limitations -->
+        <div class="border-t border-gray-700 pt-6">
+          <h3 class="text-xl font-semibold mb-3">Limitations & Uncertainty</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            These metrics involve judgment and estimation. Historical benchmarks should be treated as
+            illustrative examples, not precise measurements. Different analysts may arrive at different values
+            depending on data sources and interpretive frameworks. The IQ is a diagnostic tool for
+            pattern recognition, not a prediction algorithm. Use it to identify areas requiring deeper investigation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ratioSlider = document.getElementById('ratio');
+    const lagSlider = document.getElementById('lag');
+    const sinkSlider = document.getElementById('sink');
+    const ratioValue = document.getElementById('ratioValue');
+    const lagValue = document.getElementById('lagValue');
+    const sinkValue = document.getElementById('sinkValue');
+    const iqScore = document.getElementById('iqScore');
+    const iqCategory = document.getElementById('iqCategory');
+    const ratioContribution = document.getElementById('ratioContribution');
+    const lagContribution = document.getElementById('lagContribution');
+    const sinkContribution = document.getElementById('sinkContribution');
+    const riskIndicators = document.getElementById('riskIndicators');
+    const interpretationEl = document.getElementById('interpretation');
+    const interventionsEl = document.getElementById('interventions');
+    const exportBtn = document.getElementById('exportBtn');
+    const benchmarksEl = document.getElementById('benchmarks');
+
+    const historicalBenchmarks = [
+      { name: '2008 Financial Crisis', ratio: 8.5, lag: 18, sink: 75, iq: 65.5, category: 'Severe', description: 'Derivatives valuation vastly exceeded real economy; regulatory lag; widespread moral hazard. Ratio: Derivatives pyramid vs real assets. Lag: Peak to crash. Sink: Moral hazard, predatory lending, fraud.' },
+      { name: 'Social Media Echo Chambers (2020s)', ratio: 9.2, lag: 0.5, sink: 65, iq: 56.3, category: 'Severe', description: 'Viral narratives with minimal fact-checking; instant feedback loops; tribal polarization. Ratio: Engagement metrics vs substantive discourse. Lag: Near-instant virality. Sink: Addiction, outrage, withdrawal.' },
+      { name: 'Dot-com Bubble (1999)', ratio: 7.0, lag: 12, sink: 60, iq: 52.0, category: 'Severe', description: 'Market caps disconnected from revenues; delayed reality check; irrational exuberance. Ratio: Valuation vs earnings. Lag: Bubble inflation to crash. Sink: FOMO, status displays, burnout.' },
+      { name: 'Nordic Social Democracies (2010s)', ratio: 1.2, lag: 6, sink: 15, iq: 7.8, category: 'Grounded', description: 'Policy aligned with capacity; moderate lag for adjustment; low pathology. Ratio: Political promises vs delivery capacity. Lag: Policy to implementation. Sink: Minimal status obsession, healthy social bonds.' },
+      { name: 'Post-WWII Marshall Plan', ratio: 1.5, lag: 24, sink: 25, iq: 19.5, category: 'Mild', description: 'Ambitious vision with real investment; longer but deliberate lag; some inefficiencies. Ratio: Reconstruction promises vs actual aid. Lag: Planning to results. Sink: Some bureaucracy, generally functional.' },
+      { name: 'Effective Altruism Movement (pre-2022)', ratio: 2.5, lag: 3, sink: 30, iq: 20.5, category: 'Mild', description: 'Quantified impact claims; quick reality tests via RCTs; some groupthink tendencies. Ratio: Impact projections vs measured outcomes. Lag: Intervention to assessment. Sink: Some elitism, mostly grounded.' }
+    ];
+
+    function calculateIQ(ratio, lag, sink) {
+      const normalizedRatio = (ratio / 10) * 100;
+      const normalizedLag = (lag / 60) * 100;
+      
+      const ratioWeight = 0.40;
+      const lagWeight = 0.30;
+      const sinkWeight = 0.30;
+      
+      const iq = (normalizedRatio * ratioWeight) + (normalizedLag * lagWeight) + (sink * sinkWeight);
+      
+      return {
+        total: parseFloat(iq.toFixed(1)),
+        ratioC: parseFloat((normalizedRatio * ratioWeight).toFixed(1)),
+        lagC: parseFloat((normalizedLag * lagWeight).toFixed(1)),
+        sinkC: parseFloat((sink * sinkWeight).toFixed(1))
+      };
+    }
+
+    function getCategory(iq) {
+      if (iq < 10) return { name: 'Grounded', color: 'bg-emerald-500/20 text-emerald-300', description: 'Strong alignment between symbols and substance. Minimal pathology.' };
+      if (iq < 25) return { name: 'Mild', color: 'bg-blue-500/20 text-blue-300', description: 'Slight decoupling. Normal operational friction.' };
+      if (iq < 45) return { name: 'Moderate', color: 'bg-yellow-500/20 text-yellow-300', description: 'Noticeable gaps. Monitor for drift and institute feedback loops.' };
+      if (iq < 65) return { name: 'Severe', color: 'bg-orange-500/20 text-orange-300', description: 'Dangerous decoupling. Urgent intervention required.' };
+      return { name: 'Extreme', color: 'bg-red-500/20 text-red-300', description: 'Critical system fragility. Collapse risk is high.' };
+    }
+
+    function getRiskIndicators(ratio, lag, sink) {
+      const indicators = [];
+      
+      if (ratio > 5) indicators.push('⚠️ High symbolic inflation');
+      if (lag > 12) indicators.push('⚠️ Extended lag period');
+      if (sink > 50) indicators.push('⚠️ Elevated pathology');
+      if (ratio < 2 && lag < 6 && sink < 30) indicators.push('✓ Healthy metrics');
+      
+      return indicators;
+    }
+
+    function getInterpretation(iq, ratio, lag, sink, category) {
+      const interpretations = {
+        'Grounded': `Your IQ of ${iq} indicates excellent system health. The symbol-to-substance ratio is balanced, feedback loops are tight (${lag}-month lag), and pathological adaptations are minimal (${sink}/100). This represents robust grounding where representations track reality closely. Continue monitoring to maintain this healthy state.`,
+        'Mild': `Your IQ of ${iq} shows a mild decoupling typical of normal organizational friction. The ${ratio}:1 ratio and ${lag}-month lag are manageable. The ${sink}/100 behavioral sink index suggests minor inefficiencies but nothing pathological. This is within healthy operational parameters. Regular reality checks recommended.`,
+        'Moderate': `Your IQ of ${iq} indicates moderate system stress. The ${ratio}:1 symbol-to-substance ratio suggests symbolic structures are outpacing material capacity. The ${lag}-month temporal lag delays necessary corrections. Behavioral sink index of ${sink}/100 shows emerging pathological patterns. Institute more frequent reality checks and reduce complexity where possible.`,
+        'Severe': `Your IQ of ${iq} represents dangerous decoupling. The ${ratio}:1 ratio means symbols are vastly exceeding substance. The ${lag}-month lag creates vulnerability to sudden shocks. Behavioral sink index of ${sink}/100 indicates widespread pathological adaptations. Urgent intervention required: ground symbolic claims, accelerate feedback, and address systemic dysfunction.`,
+        'Extreme': `Your IQ of ${iq} indicates critical system fragility with high collapse risk. The ${ratio}:1 ratio represents severe symbolic inflation divorced from reality. The ${lag}-month lag means corrections arrive too late. Behavioral sink index of ${sink}/100 shows pervasive pathology. Emergency measures needed: radical grounding, immediate reality confrontation, and systemic restructuring.`
+      };
+      
+      return interpretations[category];
+    }
+
+    function getInterventions(iq, ratio, lag, sink) {
+      const interventions = [];
+      
+      if (ratio > 3) {
+        interventions.push({
+          title: 'Reduce Symbolic Inflation',
+          description: 'Audit all claims, narratives, and representations. Demand evidence. Cut ungrounded abstractions.',
+          priority: ratio > 6 ? 'high' : 'medium'
+        });
+      }
+      
+      if (lag > 12) {
+        interventions.push({
+          title: 'Accelerate Feedback Loops',
+          description: 'Institute rapid reality checks. Shorten iteration cycles. Create real-time monitoring dashboards.',
+          priority: lag > 24 ? 'high' : 'medium'
+        });
+      }
+      
+      if (sink > 50) {
+        interventions.push({
+          title: 'Address Pathological Behaviors',
+          description: 'Identify and remediate maladaptive patterns. Restore healthy norms. Reduce complexity overload.',
+          priority: sink > 70 ? 'high' : 'medium'
+        });
+      }
+      
+      if (iq > 45) {
+        interventions.push({
+          title: 'System-Wide Grounding Initiative',
+          description: 'Comprehensive audit of all symbolic-material interfaces. Realign incentives with reality. Build resilience.',
+          priority: 'high'
+        });
+      }
+      
+      if (interventions.length === 0) {
+        interventions.push({
+          title: 'Maintain Vigilance',
+          description: 'Continue regular monitoring. Preserve tight feedback loops. Resist temptation to inflate symbols.',
+          priority: 'low'
+        });
+      }
+      
+      return interventions;
+    }
+
+    function updateCalculator() {
+      const ratio = parseFloat(ratioSlider.value);
+      const lag = parseInt(lagSlider.value);
+      const sink = parseInt(sinkSlider.value);
+      
+      ratioValue.textContent = ratio.toFixed(1);
+      lagValue.textContent = lag;
+      sinkValue.textContent = sink;
+      
+      const result = calculateIQ(ratio, lag, sink);
+      iqScore.textContent = result.total;
+      ratioContribution.textContent = result.ratioC.toFixed(1);
+      lagContribution.textContent = result.lagC.toFixed(1);
+      sinkContribution.textContent = result.sinkC.toFixed(1);
+      
+      const category = getCategory(result.total);
+      iqCategory.textContent = category.name;
+      iqCategory.className = `inline-block px-3 py-1 rounded-full text-sm font-medium ${category.color}`;
+      
+      const indicators = getRiskIndicators(ratio, lag, sink);
+      riskIndicators.innerHTML = indicators.map(i => `<div>${i}</div>`).join('');
+      
+      interpretationEl.textContent = getInterpretation(result.total, ratio, lag, sink, category.name);
+      
+      const interventions = getInterventions(result.total, ratio, lag, sink);
+      interventionsEl.innerHTML = interventions.map(int => {
+        const colors = {
+          high: 'border-red-500/30 bg-red-500/10',
+          medium: 'border-yellow-500/30 bg-yellow-500/10',
+          low: 'border-emerald-500/30 bg-emerald-500/10'
+        };
+        const badges = {
+          high: 'bg-red-500/20 text-red-300',
+          medium: 'bg-yellow-500/20 text-yellow-300',
+          low: 'bg-emerald-500/20 text-emerald-300'
+        };
+        return `
+          <div class="glass-card p-4 rounded border ${colors[int.priority]}">
+            <div class="flex items-start justify-between mb-2">
+              <h4 class="font-semibold">${int.title}</h4>
+              <span class="text-xs px-2 py-1 rounded ${badges[int.priority]}">${int.priority}</span>
+            </div>
+            <p class="text-sm text-gray-300">${int.description}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render benchmarks table
+    benchmarksEl.innerHTML = historicalBenchmarks.map(b => {
+      const cat = getCategory(b.iq);
+      return `
+        <tr class="hover:bg-white/5 cursor-pointer transition-colors" onclick="loadBenchmark(${b.ratio}, ${b.lag}, ${b.sink})">
+          <td class="py-3 font-medium">${b.name}</td>
+          <td class="py-3">${b.ratio}</td>
+          <td class="py-3">${b.lag}</td>
+          <td class="py-3">${b.sink}</td>
+          <td class="py-3 font-mono">${b.iq}</td>
+          <td class="py-3"><span class="inline-block px-2 py-1 rounded text-xs ${cat.color}">${b.category}</span></td>
+        </tr>
+      `;
+    }).join('');
+
+    window.loadBenchmark = function(ratio, lag, sink) {
+      ratioSlider.value = ratio;
+      lagSlider.value = lag;
+      sinkSlider.value = sink;
+      updateCalculator();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    ratioSlider.addEventListener('input', updateCalculator);
+    lagSlider.addEventListener('input', updateCalculator);
+    sinkSlider.addEventListener('input', updateCalculator);
+
+    exportBtn.addEventListener('click', () => {
+      const ratio = parseFloat(ratioSlider.value);
+      const lag = parseInt(lagSlider.value);
+      const sink = parseInt(sinkSlider.value);
+      const result = calculateIQ(ratio, lag, sink);
+      const category = getCategory(result.total);
+      
+      const report = `INSANITY QUOTIENT ASSESSMENT REPORT
+Generated: ${new Date().toLocaleString()}
+
+INPUT PARAMETERS:
+- Symbol-to-Substance Ratio: ${ratio.toFixed(1)}:1
+- Temporal Lag: ${lag} months
+- Behavioral Sink Index: ${sink}/100
+
+RESULTS:
+- Insanity Quotient: ${result.total}
+- Category: ${category.name}
+- Assessment: ${category.description}
+
+WEIGHTED CONTRIBUTIONS:
+- Ratio (40%): ${result.ratioC.toFixed(1)}
+- Lag (30%): ${result.lagC.toFixed(1)}
+- Sink (30%): ${result.sinkC.toFixed(1)}
+
+INTERPRETATION:
+${getInterpretation(result.total, ratio, lag, sink, category.name)}
+
+RECOMMENDED INTERVENTIONS:
+${getInterventions(result.total, ratio, lag, sink).map((int, i) => 
+  `${i+1}. ${int.title} [${int.priority.toUpperCase()} PRIORITY]
+   ${int.description}`
+).join('\n\n')}
+
+---
+Generated by NiCE Framework Insanity Quotient Calculator
+https://nice.lernaen.org/insanity-quotient.html
+`;
+
+      const blob = new Blob([report], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `IQ-Assessment-${Date.now()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Initial update
+    updateCalculator();
+  </script>
+</body>
+</html>

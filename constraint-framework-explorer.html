@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Constraint Framework Explorer - NiCE Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f1a;
+      color: #e8edf4;
+    }
+    .serif { font-family: 'Fraunces', serif; }
+    .glass-card {
+      background: rgba(20, 30, 48, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100, 130, 180, 0.2);
+    }
+    .slider-track {
+      height: 8px;
+      background: linear-gradient(to right, #ef4444, #f59e0b, #10b981);
+      border-radius: 4px;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(100, 130, 180, 0.2);
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #60a5fa;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #60a5fa;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(96, 165, 250, 0.4);
+    }
+    .progress-step {
+      transition: all 0.3s ease;
+    }
+    .progress-step.active {
+      background: rgba(96, 165, 250, 0.2);
+      border-color: #60a5fa;
+    }
+    .progress-step.completed {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+    }
+    .criteria-help {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .criteria-help.expanded {
+      max-height: 800px;
+    }
+    .help-toggle {
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav class="glass-card border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="text-2xl font-bold serif">NiCE Framework</span>
+      </a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+        <a href="/nice-framework.html" class="text-gray-400 hover:text-white transition-colors">NiCE Synthesis</a>
+        <a href="/interactive-nice-explorer.html" class="text-gray-400 hover:text-white transition-colors">Interactive Explorer</a>
+        <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Lab</a>
+        <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white text-sm font-medium transition-colors">PDF</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-blue-400 mb-6">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+        </svg>
+        <span class="text-sm font-medium">Diagnostic Assessment</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 serif">
+        Constraint Framework
+        <br>
+        <span class="text-blue-400">Explorer</span>
+      </h1>
+      
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Guided assessment using FORCES, GRAVITY, ANCHORS, and PRIMES frameworks. 
+        Systematically diagnose system health and identify leverage points for intervention.
+      </p>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="glass-card rounded-lg p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-4">Assessment Progress</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="progress-step active glass-card p-4 rounded-lg border-2 border-gray-600 text-center cursor-pointer" onclick="showSection('forces')">
+          <div class="text-2xl mb-2">🔧</div>
+          <div class="font-semibold text-sm">FORCES</div>
+          <div class="text-xs text-gray-400 mt-1">Fundamental Vectors</div>
+        </div>
+        <div class="progress-step glass-card p-4 rounded-lg border-2 border-gray-600 text-center cursor-pointer opacity-60" onclick="showSection('gravity')">
+          <div class="text-2xl mb-2">⚖️</div>
+          <div class="font-semibold text-sm">GRAVITY</div>
+          <div class="text-xs text-gray-400 mt-1">Inevitabilities</div>
+        </div>
+        <div class="progress-step glass-card p-4 rounded-lg border-2 border-gray-600 text-center cursor-pointer opacity-60" onclick="showSection('anchors')">
+          <div class="text-2xl mb-2">⚓</div>
+          <div class="font-semibold text-sm">ANCHORS</div>
+          <div class="text-xs text-gray-400 mt-1">Stabilization</div>
+        </div>
+        <div class="progress-step glass-card p-4 rounded-lg border-2 border-gray-600 text-center cursor-pointer opacity-60" onclick="showSection('primes')">
+          <div class="text-2xl mb-2">🔒</div>
+          <div class="font-semibold text-sm">PRIMES</div>
+          <div class="text-xs text-gray-400 mt-1">Constraints</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Context Input -->
+    <div class="glass-card rounded-lg p-6 mb-8" id="contextSection">
+      <h2 class="text-2xl font-bold mb-4 serif">What System Are You Analyzing?</h2>
+      <p class="text-gray-400 mb-4">
+        This framework can be applied to organizations, communities, personal life, or any complex system. 
+        Providing context helps generate more relevant insights.
+      </p>
+      <input 
+        type="text" 
+        id="systemName" 
+        placeholder="e.g., My startup, Personal health, Community organization, National economy..."
+        class="w-full px-4 py-3 rounded-lg bg-gray-900/50 border border-gray-700 focus:border-blue-500 focus:outline-none text-white"
+        onchange="updateSystemName()"
+      >
+    </div>
+
+    <!-- FORCES Section -->
+    <div id="forcesSection" class="space-y-6">
+      <div class="glass-card rounded-lg p-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="text-4xl">🔧</div>
+          <div class="flex-1">
+            <h2 class="text-3xl font-bold mb-2 serif">FORCES Framework</h2>
+            <p class="text-gray-400">
+              <strong>Fundamental Operational Regimes and Constitutive Elements of Systems</strong>
+            </p>
+            <p class="text-gray-400 mt-2">
+              FORCES maps six fundamental vectors that determine how systems function. Assess each dimension 
+              to identify pathological patterns and leverage points.
+            </p>
+          </div>
+        </div>
+
+        <!-- Flow Assessment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-blue-900/20 to-transparent border-l-4 border-blue-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">💧</span>
+            <h3 class="text-2xl font-bold">Flow</h3>
+            <button onclick="toggleCriteria('flowCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-blue-500/20 hover:bg-blue-500/30 transition-colors help-toggle">
+              ℹ️ Selection Criteria
+            </button>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Movement of energy, information, and resources through the system. 
+            Healthy systems have appropriate flow rates—too fast creates overwhelm, too slow creates stagnation.
+          </p>
+          
+          <div id="flowCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-2">
+              <div><strong>0-25 (Blocked/Stagnant):</strong>
+                <ul class="list-disc list-inside ml-2 text-gray-300">
+                  <li>Information takes days/weeks to reach decision-makers</li>
+                  <li>Approval processes have 5+ required steps</li>
+                  <li>Resources locked in silos, rarely transferred</li>
+                  <li>Knowledge hoarding is norm, not sharing</li>
+                </ul>
+              </div>
+              <div><strong>25-45 (Healthy Flow):</strong>
+                <ul class="list-disc list-inside ml-2 text-gray-300">
+                  <li>Information reaches relevant parties within hours/1 day</li>
+                  <li>Clear channels for different information types</li>
+                  <li>Resources can be reallocated when needed</li>
+                  <li>Knowledge sharing has light structure</li>
+                </ul>
+              </div>
+              <div><strong>45-55 (Optimal Balance):</strong>
+                <ul class="list-disc list-inside ml-2 text-gray-300">
+                  <li>Real-time awareness of critical information</li>
+                  <li>Filtering mechanisms prevent overload</li>
+                  <li>Resource mobility balanced with stability</li>
+                  <li>Information access without constant interruption</li>
+                </ul>
+              </div>
+              <div><strong>55-75 (Approaching Overload):</strong>
+                <ul class="list-disc list-inside ml-2 text-gray-300">
+                  <li>Constant notifications and interruptions</li>
+                  <li>Difficulty focusing due to information volume</li>
+                  <li>Resources shifting too frequently to settle</li>
+                  <li>Communication channels always "hot"</li>
+                </ul>
+              </div>
+              <div><strong>75-100 (Overwhelming Flood):</strong>
+                <ul class="list-disc list-inside ml-2 text-gray-300">
+                  <li>Inboxes with 100+ unread messages daily</li>
+                  <li>Meetings scheduled back-to-back with no breaks</li>
+                  <li>No time to process before next input arrives</li>
+                  <li>Paralysis from excessive options/information</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How freely do resources and information move through your system?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Blocked/Stagnant</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="flowSlider" oninput="updateFORCES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Overwhelming Flood</span>
+            </div>
+            <div class="mt-2 text-sm text-blue-400" id="flowFeedback">Optimal flow balanced between access and overwhelm</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded flow-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Information hoarding or siloed knowledge</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded flow-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Resource bottlenecks or access restrictions</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded flow-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Communication overload or constant interruptions</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Opacity Assessment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-purple-900/20 to-transparent border-l-4 border-purple-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🔍</span>
+            <h3 class="text-2xl font-bold">Opacity</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Visibility and transparency of system states and processes. 
+            Can actors see what's happening, understand why, and predict consequences?
+          </p>
+          
+          <button onclick="toggleCriteria('opacityCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-purple-500/20 hover:bg-purple-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="opacityCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (High Transparency):</strong> All decisions, processes, and data are openly accessible. Real-time dashboards show system status. Clear audit trails exist. Decision rationales are documented and shared. Users can predict consequences of actions.</div>
+              <div><strong>25-45 (Appropriate Transparency):</strong> Key decisions are communicated with rationale. Performance metrics are visible. Some confidential information protected. Most stakeholders understand how things work. Feedback loops are clear.</div>
+              <div><strong>45-55 (Balanced):</strong> Standard business transparency. Important information shared, some details private. Decision-making processes known but not all inputs visible. Reasonable predictability of outcomes.</div>
+              <div><strong>55-75 (Limited Visibility):</strong> Decisions often made without explanation. Stakeholders surprised by changes. Unclear why certain outcomes occur. Limited access to system metrics. "Black box" processes exist.</div>
+              <div><strong>75-100 (Opaque):</strong> Hidden agendas dominate. No visibility into decision-making. Outcomes are unpredictable. Stakeholders operate blind. No feedback on system state. Information deliberately obscured.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How transparent are system operations and decision-making?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Fully Transparent</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="opacitySlider" oninput="updateFORCES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Completely Opaque</span>
+            </div>
+            <div class="mt-2 text-sm text-purple-400" id="opacityFeedback">Moderate transparency with appropriate privacy</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded opacity-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Hidden decision-making processes or agendas</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded opacity-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Lack of feedback on system state</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded opacity-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Unpredictable outcomes from actions</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Rigidity Assessment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-red-900/20 to-transparent border-l-4 border-red-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🏗️</span>
+            <h3 class="text-2xl font-bold">Rigidity</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Flexibility vs. brittleness in system structure. 
+            Rigid systems resist necessary adaptation; overly flexible systems lack stability and coherence.
+          </p>
+          
+          <button onclick="toggleCriteria('rigidityCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-red-500/20 hover:bg-red-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="rigidityCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Highly Flexible):</strong> Processes change weekly/monthly. Few fixed structures. Easy to experiment. Quick adaptation to new conditions. May lack consistency. Decisions easily reversed. Core principles negotiable.</div>
+              <div><strong>25-45 (Adaptive Flexibility):</strong> Structured flexibility within boundaries. Processes can be modified with good reason. Regular reviews and updates. Emergency protocols for rapid change. Balance of stability and agility.</div>
+              <div><strong>45-55 (Balanced Structure):</strong> Clear processes with defined update cycles. Quarterly/annual reviews. Changes require justification but are possible. Some emergency override capacity. Predictable but not frozen.</div>
+              <div><strong>55-75 (Increasing Rigidity):</strong> Established procedures rarely change. Months/years to modify processes. Exceptions require extensive approval. "We've always done it this way" mentality. Change initiatives often fail.</div>
+              <div><strong>75-100 (Extreme Rigidity):</strong> Fixed rules and structures. No deviation permitted. Years of advocacy needed for small changes. System breaks under unexpected stress. Brittle responses to novel situations. Bureaucratic paralysis.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How adaptable is your system to changing conditions?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Highly Flexible</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="rigiditySlider" oninput="updateFORCES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Completely Rigid</span>
+            </div>
+            <div class="mt-2 text-sm text-red-400" id="rigidityFeedback">Balanced structure with adaptive capacity</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded rigidity-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Inflexible rules or procedures</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded rigidity-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Resistance to necessary change</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded rigidity-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Brittle responses to unexpected events</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Coupling Assessment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-yellow-900/20 to-transparent border-l-4 border-yellow-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🔗</span>
+            <h3 class="text-2xl font-bold">Coupling</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Degree of interdependence between system components. 
+            Tight coupling creates fragility through cascading failures; loose coupling enables resilience but may lack coordination.
+          </p>
+          
+          <button onclick="toggleCriteria('couplingCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-yellow-500/20 hover:bg-yellow-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="couplingCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Loosely Coupled):</strong> Components operate independently. Failure in one area doesn't cascade. Easy to modify individual parts. May have coordination challenges. Redundant functions exist. Minimal dependencies.</div>
+              <div><strong>25-45 (Modular Design):</strong> Clear interfaces between components. Buffering mechanisms exist. Some dependencies but with fallback options. Failures can be isolated. Changes localized to specific modules.</div>
+              <div><strong>45-55 (Balanced Integration):</strong> Coordinated components with reasonable independence. Some shared dependencies managed carefully. Cascading effects are limited in scope. Both isolation and coordination possible.</div>
+              <div><strong>55-75 (Increasing Interdependence):</strong> Many shared dependencies. Changes in one area ripple across multiple others. Limited redundancy. Single points of failure emerging. Difficult to modify parts independently.</div>
+              <div><strong>75-100 (Tightly Coupled):</strong> Everything depends on everything. Small failures cascade system-wide. No redundancy or buffers. Cannot change one part without breaking others. Fragile coordination. Single points of failure throughout.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How interdependent are system components?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Loosely Coupled</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="couplingSlider" oninput="updateFORCES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Tightly Coupled</span>
+            </div>
+            <div class="mt-2 text-sm text-yellow-400" id="couplingFeedback">Moderate coupling with buffering mechanisms</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded coupling-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Single points of failure</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded coupling-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Cascading breakdowns from small disruptions</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded coupling-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Inability to isolate problems</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Entropy Assessment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-orange-900/20 to-transparent border-l-4 border-orange-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🌪️</span>
+            <h3 class="text-2xl font-bold">Entropy</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Disorder and degradation tendencies. All systems face entropy; 
+            the question is whether maintenance energy exceeds decay rate.
+          </p>
+          
+          <button onclick="toggleCriteria('entropyCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-orange-500/20 hover:bg-orange-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="entropyCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Self-Maintaining):</strong> System improves over time. Continuous learning and optimization. Documentation kept current. Knowledge widely distributed. Processes strengthen through use. Minimal maintenance required.</div>
+              <div><strong>25-45 (Proactive Maintenance):</strong> Regular upkeep prevents major issues. Scheduled reviews and updates. Technical debt managed. Knowledge transfer occurs. Some degradation but actively countered. Improvement initiatives succeed.</div>
+              <div><strong>45-55 (Steady State):</strong> Maintenance balances decay. Periodic refresh needed. Documentation occasionally outdated. Knowledge concentrated but accessible. Systems stable but not improving. Reactive fixes common.</div>
+              <div><strong>55-75 (Gradual Decline):</strong> Decay outpaces maintenance. Growing technical debt. Documentation increasingly outdated. Key knowledge held by few people. Workarounds accumulate. Quality slowly degrading.</div>
+              <div><strong>75-100 (Rapid Decay):</strong> Active degradation. No effective maintenance. Lost institutional knowledge. Undocumented processes. Increasing errors and failures. "Zombie" systems barely functioning. Crisis-driven operations.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well does your system resist degradation over time?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Self-Maintaining</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="entropySlider" oninput="updateFORCES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Rapid Decay</span>
+            </div>
+            <div class="mt-2 text-sm text-orange-400" id="entropyFeedback">Adequate maintenance counteracting decay</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded" onchange="updateFORCES()">
+              <span class="text-sm">Lost institutional knowledge</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded" onchange="updateFORCES()">
+              <span class="text-sm">Degrading infrastructure or tools</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded" onchange="updateFORCES()">
+              <span class="text-sm">Accumulating technical or social debt</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Scale Assessment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-green-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">📏</span>
+            <h3 class="text-2xl font-bold">Scale</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Size and scope of system operations. 
+            Scale mismatches occur when structures designed for one size are applied to another.
+          </p>
+          
+          <button onclick="toggleCriteria('scaleCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-green-500/20 hover:bg-green-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="scaleCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Well-Matched):</strong> Structures fit current size perfectly. Communication patterns work. Decision-making matches scope. Resource allocation appropriate. Processes neither too complex nor too simple. Right tool for the job.</div>
+              <div><strong>25-45 (Minor Adjustments Needed):</strong> Generally appropriate with some growing pains. A few processes outdated. Scaling challenges identified and being addressed. Mostly coherent but occasional friction from size changes.</div>
+              <div><strong>45-55 (Noticeable Gaps):</strong> Some structures clearly don't fit current scale. Either "startup practices at enterprise scale" or "enterprise bureaucracy for small team." Recognizable inefficiencies from mismatch. Plans to adapt in progress.</div>
+              <div><strong>55-75 (Significant Mismatch):</strong> Many processes wrong for current size. Major communication overhead or gaps. Decision-making too slow/fast for scale. Resource allocation doesn't match needs. Coherence struggling. Urgent adaptation needed.</div>
+              <div><strong>75-100 (Severe Mismatch):</strong> Completely wrong structures for current scale. Total breakdown of coordination. Either suffocating bureaucracy for small operation or chaos from informal processes at scale. System functionality compromised. Crisis state.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well-matched are system structures to current scale?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Well-Matched</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="scaleSlider" oninput="updateFORCES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Severe Mismatch</span>
+            </div>
+            <div class="mt-2 text-sm text-green-400" id="scaleFeedback">Structures appropriate for current size</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded scale-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Procedures designed for different size</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded scale-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Communication overhead from scale</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded scale-symptom" onchange="updateFORCES()">
+              <span class="text-sm">Loss of coherence as system grew</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORCES Visualization & Diagnosis -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Radar Chart -->
+        <div class="glass-card rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4 serif">FORCES Profile</h3>
+          <p class="text-sm text-gray-400 mb-4">
+            Visual representation of system health across six fundamental vectors. 
+            Balanced profiles indicate healthy systems; extreme values signal pathologies.
+          </p>
+          <div class="relative" style="height: 400px;">
+            <canvas id="forcesRadar"></canvas>
+          </div>
+        </div>
+
+        <!-- Diagnosis Panel -->
+        <div class="glass-card rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4 serif">System Diagnosis</h3>
+          <div id="forcesDiagnosis" class="space-y-4">
+            <!-- Dynamic diagnosis content -->
+          </div>
+          
+          <div class="mt-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">💡</span>
+              <div>
+                <h4 class="font-semibold mb-1">Primary Leverage Points</h4>
+                <div id="leveragePoints" class="text-sm text-gray-300">
+                  Complete the assessment to identify specific intervention opportunities.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex justify-between mt-8">
+        <button onclick="showSection('context')" class="px-6 py-3 rounded-lg glass-card hover:bg-gray-700/50 transition-colors">
+          ← Back to Context
+        </button>
+        <button onclick="completeForces()" class="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition-colors font-semibold">
+          Continue to GRAVITY Framework →
+        </button>
+      </div>
+    </div>
+
+    <!-- GRAVITY Section -->
+    <div id="gravitySection" class="hidden space-y-6">
+      <div class="glass-card rounded-lg p-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="text-4xl">⚖️</div>
+          <div class="flex-1">
+            <h2 class="text-3xl font-bold mb-2 serif">GRAVITY Framework</h2>
+            <p class="text-gray-400">
+              <strong>Systemic Inevitabilities</strong>
+            </p>
+            <p class="text-gray-400 mt-2">
+              GRAVITY identifies dynamics that are not problems to be solved but inevitabilities to be managed. 
+              Fighting gravity wastes resources; working with it enables sustainable design.
+            </p>
+          </div>
+        </div>
+
+        <!-- Thermodynamic Constraints -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-red-900/20 to-transparent border-l-4 border-red-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🔥</span>
+            <h3 class="text-2xl font-bold">Thermodynamic Constraints</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Energy must be extracted and dissipated. No system runs without fuel. Is your system fighting this reality?
+          </p>
+          
+          <button onclick="toggleCriteria('thermodynamicCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-red-500/20 hover:bg-red-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="thermodynamicCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Working With):</strong> Realistic resource budgets. Maintenance time scheduled and protected. Operational costs acknowledged. Sustainable pace expected. Buffer capacity for unexpected needs. Energy inputs planned.</div>
+              <div><strong>25-45 (Generally Realistic):</strong> Resource planning exists with occasional optimism. Maintenance mostly happens. Some perpetual motion thinking in specific areas. Sustainability valued but not always achieved.</div>
+              <div><strong>45-55 (Mixed Approach):</strong> Some areas well-resourced, others stretched thin. Maintenance deferred under pressure. Efficiency expected to compensate for resource gaps. Growing sustainability concerns.</div>
+              <div><strong>55-75 (Unrealistic Expectations):</strong> Chronic under-resourcing. Maintenance regularly skipped. Expectation of "doing more with less" indefinitely. Burnout emerging. Efficiency gains assumed limitless. Operational costs minimized.</div>
+              <div><strong>75-100 (Fighting Gravity):</strong> Complete denial of resource needs. Perpetual growth expected without inputs. No maintenance time allocated. Efficiency mandates ignore thermodynamic reality. Unsustainable pace normalized. System degrading from energy deficit.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well does your system account for energy/resource requirements?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Working With</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="gravityThermodynamic" oninput="updateGRAVITY()">
+              <span class="text-xs text-gray-500 w-24 text-right">Fighting</span>
+            </div>
+            <div class="mt-2 text-sm text-red-400" id="thermodynamicFeedback">Balanced energy management</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded thermodynamic-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Unrealistic expectations of perpetual growth without inputs</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded thermodynamic-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Ignoring maintenance and operational costs</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded thermodynamic-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Assuming efficiency gains eliminate need for resources</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Information Limits -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-blue-900/20 to-transparent border-l-4 border-blue-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🧠</span>
+            <h3 class="text-2xl font-bold">Information Limits</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Knowledge is always incomplete and distributed. Perfect information is impossible.
+          </p>
+          
+          <button onclick="toggleCriteria('informationCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-blue-500/20 hover:bg-blue-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="informationCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Accepts Limits):</strong> Decisions made with available information. Good enough data is sufficient. Uncertainty acknowledged openly. Learning from action valued. Iterative approach accepted. "Go with what we know" culture.</div>
+              <div><strong>25-45 (Pragmatic):</strong> Reasonable information gathering before decisions. Balance of analysis and action. Some tolerance for ambiguity. Occasional analysis paralysis but generally moves forward. Mistakes seen as learning opportunities.</div>
+              <div><strong>45-55 (Information-Heavy):</strong> Extensive research before action. Preference for certainty. Discomfort with ambiguity. Multiple stakeholder input required. Some delays from information gathering but decisions eventually made.</div>
+              <div><strong>55-75 (Omniscience Seeking):</strong> Paralysis from endless information gathering. "We need more data" becomes excuse. Decisions delayed indefinitely. Punishment for incomplete information. Fear of uncertainty dominant. Analysis over action.</div>
+              <div><strong>75-100 (Demands Impossibility):</strong> Complete certainty required before any action. Perfect prediction expected. Retroactive punishment for reasonable decisions. Perpetual study, minimal action. System frozen by information demands. Unrealistic omniscience standard.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Does your system accept inevitable information gaps?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Accepts Limits</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="gravityInformation" oninput="updateGRAVITY()">
+              <span class="text-xs text-gray-500 w-24 text-right">Demands Omniscience</span>
+            </div>
+            <div class="mt-2 text-sm text-blue-400" id="informationFeedback">Realistic information expectations</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded information-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Demanding complete certainty before action</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded information-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Punishing reasonable decisions made with limited information</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded information-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Analysis paralysis from seeking perfect knowledge</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Coordination Costs -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-purple-900/20 to-transparent border-l-4 border-purple-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🤝</span>
+            <h3 class="text-2xl font-bold">Coordination Costs</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Communication overhead scales nonlinearly. More people = exponentially more coordination needed.
+          </p>
+          
+          <button onclick="toggleCriteria('coordinationCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-purple-500/20 hover:bg-purple-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="coordinationCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Well Designed):</strong> Clear decision rights minimize coordination. Small autonomous teams. Explicit interfaces between groups. Protected focus time. Meetings are effective and bounded. Communication overhead planned for.</div>
+              <div><strong>25-45 (Generally Effective):</strong> Coordination time allocated. Regular sync points established. Growing meeting load managed. Some overhead from scale but handled reasonably. Brooks' Law understood (adding people to late project makes it later).</div>
+              <div><strong>45-55 (Increasing Load):</strong> Meeting calendars filling up. Coordination consuming significant time. Some thrash from misalignment. Decision rights somewhat unclear. Growing awareness of overhead costs.</div>
+              <div><strong>55-75 (Ignoring Costs):</strong> Assuming more people = more output. Coordination overhead unmanaged. Back-to-back meetings. Constant context switching. Decision rights unclear causing redundant discussions. "Throwing bodies at the problem."</div>
+              <div><strong>75-100 (Complete Denial):</strong> Exponential coordination costs ignored. Adding people to everything. No protected focus time. Permanent meeting culture. No decision rights. Total thrash. More coordinators needed to coordinate the coordinators.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Does your system account for inevitable coordination costs?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Designed For</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="gravityCoordination" oninput="updateGRAVITY()">
+              <span class="text-xs text-gray-500 w-24 text-right">Ignores Costs</span>
+            </div>
+            <div class="mt-2 text-sm text-purple-400" id="coordinationFeedback">Coordination costs acknowledged</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded coordination-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Assuming adding people speeds everything up</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded coordination-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Ignoring meeting time and alignment overhead</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded coordination-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Lack of clear decision rights to reduce coordination needs</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Temporal Asymmetries -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-green-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">⏳</span>
+            <h3 class="text-2xl font-bold">Temporal Asymmetries</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Some processes simply take time. Trust takes years to build, seconds to destroy.
+          </p>
+          
+          <button onclick="toggleCriteria('temporalCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-green-500/20 hover:bg-green-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="temporalCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Patient):</strong> Realistic timelines for complex work. Trust-building prioritized. Long-term thinking in decisions. "Slow is smooth, smooth is fast" culture. Recognition that shortcuts create technical/social debt. Sustainable pace.</div>
+              <div><strong>25-45 (Mostly Realistic):</strong> Generally appropriate timelines with occasional pressure. Understanding that some things can't be rushed. Investment in relationships. Some short-term thinking but balanced with long-term view.</div>
+              <div><strong>45-55 (Impatient):</strong> Preference for speed over sustainability. Frequent rush jobs. Relationship building seen as "nice to have." Quarter-to-quarter thinking. Some recognition of time asymmetries but ignored under pressure.</div>
+              <div><strong>55-75 (Rushed):</strong> Unrealistic deadlines standard. "Why isn't this done yet?" culture. Relationship damage from impatience. Technical debt from speed mandates. Trust erosion. Short-term optimization dominant.</div>
+              <div><strong>75-100 (Time Denial):</strong> Complete ignorance of natural timelines. "Just make it happen faster." Trust expected instantly. No investment in foundations. Constant crisis from temporal mismatch. Burning through goodwill and breaking systems through haste.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Does your system respect natural time scales?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Patient</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="gravityTemporal" oninput="updateGRAVITY()">
+              <span class="text-xs text-gray-500 w-24 text-right">Impatient</span>
+            </div>
+            <div class="mt-2 text-sm text-green-400" id="temporalFeedback">Realistic time expectations</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporal-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Demanding instant results from slow processes</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporal-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Quarterly thinking for decade-scale challenges</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporal-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Ignoring that building takes longer than destroying</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Evolutionary Selection -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-yellow-900/20 to-transparent border-l-4 border-yellow-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🔄</span>
+            <h3 class="text-2xl font-bold">Evolutionary Selection</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Maladaptive patterns eventually fail. Reality is the ultimate arbiter.
+          </p>
+          
+          <button onclick="toggleCriteria('evolutionaryCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-yellow-500/20 hover:bg-yellow-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="evolutionaryCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Embraces Selection):</strong> Regular experimentation and testing. Failed approaches discontinued. Learning from reality prioritized. "Red team" thinking welcomed. Survival of effective practices. Adaptation to feedback normalized.</div>
+              <div><strong>25-45 (Reality-Responsive):</strong> Performance feedback taken seriously. Ineffective practices eventually changed. Some resistance to admitting failure but correction happens. Market/user signals influence direction. Iterative improvement.</div>
+              <div><strong>45-55 (Mixed Signals):</strong> Some adaptation, some denial. Political considerations sometimes override effectiveness. Metrics tracked but not always acted on. Zombie projects that should be killed. Partial reality acceptance.</div>
+              <div><strong>55-75 (Denying Feedback):</strong> Poor performance explained away. "Market doesn't understand us." Blaming external factors. Continuing ineffective approaches despite evidence. Metrics gamed. Reality ignored when inconvenient.</div>
+              <div><strong>75-100 (Fighting Reality):</strong> Complete denial of selection pressure. Doubling down on failure. No testing or adaptation. "We know better than the market." Ideology over outcomes. Maladaptive patterns defended fiercely. Inevitable collapse approaching.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">Does your system accept that market/reality will select against dysfunction?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Adaptive</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="gravityEvolutionary" oninput="updateGRAVITY()">
+              <span class="text-xs text-gray-500 w-24 text-right">Denies Selection</span>
+            </div>
+            <div class="mt-2 text-sm text-yellow-400" id="evolutionaryFeedback">Accepts evolutionary pressures</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded evolutionary-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Assuming current success guarantees future survival</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded evolutionary-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Ignoring changing competitive/environmental pressures</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded evolutionary-symptom" onchange="updateGRAVITY()">
+              <span class="text-sm">Protecting dysfunction from necessary failure</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRAVITY Diagnosis -->
+      <div class="glass-card rounded-lg p-6">
+        <h3 class="text-xl font-bold mb-4 serif">GRAVITY Assessment</h3>
+        <div id="gravityDiagnosis" class="space-y-4">
+          <!-- Dynamic diagnosis -->
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex justify-between mt-8">
+        <button onclick="showSection('forces')" class="px-6 py-3 rounded-lg glass-card hover:bg-gray-700/50 transition-colors">
+          ← Back to FORCES
+        </button>
+        <button onclick="completeGravity()" class="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition-colors font-semibold">
+          Continue to ANCHORS Framework →
+        </button>
+      </div>
+    </div>
+
+    <!-- ANCHORS Section -->
+    <div id="anchorsSection" class="hidden space-y-6">
+      <div class="glass-card rounded-lg p-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="text-4xl">⚓</div>
+          <div class="flex-1">
+            <h2 class="text-3xl font-bold mb-2 serif">ANCHORS Framework</h2>
+            <p class="text-gray-400">
+              <strong>Stabilization Against Drift</strong>
+            </p>
+            <p class="text-gray-400 mt-2">
+              ANCHORS provide mechanisms for grounding symbolic systems in biological and environmental reality, 
+              preventing runaway decoupling. Strong anchors resist drift; weak anchors allow pathological abstraction.
+            </p>
+          </div>
+        </div>
+
+        <!-- Biological Anchors -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-green-900/20 to-transparent border-l-4 border-green-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🏃</span>
+            <h3 class="text-2xl font-bold">Biological Anchors</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Embodied practices that ground consciousness in physical reality: exercise, sleep, nutrition, nature contact.
+          </p>
+          
+          <button onclick="toggleCriteria('biologicalCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-green-500/20 hover:bg-green-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="biologicalCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Weak/Absent):</strong> Sedentary lifestyle. Irregular sleep (varying by 2+ hours). Poor nutrition habits. Minimal nature contact. Screen-dominated existence. Physical disconnection normalized. Body treated as inconvenience.</div>
+              <div><strong>25-45 (Inconsistent):</strong> Exercise 1-2x/week or less. Sleep somewhat regular but often insufficient. Nutrition awareness but inconsistent practice. Occasional outdoor time. Physical health acknowledged but deprioritized under pressure.</div>
+              <div><strong>45-55 (Moderate):</strong> Exercise 3x/week. Generally consistent sleep schedule. Reasonable nutrition most days. Some nature contact. Physical practices maintained but first to go when busy. Adequate but not robust grounding.</div>
+              <div><strong>55-75 (Strong):</strong> Exercise 4-5x/week. Regular sleep schedule protected. Conscious nutrition daily. Weekly nature time. Physical practices prioritized. Clear impact on mental clarity and well-being. Body-mind connection valued.</div>
+              <div><strong>75-100 (Excellent):</strong> Daily movement/exercise. Sleep schedule sacred. Nutrition intentional and high-quality. Regular outdoor immersion. Physical grounding non-negotiable. Deep embodied awareness. Strong anchor against pure abstraction.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How strong are biological grounding practices?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Weak/Absent</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="anchorsBiological" oninput="updateANCHORS()">
+              <span class="text-xs text-gray-500 w-24 text-right">Strong/Consistent</span>
+            </div>
+            <div class="mt-2 text-sm text-green-400" id="biologicalFeedback">Moderate biological anchoring</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded biological-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Regular physical exercise or movement</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded biological-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Consistent sleep schedule and quality rest</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded biological-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Attention to nutrition and eating patterns</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded biological-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Regular nature contact or outdoor time</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Social Anchors -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-blue-900/20 to-transparent border-l-4 border-blue-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">👥</span>
+            <h3 class="text-2xl font-bold">Social Anchors</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Stable relationships and community embeddedness that provide reality checks and mutual support.
+          </p>
+          
+          <button onclick="toggleCriteria('socialCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-blue-500/20 hover:bg-blue-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="socialCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Isolated):</strong> Few or no close relationships. No community ties. Purely digital interactions. No one to call in crisis. Relationships are transactional. Missing reality checks from trusted others. Social atomization.</div>
+              <div><strong>25-45 (Thin Connections):</strong> Some relationships but superficial. Acquaintances more than friends. Limited community involvement. Mostly screen-mediated contact. Few people who know you well. Weak social safety net.</div>
+              <div><strong>45-55 (Moderate):</strong> Several meaningful relationships. Some community participation. Mix of digital and in-person. People you can call for help. Occasional reality checks. Adequate but not robust social anchoring.</div>
+              <div><strong>55-75 (Well Connected):</strong> Multiple deep relationships of 5+ years. Active community member. Regular face-to-face contact. Trusted people who challenge your thinking. Strong social support. Embedded in networks that know you.</div>
+              <div><strong>75-100 (Deeply Embedded):</strong> Rich web of long-term relationships. Central community roles. Daily in-person contact. Multiple people who provide honest feedback. Deep trust network. Social anchoring prevents ideological drift. Known and accountable.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How embedded is the system in stable social networks?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Isolated</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="anchorsSocial" oninput="updateANCHORS()">
+              <span class="text-xs text-gray-500 w-24 text-right">Deeply Embedded</span>
+            </div>
+            <div class="mt-2 text-sm text-blue-400" id="socialFeedback">Moderate social anchoring</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded social-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Long-term stable relationships (family, friends)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded social-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Active community participation or membership</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded social-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Face-to-face interactions (not just digital)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded social-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Trusted people who provide honest feedback</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Material Anchors -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-orange-900/20 to-transparent border-l-4 border-orange-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🛠️</span>
+            <h3 class="text-2xl font-bold">Material Anchors</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Physical ownership and direct production that connect to tangible reality beyond pure abstraction.
+          </p>
+          
+          <button onclick="toggleCriteria('materialCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-orange-500/20 hover:bg-orange-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="materialCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Pure Abstraction):</strong> No physical skills or making. Everything rented/subscribed. Zero direct production. Complete service economy existence. No tools or ownership. Disconnected from material constraints. Pure information work.</div>
+              <div><strong>25-45 (Limited Materiality):</strong> Occasional DIY projects. Some owned possessions. Mostly consume rather than produce. Limited hands-on skills. Awareness of material reality but minimal engagement. Conceptual more than physical.</div>
+              <div><strong>45-55 (Moderate Grounding):</strong> Some physical skills (cooking, basic repairs). Mix of owned and rented. Occasional making/building. Understanding of material constraints from direct experience. Balance of abstract and concrete work.</div>
+              <div><strong>55-75 (Material Engagement):</strong> Regular physical creation or production. Significant ownership. Developed hands-on skills. Direct experience with material constraints. Making things provides reality anchor. Respect for physical limitations.</div>
+              <div><strong>75-100 (Deep Material Connection):</strong> Daily physical work or creation. Extensive ownership and stewardship. Advanced making/building skills. Deep understanding of material reality. Production not just consumption. Strong anchor against pure abstraction.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How connected is the system to material reality?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Purely Abstract</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="anchorsMaterial" oninput="updateANCHORS()">
+              <span class="text-xs text-gray-500 w-24 text-right">Materially Grounded</span>
+            </div>
+            <div class="mt-2 text-sm text-orange-400" id="materialFeedback">Some material grounding</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded material-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Physical ownership of productive assets</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded material-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Direct involvement in making/building things</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded material-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Working with hands or physical materials</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded material-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Maintenance or care of physical systems</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Temporal Anchors -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-purple-900/20 to-transparent border-l-4 border-purple-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">📅</span>
+            <h3 class="text-2xl font-bold">Temporal Anchors</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Rituals, routines, and regular cycles that provide structure and predictability.
+          </p>
+          
+          <button onclick="toggleCriteria('temporalAnchorCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-purple-500/20 hover:bg-purple-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="temporalAnchorCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Disconnected):</strong> No regular patterns. Chaotic schedule. No awareness of seasons. Time as abstract quantity. No rituals or markers. Every day the same. Disconnected from natural cycles. Pure clock time.</div>
+              <div><strong>25-45 (Weak Patterns):</strong> Irregular routines. Some weekly structure. Limited seasonal awareness. Few meaningful rituals. Schedule varies significantly. Some temporal anchors but not strong or consistent.</div>
+              <div><strong>45-55 (Moderate Rhythms):</strong> Daily routines established. Weekly patterns exist. Some seasonal awareness. Occasional rituals or traditions. Reasonable temporal structure. Balance of flexibility and pattern.</div>
+              <div><strong>55-75 (Strong Cycles):</strong> Consistent daily routines. Clear weekly rhythms. Seasonal awareness and adaptation. Regular rituals marking transitions. Temporal patterns provide stability. Connection to natural cycles.</div>
+              <div><strong>75-100 (Deep Temporal Connection):</strong> Sacred daily practices. Rich weekly rhythms. Deep seasonal engagement. Meaningful rituals throughout year. Strong connection to natural cycles. Time experienced as qualitative not just quantitative. Temporal anchoring prevents drift.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How structured are temporal patterns and routines?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Chaotic</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="anchorsTemporal" oninput="updateANCHORS()">
+              <span class="text-xs text-gray-500 w-24 text-right">Highly Structured</span>
+            </div>
+            <div class="mt-2 text-sm text-purple-400" id="temporalAnchorFeedback">Moderate temporal structure</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporalanchor-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Regular daily routines and schedules</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporalanchor-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Weekly rhythms or recurring patterns</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporalanchor-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Seasonal awareness or annual cycles</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded temporalanchor-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Rituals or ceremonies marking transitions</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Meaning Anchors -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-yellow-900/20 to-transparent border-l-4 border-yellow-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">✨</span>
+            <h3 class="text-2xl font-bold">Meaning Anchors</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Purpose, values, and ethical commitments that orient action beyond pure self-interest.
+          </p>
+          
+          <button onclick="toggleCriteria('meaningCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-yellow-500/20 hover:bg-yellow-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="meaningCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Absent/Drifting):</strong> No clear purpose. Values shift with circumstances. Purely reactive. No ethical framework. Self-interest dominates. Nihilistic or cynical. Meaning void creates vulnerability to ideological capture.</div>
+              <div><strong>25-45 (Vague):</strong> General sense of purpose but ill-defined. Values acknowledged but not operationalized. Occasional ethical considerations. Mostly pragmatic. Some meaning structure but weak anchor against drift.</div>
+              <div><strong>45-55 (Moderate Clarity):</strong> Stated purpose or mission. Some explicit values. Ethics considered in major decisions. Balance of principle and pragmatism. Adequate meaning structure. Room for opportunism under pressure.</div>
+              <div><strong>55-75 (Clear Direction):</strong> Well-defined purpose. Explicit values guide action. Regular ethical deliberation. Principled positions on key issues. Strong meaning framework. Resistant to pure opportunism. Coherent worldview.</div>
+              <div><strong>75-100 (Deep Integration):</strong> Profound sense of purpose. Values deeply integrated into all decisions. Rich ethical framework. Commitment to principles beyond self-interest. Meaning structure provides strong anchor. Resistant to ideological drift or capture.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How clear and stable are guiding values and purpose?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Absent/Shifting</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="anchorsMeaning" oninput="updateANCHORS()">
+              <span class="text-xs text-gray-500 w-24 text-right">Clear/Stable</span>
+            </div>
+            <div class="mt-2 text-sm text-yellow-400" id="meaningFeedback">Some meaning structure present</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded meaning-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Clear sense of purpose or mission</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded meaning-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Explicit values that guide decisions</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded meaning-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Ethical commitments beyond self-interest</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded meaning-symptom" onchange="updateANCHORS()">
+              <span class="text-sm">Contribution to something larger than self</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANCHORS Visualization & Diagnosis -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Bar Chart -->
+        <div class="glass-card rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4 serif">ANCHORS Strength Profile</h3>
+          <p class="text-sm text-gray-400 mb-4">
+            Strong anchors prevent symbolic drift. Weak anchors allow decoupling from reality.
+          </p>
+          <div class="relative" style="height: 400px;">
+            <canvas id="anchorsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Drift Risk Assessment -->
+        <div class="glass-card rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-4 serif">Drift Risk Assessment</h3>
+          <div id="anchorsDiagnosis" class="space-y-4">
+            <!-- Dynamic diagnosis -->
+          </div>
+          
+          <div class="mt-6 p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">⚠️</span>
+              <div>
+                <h4 class="font-semibold mb-1">Primary Vulnerabilities</h4>
+                <div id="driftVulnerabilities" class="text-sm text-gray-300">
+                  Complete the assessment to identify drift vulnerabilities.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex justify-between mt-8">
+        <button onclick="showSection('gravity')" class="px-6 py-3 rounded-lg glass-card hover:bg-gray-700/50 transition-colors">
+          ← Back to GRAVITY
+        </button>
+        <button onclick="completeAnchors()" class="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition-colors font-semibold">
+          Continue to PRIMES Framework →
+        </button>
+      </div>
+    </div>
+
+    <!-- PRIMES Section -->
+    <div id="primesSection" class="hidden space-y-6">
+      <div class="glass-card rounded-lg p-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="text-4xl">🔒</div>
+          <div class="flex-1">
+            <h2 class="text-3xl font-bold mb-2 serif">PRIMES Framework</h2>
+            <p class="text-gray-400">
+              <strong>Irreducible Constraints</strong>
+            </p>
+            <p class="text-gray-400 mt-2">
+              PRIMES identify constraints that cannot be eliminated, only managed. Attempting to "solve" a prime 
+              constraint creates new problems. The wisdom is in acceptance and adaptation, not denial.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mortality -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-red-900/20 to-transparent border-l-4 border-red-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">💀</span>
+            <h3 class="text-2xl font-bold">Mortality</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Death is inevitable. Time is finite. How does your system relate to this fundamental limit?
+          </p>
+          
+          <button onclick="toggleCriteria('mortalityCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-red-500/20 hover:bg-red-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="mortalityCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Accepts Finitude):</strong> Death acknowledged as natural. Time treated as precious. Legacy planning in place. Present moments valued. Urgency without panic. Realistic life planning. Memento mori integrated.</div>
+              <div><strong>25-45 (Pragmatic):</strong> Mortality intellectually accepted but emotionally avoided. Basic planning done. Some urgency about time. Occasional existential awareness. Balance of acceptance and avoidance.</div>
+              <div><strong>45-55 (Avoidant):</strong> Death discussed abstractly. Little life planning. Time treated as abundant. Procrastination on important matters. Existential avoidance. "I have plenty of time" mentality.</div>
+              <div><strong>55-75 (Denying):</strong> Death avoided in all conversations. No end-of-life planning. Living as if immortal. Time wasted freely. No urgency. Magical thinking about health. "It won't happen to me."</div>
+              <div><strong>75-100 (Total Denial):</strong> Immortality fantasies central. Digital upload or radical life extension as plan A. Complete refusal to engage with finitude. No planning for end. Time infinite in practice. Pathological denial of fundamental constraint.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well does your system accept mortality/finitude?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Accepts</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="primesMortality" oninput="updatePRIMES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Denies</span>
+            </div>
+            <div class="mt-2 text-sm text-red-400" id="mortalityFeedback">Moderate acceptance of finitude</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded mortality-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Living as if unlimited time available</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded mortality-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Avoiding end-of-life planning or conversations</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded mortality-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Pursuing immortality fantasies (digital upload, radical extension)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Scarcity -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-orange-900/20 to-transparent border-l-4 border-orange-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">⚖️</span>
+            <h3 class="text-2xl font-bold">Scarcity</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Resources are finite. Every choice has opportunity costs. Abundance in one area means scarcity in another.
+          </p>
+          
+          <button onclick="toggleCriteria('scarcityCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-orange-500/20 hover:bg-orange-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="scarcityCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Accepts Tradeoffs):</strong> Explicit prioritization. Clear "not doing" list. Opportunity costs acknowledged. Resource allocation deliberate. Zero-sum games recognized. Tough choices made. Realistic about limits.</div>
+              <div><strong>25-45 (Pragmatic):</strong> Tradeoffs generally acknowledged. Some prioritization. Occasional wishful thinking about "having it all." Resource constraints mostly respected. Priorities somewhat clear.</div>
+              <div><strong>45-55 (Optimistic):</strong> Preference for win-win narratives. Tradeoffs minimized. Hoping to avoid hard choices. Resource limits acknowledged but expected to be overcome. Prioritization weak.</div>
+              <div><strong>55-75 (Denying):</strong> "We can do everything" mentality. No real prioritization. Win-win assumed for all conflicts. Resource limits seen as temporary. Opportunity costs ignored. Magical thinking about abundance.</div>
+              <div><strong>75-100 (Complete Denial):</strong> Post-scarcity fantasies. Zero-sum games denied entirely. No tradeoffs accepted. Unlimited resources assumed. Every priority is top priority. Total refusal to choose. Disconnection from material reality.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well does your system accept resource limits?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Accepts Tradeoffs</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="primesScarcity" oninput="updatePRIMES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Denies Limits</span>
+            </div>
+            <div class="mt-2 text-sm text-orange-400" id="scarcityFeedback">Realistic about resource constraints</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded scarcity-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Believing in win-win solutions for all conflicts</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded scarcity-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Avoiding hard prioritization decisions</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded scarcity-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Magical thinking about resource availability</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Uncertainty -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-purple-900/20 to-transparent border-l-4 border-purple-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🎲</span>
+            <h3 class="text-2xl font-bold">Uncertainty</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            The future is unknowable. Prediction has limits. Control is an illusion beyond certain thresholds.
+          </p>
+          
+          <button onclick="toggleCriteria('uncertaintyCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-purple-500/20 hover:bg-purple-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="uncertaintyCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Comfortable):</strong> Acts decisively with incomplete information. Embraces experimentation. "Strong opinions, weakly held." Robust to surprise. Antifragile systems. Scenario planning instead of prediction. Comfortable with ambiguity.</div>
+              <div><strong>25-45 (Pragmatic):</strong> Reasonable planning with acknowledged uncertainty. Contingency plans exist. Some discomfort with unknowns but acts anyway. Balanced approach. Learning-oriented.</div>
+              <div><strong>45-55 (Uncomfortable):</strong> Preference for certainty. Extensive planning to reduce uncertainty. Some anxiety about unknowns. Control-seeking tendencies. Difficulty with ambiguity.</div>
+              <div><strong>55-75 (Intolerant):</strong> Demands guarantees before action. Heavy reliance on predictions. Anxiety dominant when facing uncertainty. Control illusions strong. Paralysis from unknowns. False precision in forecasts.</div>
+              <div><strong>75-100 (Total Rejection):</strong> Complete intolerance of uncertainty. Requires certainty for any decision. Pretends future is predictable. Elaborate prediction theater. Frozen by ambiguity. Denies fundamental unpredictability. Brittle systems optimized for one scenario.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well does your system tolerate irreducible uncertainty?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Comfortable</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="primesUncertainty" oninput="updatePRIMES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Intolerant</span>
+            </div>
+            <div class="mt-2 text-sm text-purple-400" id="uncertaintyFeedback">Moderate uncertainty tolerance</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded uncertainty-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Demanding guarantees before action</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded uncertainty-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Overreliance on predictions and forecasts</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded uncertainty-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Anxiety about lack of control</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Conflict -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-yellow-900/20 to-transparent border-l-4 border-yellow-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">⚔️</span>
+            <h3 class="text-2xl font-bold">Conflict</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            Interests sometimes genuinely diverge. Not all conflicts can be resolved; some must be managed.
+          </p>
+          
+          <button onclick="toggleCriteria('conflictCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-yellow-500/20 hover:bg-yellow-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="conflictCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Manages Well):</strong> Legitimate disagreement accepted. Power dynamics acknowledged. Structural inequality recognized. Conflict resolution mechanisms exist. Boundaries enforced when needed. Realism about irreconcilable differences. Managed tension acceptable.</div>
+              <div><strong>25-45 (Realistic):</strong> Conflicts addressed though preference for resolution. Some tough conversations happen. Boundaries mostly maintained. Occasional avoidance but generally faces disagreement. Understands not all conflicts disappear.</div>
+              <div><strong>45-55 (Harmony-Seeking):</strong> Strong preference for agreement. Uncomfortable with sustained conflict. Optimistic about resolution. Some avoidance of difficult conversations. Boundaries fuzzy. Hope tensions will naturally resolve.</div>
+              <div><strong>55-75 (Conflict-Avoidant):</strong> Harmony demanded. Disagreement seen as failure. Power dynamics denied. "We're all on the same team" despite evidence. Toxic positivity. Boundary violations tolerated. Belief all conflicts resolvable with enough communication.</div>
+              <div><strong>75-100 (Total Denial):</strong> Complete conflict avoidance. Pretends disagreement doesn't exist. No boundaries. Power dynamics invisible. Structural issues ignored. Pathological harmony-seeking. Gaslight about legitimate grievances. Collapse when conflict inevitable.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How does your system handle irreducible conflicts?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Manages</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="primesConflict" oninput="updatePRIMES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Denies</span>
+            </div>
+            <div class="mt-2 text-sm text-yellow-400" id="conflictFeedback">Realistic about conflict</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded conflict-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Believing all conflicts are misunderstandings</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded conflict-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Avoiding necessary confrontations</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded conflict-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Seeking consensus where authority is needed</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Embodiment -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-blue-900/20 to-transparent border-l-4 border-blue-500">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-3xl">🧬</span>
+            <h3 class="text-2xl font-bold">Embodiment</h3>
+          </div>
+          <p class="text-gray-400 mb-4">
+            We cannot escape biological constraints. Minds are embodied in vulnerable, needy bodies.
+          </p>
+          
+          <button onclick="toggleCriteria('embodimentCriteria')" class="ml-auto px-3 py-1 text-xs rounded bg-blue-500/20 hover:bg-blue-500/30 transition-colors help-toggle mb-3">
+            ℹ️ Selection Criteria
+          </button>
+          <div id="embodimentCriteria" class="criteria-help mb-4 p-4 rounded bg-gray-800/50 text-sm">
+            <h4 class="font-semibold mb-2">How to Position This Slider:</h4>
+            <div class="space-y-3">
+              <div><strong>0-25 (Accepts Limits):</strong> Physical needs prioritized. Sleep sacred. Nutrition valued. Illness acknowledged and accommodated. Vulnerability accepted. Aging expected. Disability designed for. Body-mind unity recognized.</div>
+              <div><strong>25-45 (Generally Respectful):</strong> Physical needs mostly met. Occasional pushing beyond limits but recovery happens. Health generally prioritized. Some acknowledgment of embodiment. Reasonable accommodation for physical constraints.</div>
+              <div><strong>45-55 (Mixed):</strong> Physical needs met under ideal conditions, sacrificed under pressure. \"Mind over matter\" mentality emerging. Some denial of biological limits. Health compromised for productivity. Embodiment acknowledged but resented.</div>
+              <div><strong>55-75 (Denying):</strong> Body treated as obstacle. Sleep sacrificed regularly. Nutrition neglected. Illness pushed through. \"Biohacking\" to transcend limits. Aging fought desperately. Disability seen as merely technical problem. Disembodied thinking.</div>
+              <div><strong>75-100 (Total Rejection):</strong> Complete denial of embodiment. Transhumanist fantasies central. Body seen as prison. Physical needs minimized or medicated away. Mind-upload as goal. Contempt for biological limits. Dangerous disconnection from physical reality.</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium mb-2">How well does your system accept embodied limitations?</label>
+            <div class="flex items-center gap-4">
+              <span class="text-xs text-gray-500 w-24">Accepts</span>
+              <input type="range" min="0" max="100" value="50" class="flex-1" id="primesEmbodiment" oninput="updatePRIMES()">
+              <span class="text-xs text-gray-500 w-24 text-right">Denies</span>
+            </div>
+            <div class="mt-2 text-sm text-blue-400" id="embodimentFeedback">Moderate embodiment acceptance</div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded embodiment-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Treating body as obstacle to overcome</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded embodiment-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Ignoring physical needs (sleep, food, movement)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" class="rounded embodiment-symptom" onchange="updatePRIMES()">
+              <span class="text-sm">Fantasizing about transcending biological limits</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRIMES Diagnosis -->
+      <div class="glass-card rounded-lg p-6">
+        <h3 class="text-xl font-bold mb-4 serif">PRIMES Assessment</h3>
+        <div id="primesDiagnosis" class="space-y-4">
+          <!-- Dynamic diagnosis -->
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex justify-between mt-8">
+        <button onclick="showSection('anchors')" class="px-6 py-3 rounded-lg glass-card hover:bg-gray-700/50 transition-colors">
+          ← Back to ANCHORS
+        </button>
+        <button onclick="completePrimes()" class="px-6 py-3 rounded-lg bg-green-600 hover:bg-green-500 transition-colors font-semibold">
+          View Comprehensive Analysis →
+        </button>
+      </div>
+    </div>
+
+    <!-- Comprehensive Integration Section -->
+    <div id="integrationSection" class="hidden space-y-6">
+      <div class="glass-card rounded-lg p-8">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-green-400 mb-4">
+            <span class="text-2xl">✓</span>
+            <span class="text-sm font-medium">Assessment Complete</span>
+          </div>
+          <h2 class="text-4xl font-bold mb-4 serif">Comprehensive System Analysis</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto" id="integrationSystemName">
+            Complete diagnostic profile across all four constraint frameworks
+          </p>
+        </div>
+
+        <!-- Overall Health Score -->
+        <div class="mb-8 p-6 rounded-lg bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-500/30">
+          <h3 class="text-2xl font-bold mb-4 text-center">Overall System Health</h3>
+          <div id="overallHealthDisplay" class="text-center">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+
+        <!-- Framework Summary Grid -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="glass-card p-6 rounded-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">🔧</span>
+              <h3 class="text-xl font-bold">FORCES</h3>
+            </div>
+            <div id="forcesSummary"></div>
+          </div>
+
+          <div class="glass-card p-6 rounded-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">⚖️</span>
+              <h3 class="text-xl font-bold">GRAVITY</h3>
+            </div>
+            <div id="gravitySummary"></div>
+          </div>
+
+          <div class="glass-card p-6 rounded-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">⚓</span>
+              <h3 class="text-xl font-bold">ANCHORS</h3>
+            </div>
+            <div id="anchorsSummary"></div>
+          </div>
+
+          <div class="glass-card p-6 rounded-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl">🔒</span>
+              <h3 class="text-xl font-bold">PRIMES</h3>
+            </div>
+            <div id="primesSummary"></div>
+          </div>
+        </div>
+
+        <!-- Top Recommendations -->
+        <div class="glass-card rounded-lg p-8">
+          <h3 class="text-2xl font-bold mb-6 serif">Priority Interventions</h3>
+          <p class="text-gray-400 mb-6">
+            Based on your complete assessment, these are the highest-leverage interventions for improving system health:
+          </p>
+          <div id="priorityInterventions" class="space-y-4">
+            <!-- Dynamic recommendations -->
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex gap-4 mt-8">
+          <button onclick="startOver()" class="flex-1 px-6 py-3 rounded-lg glass-card hover:bg-gray-700/50 transition-colors">
+            Start New Assessment
+          </button>
+          <button onclick="exportResults()" class="flex-1 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition-colors font-semibold">
+            📄 Export Report (Coming Phase 4)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let systemName = '';
+    let forcesData = {
+      flow: 50,
+      opacity: 50,
+      rigidity: 50,
+      coupling: 50,
+      entropy: 50,
+      scale: 50
+    };
+
+    let gravityData = {
+      thermodynamic: 50,
+      information: 50,
+      coordination: 50,
+      temporal: 50,
+      evolutionary: 50
+    };
+
+    let anchorsData = {
+      biological: 50,
+      social: 50,
+      material: 50,
+      temporal: 50,
+      meaning: 50
+    };
+
+    let primesData = {
+      mortality: 50,
+      scarcity: 50,
+      uncertainty: 50,
+      conflict: 50,
+      embodiment: 50
+    };
+
+    let radarChart = null;
+    let anchorsChart = null;
+
+    // Initialize radar chart
+    function initRadarChart() {
+      const ctx = document.getElementById('forcesRadar').getContext('2d');
+      
+      radarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Flow', 'Opacity', 'Rigidity', 'Coupling', 'Entropy', 'Scale'],
+          datasets: [{
+            label: 'Current State',
+            data: [50, 50, 50, 50, 50, 50],
+            backgroundColor: 'rgba(96, 165, 250, 0.2)',
+            borderColor: 'rgba(96, 165, 250, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(96, 165, 250, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(96, 165, 250, 1)'
+          }, {
+            label: 'Healthy Range',
+            data: [50, 50, 50, 50, 50, 50],
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+            borderColor: 'rgba(34, 197, 94, 0.5)',
+            borderWidth: 1,
+            borderDash: [5, 5],
+            pointRadius: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                stepSize: 20,
+                color: '#9ca3af'
+              },
+              grid: {
+                color: 'rgba(100, 130, 180, 0.2)'
+              },
+              pointLabels: {
+                color: '#e8edf4',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#e8edf4'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Update system name
+    function updateSystemName() {
+      systemName = document.getElementById('systemName').value;
+      updateFORCES();
+    }
+
+    // Update FORCES assessment
+    function updateFORCES() {
+      // Get slider values
+      forcesData.flow = parseInt(document.getElementById('flowSlider').value);
+      forcesData.opacity = parseInt(document.getElementById('opacitySlider').value);
+      forcesData.rigidity = parseInt(document.getElementById('rigiditySlider').value);
+      forcesData.coupling = parseInt(document.getElementById('couplingSlider').value);
+      forcesData.entropy = parseInt(document.getElementById('entropySlider').value);
+      forcesData.scale = parseInt(document.getElementById('scaleSlider').value);
+
+      // Update feedback text
+      updateFeedbackText();
+
+      // Update radar chart
+      if (radarChart) {
+        radarChart.data.datasets[0].data = [
+          forcesData.flow,
+          forcesData.opacity,
+          forcesData.rigidity,
+          forcesData.coupling,
+          forcesData.entropy,
+          forcesData.scale
+        ];
+        radarChart.update();
+      }
+
+      // Update diagnosis
+      updateDiagnosis();
+    }
+
+    function updateFeedbackText() {
+      // Flow feedback
+      const flow = forcesData.flow;
+      const flowSymptoms = document.querySelectorAll('.flow-symptom:checked').length;
+      let flowText = '';
+      if (flow < 30) flowText = '🚧 Blocked flow: Information/resources struggling to move';
+      else if (flow < 45) flowText = '💚 Healthy flow with room for optimization';
+      else if (flow < 55) flowText = '💚 Optimal flow balanced between access and overwhelm';
+      else if (flow < 70) flowText = '💛 Approaching overload territory';
+      else flowText = '🌊 Overwhelming flood: System drowning in inputs';
+      flowText += flowSymptoms > 0 ? ` (${flowSymptoms}/3 symptoms)` : '';
+      document.getElementById('flowFeedback').textContent = flowText;
+
+      // Opacity feedback
+      const opacity = forcesData.opacity;
+      const opacitySymptoms = document.querySelectorAll('.opacity-symptom:checked').length;
+      let opacityText = '';
+      if (opacity < 30) opacityText = '💚 Good transparency enables informed decisions';
+      else if (opacity < 45) opacityText = '💚 Moderate transparency with appropriate privacy';
+      else if (opacity < 55) opacityText = '💛 Some opacity creating uncertainty';
+      else if (opacity < 70) opacityText = '🧡 Significant opacity limiting understanding';
+      else opacityText = '❌ Severe opacity: Black box decision-making';
+      opacityText += opacitySymptoms > 0 ? ` (${opacitySymptoms}/3 symptoms)` : '';
+      document.getElementById('opacityFeedback').textContent = opacityText;
+
+      // Rigidity feedback
+      const rigidity = forcesData.rigidity;
+      const rigiditySymptoms = document.querySelectorAll('.rigidity-symptom:checked').length;
+      let rigidityText = '';
+      if (rigidity < 30) rigidityText = '⚠️ High flexibility may lack needed structure';
+      else if (rigidity < 45) rigidityText = '💚 Good balance of structure and adaptability';
+      else if (rigidity < 55) rigidityText = '💚 Balanced structure with adaptive capacity';
+      else if (rigidity < 70) rigidityText = '🧡 Rigidity limiting necessary adaptation';
+      else rigidityText = '❌ Extreme rigidity: Brittle and unable to evolve';
+      rigidityText += rigiditySymptoms > 0 ? ` (${rigiditySymptoms}/3 symptoms)` : '';
+      document.getElementById('rigidityFeedback').textContent = rigidityText;
+
+      // Coupling feedback
+      const coupling = forcesData.coupling;
+      const couplingSymptoms = document.querySelectorAll('.coupling-symptom:checked').length;
+      let couplingText = '';
+      if (coupling < 30) couplingText = '⚠️ Loose coupling may lack coordination';
+      else if (coupling < 45) couplingText = '💚 Moderate coupling with good resilience';
+      else if (coupling < 55) couplingText = '💚 Moderate coupling with buffering mechanisms';
+      else if (coupling < 70) couplingText = '🧡 Tight coupling creating fragility';
+      else couplingText = '❌ Extreme coupling: Cascading failure risk';
+      couplingText += couplingSymptoms > 0 ? ` (${couplingSymptoms}/3 symptoms)` : '';
+      document.getElementById('couplingFeedback').textContent = couplingText;
+
+      // Entropy feedback
+      const entropy = forcesData.entropy;
+      const entropySymptoms = document.querySelectorAll('.entropy-symptom:checked').length;
+      let entropyText = '';
+      if (entropy < 30) entropyText = '💚 Self-maintaining: Low degradation rate';
+      else if (entropy < 45) entropyText = '💚 Adequate maintenance counteracting decay';
+      else if (entropy < 55) entropyText = '💛 Maintenance keeping pace with decay';
+      else if (entropy < 70) entropyText = '🧡 Decay outpacing maintenance efforts';
+      else entropyText = '❌ Rapid decay: System losing coherence';
+      entropyText += entropySymptoms > 0 ? ` (${entropySymptoms}/3 symptoms)` : '';
+      document.getElementById('entropyFeedback').textContent = entropyText;
+
+      // Scale feedback
+      const scale = forcesData.scale;
+      const scaleSymptoms = document.querySelectorAll('.scale-symptom:checked').length;
+      let scaleText = '';
+      if (scale < 30) scaleText = '💚 Structures well-matched to current scale';
+      else if (scale < 45) scaleText = '💚 Structures appropriate for current size';
+      else if (scale < 55) scaleText = '💛 Minor scale mismatch issues emerging';
+      else if (scale < 70) scaleText = '🧡 Significant scale mismatch problems';
+      else scaleText = '❌ Severe mismatch: Wrong-sized solutions';
+      scaleText += scaleSymptoms > 0 ? ` (${scaleSymptoms}/3 symptoms)` : '';
+      document.getElementById('scaleFeedback').textContent = scaleText;
+    }
+
+    function updateDiagnosis() {
+      const systemLabel = systemName ? `"${systemName}"` : 'Your system';
+      let html = '';
+
+      // Calculate overall health
+      const avgPathology = (forcesData.flow + forcesData.opacity + forcesData.rigidity + 
+                           forcesData.coupling + forcesData.entropy + forcesData.scale) / 6;
+      
+      let overallStatus = '';
+      let statusColor = '';
+      if (avgPathology < 40) {
+        overallStatus = 'Healthy';
+        statusColor = 'text-green-400';
+      } else if (avgPathology < 55) {
+        overallStatus = 'Stable';
+        statusColor = 'text-blue-400';
+      } else if (avgPathology < 70) {
+        overallStatus = 'At Risk';
+        statusColor = 'text-yellow-400';
+      } else {
+        overallStatus = 'Critical';
+        statusColor = 'text-red-400';
+      }
+
+      html += `<div class="mb-4">
+        <h4 class="text-lg font-semibold mb-2">Overall Health: <span class="${statusColor}">${overallStatus}</span></h4>
+        <div class="w-full bg-gray-700 rounded-full h-3">
+          <div class="h-3 rounded-full transition-all duration-500" style="width: ${100 - avgPathology}%; background: ${avgPathology < 40 ? '#22c55e' : avgPathology < 55 ? '#60a5fa' : avgPathology < 70 ? '#f59e0b' : '#ef4444'}"></div>
+        </div>
+      </div>`;
+
+      // Identify critical issues
+      html += '<div class="space-y-2">';
+      
+      if (forcesData.flow > 65) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-red-400">⚠️</span><span><strong>Critical Flow Issue:</strong> System experiencing overwhelm or severe blockages</span></div>';
+      }
+      if (forcesData.opacity > 65) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-red-400">⚠️</span><span><strong>Critical Opacity Issue:</strong> Dangerous lack of transparency</span></div>';
+      }
+      if (forcesData.rigidity > 65) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-red-400">⚠️</span><span><strong>Critical Rigidity Issue:</strong> System too brittle to adapt</span></div>';
+      }
+      if (forcesData.coupling > 65) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-red-400">⚠️</span><span><strong>Critical Coupling Issue:</strong> High cascading failure risk</span></div>';
+      }
+      if (forcesData.entropy > 65) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-red-400">⚠️</span><span><strong>Critical Entropy Issue:</strong> Rapid system degradation</span></div>';
+      }
+      if (forcesData.scale > 65) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-red-400">⚠️</span><span><strong>Critical Scale Issue:</strong> Severe structure-size mismatch</span></div>';
+      }
+
+      if (avgPathology < 55) {
+        html += '<div class="flex gap-2 items-start text-sm"><span class="text-green-400">✓</span><span>' + systemLabel + ' shows no critical pathologies in FORCES assessment</span></div>';
+      }
+
+      html += '</div>';
+
+      document.getElementById('forcesDiagnosis').innerHTML = html;
+
+      // Update leverage points
+      updateLeveragePoints();
+    }
+
+    function updateLeveragePoints() {
+      const issues = [];
+      if (forcesData.flow > 60) issues.push({name: 'Flow', value: forcesData.flow, rec: 'Implement information filters, rate limiting, or better channel design'});
+      if (forcesData.opacity > 60) issues.push({name: 'Opacity', value: forcesData.opacity, rec: 'Create transparency mechanisms, feedback loops, and visible metrics'});
+      if (forcesData.rigidity > 60) issues.push({name: 'Rigidity', value: forcesData.rigidity, rec: 'Build adaptive capacity through modularity and flexible procedures'});
+      if (forcesData.coupling > 60) issues.push({name: 'Coupling', value: forcesData.coupling, rec: 'Introduce buffers, redundancy, and failure isolation mechanisms'});
+      if (forcesData.entropy > 60) issues.push({name: 'Entropy', value: forcesData.entropy, rec: 'Invest in maintenance, documentation, and knowledge preservation'});
+      if (forcesData.scale > 60) issues.push({name: 'Scale', value: forcesData.scale, rec: 'Redesign structures to match current system size'});
+
+      issues.sort((a, b) => b.value - a.value);
+
+      if (issues.length === 0) {
+        document.getElementById('leveragePoints').innerHTML = '✓ No critical interventions needed. Focus on maintaining current health.';
+      } else {
+        let html = '<ol class="list-decimal list-inside space-y-2">';
+        issues.slice(0, 3).forEach(issue => {
+          html += `<li><strong>${issue.name}:</strong> ${issue.rec}</li>`;
+        });
+        html += '</ol>';
+        document.getElementById('leveragePoints').innerHTML = html;
+      }
+    }
+
+    function completeForces() {
+      // Mark FORCES as completed
+      const steps = document.querySelectorAll('.progress-step');
+      steps[0].classList.remove('active');
+      steps[0].classList.add('completed');
+      steps[0].querySelector('.text-xs').textContent = '✓ Completed';
+      
+      // Show completion message for Phase 1
+      alert('Phase 1 Complete!\n\nFORCES assessment is fully functional. The FORCES framework provides a comprehensive diagnostic of your system across six fundamental vectors.\n\nPhase 2 will add GRAVITY and ANCHORS frameworks.\nPhase 3 will add PRIMES and full integration.\nPhase 4 will add export and advanced features.\n\nContinuing to Phase 2 is currently a placeholder.');
+      
+      showSection('gravity');
+    }
+
+    function showSection(section) {
+      // Hide all sections
+      document.getElementById('contextSection').style.display = 'none';
+      document.getElementById('forcesSection').style.display = 'none';
+      document.getElementById('gravitySection').style.display = 'none';
+      document.getElementById('anchorsSection').style.display = 'none';
+      document.getElementById('primesSection').style.display = 'none';
+
+      // Show selected section
+      if (section === 'context') {
+        document.getElementById('contextSection').style.display = 'block';
+      } else if (section === 'forces') {
+        document.getElementById('forcesSection').style.display = 'block';
+      } else if (section === 'gravity') {
+        document.getElementById('gravitySection').style.display = 'block';
+      } else if (section === 'anchors') {
+        document.getElementById('anchorsSection').style.display = 'block';
+      } else if (section === 'primes') {
+        document.getElementById('primesSection').style.display = 'block';
+      }
+
+      // Update progress tracker
+      const steps = document.querySelectorAll('.progress-step');
+      steps.forEach((step, index) => {
+        step.classList.remove('active');
+        step.style.opacity = '0.6';
+      });
+
+      if (section === 'forces') {
+        steps[0].classList.add('active');
+        steps[0].style.opacity = '1';
+      } else if (section === 'gravity') {
+        steps[1].classList.add('active');
+        steps[1].style.opacity = '1';
+      } else if (section === 'anchors') {
+        steps[2].classList.add('active');
+        steps[2].style.opacity = '1';
+      } else if (section === 'primes') {
+        steps[3].classList.add('active');
+        steps[3].style.opacity = '1';
+      }
+    }
+
+    // GRAVITY functions
+    function updateGRAVITY() {
+      gravityData.thermodynamic = parseInt(document.getElementById('gravityThermodynamic').value);
+      gravityData.information = parseInt(document.getElementById('gravityInformation').value);
+      gravityData.coordination = parseInt(document.getElementById('gravityCoordination').value);
+      gravityData.temporal = parseInt(document.getElementById('gravityTemporal').value);
+      gravityData.evolutionary = parseInt(document.getElementById('gravityEvolutionary').value);
+
+      updateGravityFeedback();
+      updateGravityDiagnosis();
+    }
+
+    function updateGravityFeedback() {
+      const thermo = gravityData.thermodynamic;
+      const thermoSymptoms = document.querySelectorAll('.thermodynamic-symptom:checked').length;
+      let thermoText = thermo < 30 ? '💚 Working with thermodynamic reality' :
+        thermo < 55 ? '💚 Balanced energy management' :
+        thermo < 70 ? '🧡 Some unrealistic energy expectations' :
+        '❌ Fighting thermodynamic constraints';
+      thermoText += thermoSymptoms > 0 ? ` (${thermoSymptoms}/3 symptoms)` : '';
+      document.getElementById('thermodynamicFeedback').textContent = thermoText;
+
+      const info = gravityData.information;
+      const infoSymptoms = document.querySelectorAll('.information-symptom:checked').length;
+      let infoText = info < 30 ? '💚 Accepts information limits' :
+        info < 55 ? '💚 Realistic information expectations' :
+        info < 70 ? '🧡 Demanding excessive certainty' :
+        '❌ Unrealistic omniscience demands';
+      infoText += infoSymptoms > 0 ? ` (${infoSymptoms}/3 symptoms)` : '';
+      document.getElementById('informationFeedback').textContent = infoText;
+
+      const coord = gravityData.coordination;
+      const coordSymptoms = document.querySelectorAll('.coordination-symptom:checked').length;
+      let coordText = coord < 30 ? '💚 Coordination costs built into design' :
+        coord < 55 ? '💚 Coordination costs acknowledged' :
+        coord < 70 ? '🧡 Underestimating coordination overhead' :
+        '❌ Ignoring coordination realities';
+      coordText += coordSymptoms > 0 ? ` (${coordSymptoms}/3 symptoms)` : '';
+      document.getElementById('coordinationFeedback').textContent = coordText;
+
+      const temp = gravityData.temporal;
+      const tempSymptoms = document.querySelectorAll('.temporal-symptom:checked').length;
+      let tempText = temp < 30 ? '💚 Patient with natural time scales' :
+        temp < 55 ? '💚 Realistic time expectations' :
+        temp < 70 ? '🧡 Impatience creating pressure' :
+        '❌ Fighting natural time requirements';
+      tempText += tempSymptoms > 0 ? ` (${tempSymptoms}/3 symptoms)` : '';
+      document.getElementById('temporalFeedback').textContent = tempText;
+
+      const evol = gravityData.evolutionary;
+      const evolSymptoms = document.querySelectorAll('.evolutionary-symptom:checked').length;
+      let evolText = evol < 30 ? '💚 Adaptive to selection pressures' :
+        evol < 55 ? '💚 Accepts evolutionary pressures' :
+        evol < 70 ? '🧡 Resisting necessary adaptation' :
+        '❌ Denying evolutionary selection';
+      evolText += evolSymptoms > 0 ? ` (${evolSymptoms}/3 symptoms)` : '';
+      document.getElementById('evolutionaryFeedback').textContent = evolText;
+    }
+
+    function updateGravityDiagnosis() {
+      const avg = (gravityData.thermodynamic + gravityData.information + gravityData.coordination + 
+                   gravityData.temporal + gravityData.evolutionary) / 5;
+      
+      let html = '<div class="mb-4">';
+      html += '<h4 class="text-lg font-semibold mb-2">Gravity Resistance: ';
+      
+      if (avg < 40) {
+        html += '<span class="text-green-400">Working With Reality</span></h4>';
+        html += '<p class="text-sm text-gray-400">System generally accepts inevitable constraints and works within them.</p>';
+      } else if (avg < 55) {
+        html += '<span class="text-blue-400">Mostly Realistic</span></h4>';
+        html += '<p class="text-sm text-gray-400">System has realistic expectations with minor friction points.</p>';
+      } else if (avg < 70) {
+        html += '<span class="text-yellow-400">Fighting Some Inevitabilities</span></h4>';
+        html += '<p class="text-sm text-gray-400">System expending significant energy fighting unavoidable constraints.</p>';
+      } else {
+        html += '<span class="text-red-400">Fighting Gravity</span></h4>';
+        html += '<p class="text-sm text-gray-400">System in denial of fundamental constraints—unsustainable resource drain.</p>';
+      }
+      html += '</div>';
+
+      html += '<div class="space-y-2 text-sm">';
+      if (gravityData.thermodynamic > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Fighting thermodynamic reality wastes resources</span></div>';
+      if (gravityData.information > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Demanding perfect information creates paralysis</span></div>';
+      if (gravityData.coordination > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Ignoring coordination costs causes breakdown</span></div>';
+      if (gravityData.temporal > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Impatience with natural time scales creates pressure</span></div>';
+      if (gravityData.evolutionary > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Denying selection pressures prevents adaptation</span></div>';
+      html += '</div>';
+
+      document.getElementById('gravityDiagnosis').innerHTML = html;
+    }
+
+    function completeGravity() {
+      const steps = document.querySelectorAll('.progress-step');
+      steps[1].classList.remove('active');
+      steps[1].classList.add('completed');
+      steps[1].querySelector('.text-xs').textContent = '✓ Completed';
+      showSection('anchors');
+    }
+
+    // ANCHORS functions
+    function initAnchorsChart() {
+      const ctx = document.getElementById('anchorsChart').getContext('2d');
+      
+      anchorsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Biological', 'Social', 'Material', 'Temporal', 'Meaning'],
+          datasets: [{
+            label: 'Anchor Strength',
+            data: [50, 50, 50, 50, 50],
+            backgroundColor: [
+              'rgba(34, 197, 94, 0.6)',
+              'rgba(59, 130, 246, 0.6)',
+              'rgba(249, 115, 22, 0.6)',
+              'rgba(168, 85, 247, 0.6)',
+              'rgba(234, 179, 8, 0.6)'
+            ],
+            borderColor: [
+              'rgba(34, 197, 94, 1)',
+              'rgba(59, 130, 246, 1)',
+              'rgba(249, 115, 22, 1)',
+              'rgba(168, 85, 247, 1)',
+              'rgba(234, 179, 8, 1)'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                color: '#9ca3af'
+              },
+              grid: {
+                color: 'rgba(100, 130, 180, 0.2)'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#e8edf4'
+              },
+              grid: {
+                display: false
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+    }
+
+    function updateANCHORS() {
+      anchorsData.biological = parseInt(document.getElementById('anchorsBiological').value);
+      anchorsData.social = parseInt(document.getElementById('anchorsSocial').value);
+      anchorsData.material = parseInt(document.getElementById('anchorsMaterial').value);
+      anchorsData.temporal = parseInt(document.getElementById('anchorsTemporal').value);
+      anchorsData.meaning = parseInt(document.getElementById('anchorsMeaning').value);
+
+      updateAnchorsFeedback();
+      if (anchorsChart) {
+        anchorsChart.data.datasets[0].data = [
+          anchorsData.biological,
+          anchorsData.social,
+          anchorsData.material,
+          anchorsData.temporal,
+          anchorsData.meaning
+        ];
+        anchorsChart.update();
+      }
+      updateAnchorsDiagnosis();
+    }
+
+    function updateAnchorsFeedback() {
+      const bio = anchorsData.biological;
+      const bioSymptoms = document.querySelectorAll('.biological-symptom:checked').length;
+      let bioText = bio < 30 ? '❌ Weak biological grounding—drift risk' :
+        bio < 55 ? '💛 Moderate biological anchoring' :
+        bio < 70 ? '💚 Good biological grounding' :
+        '💚 Strong biological anchors';
+      bioText += bioSymptoms > 0 ? ` (${bioSymptoms}/4 symptoms)` : '';
+      document.getElementById('biologicalFeedback').textContent = bioText;
+
+      const soc = anchorsData.social;
+      const socSymptoms = document.querySelectorAll('.social-symptom:checked').length;
+      let socText = soc < 30 ? '❌ Socially isolated—high drift risk' :
+        soc < 55 ? '💛 Moderate social anchoring' :
+        soc < 70 ? '💚 Good social embedding' :
+        '💚 Strong social anchors';
+      socText += socSymptoms > 0 ? ` (${socSymptoms}/4 symptoms)` : '';
+      document.getElementById('socialFeedback').textContent = socText;
+
+      const mat = anchorsData.material;
+      const matSymptoms = document.querySelectorAll('.material-symptom:checked').length;
+      let matText = mat < 30 ? '❌ Purely abstract—disconnected from material reality' :
+        mat < 55 ? '💛 Some material grounding' :
+        mat < 70 ? '💚 Good material connection' :
+        '💚 Strong material anchors';
+      matText += matSymptoms > 0 ? ` (${matSymptoms}/4 symptoms)` : '';
+      document.getElementById('materialFeedback').textContent = matText;
+
+      const temp = anchorsData.temporal;
+      const tempSymptoms = document.querySelectorAll('.temporalanchor-symptom:checked').length;
+      let tempText = temp < 30 ? '❌ Chaotic temporal patterns—no structure' :
+        temp < 55 ? '💛 Moderate temporal structure' :
+        temp < 70 ? '💚 Good temporal rhythms' :
+        '💚 Strong temporal anchors';
+      tempText += tempSymptoms > 0 ? ` (${tempSymptoms}/4 symptoms)` : '';
+      document.getElementById('temporalAnchorFeedback').textContent = tempText;
+
+      const mean = anchorsData.meaning;
+      const meanSymptoms = document.querySelectorAll('.meaning-symptom:checked').length;
+      let meanText = mean < 30 ? '❌ No clear purpose or values' :
+        mean < 55 ? '💛 Some meaning structure present' :
+        mean < 70 ? '💚 Clear values and purpose' :
+        '💚 Strong meaning anchors';
+      meanText += meanSymptoms > 0 ? ` (${meanSymptoms}/4 symptoms)` : '';
+      document.getElementById('meaningFeedback').textContent = meanText;
+    }
+
+    function updateAnchorsDiagnosis() {
+      const avg = (anchorsData.biological + anchorsData.social + anchorsData.material + 
+                   anchorsData.temporal + anchorsData.meaning) / 5;
+      
+      let html = '<div class="mb-4">';
+      html += '<h4 class="text-lg font-semibold mb-2">Overall Drift Risk: ';
+      
+      if (avg > 70) {
+        html += '<span class="text-green-400">Low</span></h4>';
+        html += '<p class="text-sm text-gray-400">Strong anchors across multiple dimensions prevent symbolic drift.</p>';
+      } else if (avg > 55) {
+        html += '<span class="text-blue-400">Moderate</span></h4>';
+        html += '<p class="text-sm text-gray-400">Adequate grounding with some vulnerabilities to drift.</p>';
+      } else if (avg > 40) {
+        html += '<span class="text-yellow-400">Elevated</span></h4>';
+        html += '<p class="text-sm text-gray-400">Weak anchors creating significant drift vulnerability.</p>';
+      } else {
+        html += '<span class="text-red-400">Critical</span></h4>';
+        html += '<p class="text-sm text-gray-400">Severe anchor weakness—system at risk of runaway decoupling from reality.</p>';
+      }
+      html += '</div>';
+
+      html += '<div class="w-full bg-gray-700 rounded-full h-3 mb-4">';
+      html += `<div class="h-3 rounded-full transition-all duration-500" style="width: ${avg}%; background: ${avg > 70 ? '#22c55e' : avg > 55 ? '#60a5fa' : avg > 40 ? '#f59e0b' : '#ef4444'}"></div>`;
+      html += '</div>';
+
+      document.getElementById('anchorsDiagnosis').innerHTML = html;
+
+      // Update vulnerabilities
+      const weak = [];
+      if (anchorsData.biological < 40) weak.push({name: 'Biological', rec: 'Establish embodied practices: regular exercise, sleep hygiene, nature contact'});
+      if (anchorsData.social < 40) weak.push({name: 'Social', rec: 'Build stable relationships and community connections'});
+      if (anchorsData.material < 40) weak.push({name: 'Material', rec: 'Engage with physical reality: making, building, maintaining'});
+      if (anchorsData.temporal < 40) weak.push({name: 'Temporal', rec: 'Create routines, rituals, and regular cycles'});
+      if (anchorsData.meaning < 40) weak.push({name: 'Meaning', rec: 'Clarify values, purpose, and ethical commitments'});
+
+      if (weak.length === 0) {
+        document.getElementById('driftVulnerabilities').innerHTML = '✓ No critical anchor weaknesses detected.';
+      } else {
+        let vulnHtml = '<ol class="list-decimal list-inside space-y-2">';
+        weak.forEach(w => {
+          vulnHtml += `<li><strong>${w.name}:</strong> ${w.rec}</li>`;
+        });
+        vulnHtml += '</ol>';
+        document.getElementById('driftVulnerabilities').innerHTML = vulnHtml;
+      }
+    }
+
+    function completeAnchors() {
+      const steps = document.querySelectorAll('.progress-step');
+      steps[2].classList.remove('active');
+      steps[2].classList.add('completed');
+      steps[2].querySelector('.text-xs').textContent = '✓ Completed';
+      showSection('primes');
+    }
+
+    // PRIMES functions
+    function updatePRIMES() {
+      primesData.mortality = parseInt(document.getElementById('primesMortality').value);
+      primesData.scarcity = parseInt(document.getElementById('primesScarcity').value);
+      primesData.uncertainty = parseInt(document.getElementById('primesUncertainty').value);
+      primesData.conflict = parseInt(document.getElementById('primesConflict').value);
+      primesData.embodiment = parseInt(document.getElementById('primesEmbodiment').value);
+
+      updatePrimesFeedback();
+      updatePrimesDiagnosis();
+    }
+
+    function updatePrimesFeedback() {
+      const mort = primesData.mortality;
+      const mortalitySymptoms = document.querySelectorAll('.mortality-symptom:checked').length;
+      let mortText = mort < 30 ? '💚 Healthy acceptance of finitude' :
+        mort < 55 ? '💚 Moderate acceptance of finitude' :
+        mort < 70 ? '🧡 Some denial of mortality' :
+        '❌ Significant mortality denial';
+      mortText += mortalitySymptoms > 0 ? ` (${mortalitySymptoms}/3 symptoms)` : '';
+      document.getElementById('mortalityFeedback').textContent = mortText;
+
+      const scar = primesData.scarcity;
+      const scarcitySymptoms = document.querySelectorAll('.scarcity-symptom:checked').length;
+      let scarText = scar < 30 ? '💚 Accepts resource limits and tradeoffs' :
+        scar < 55 ? '💚 Realistic about resource constraints' :
+        scar < 70 ? '🧡 Some magical thinking about resources' :
+        '❌ Denying scarcity realities';
+      scarText += scarcitySymptoms > 0 ? ` (${scarcitySymptoms}/3 symptoms)` : '';
+      document.getElementById('scarcityFeedback').textContent = scarText;
+
+      const uncert = primesData.uncertainty;
+      const uncertaintySymptoms = document.querySelectorAll('.uncertainty-symptom:checked').length;
+      let uncertText = uncert < 30 ? '💚 Comfortable with uncertainty' :
+        uncert < 55 ? '💚 Moderate uncertainty tolerance' :
+        uncert < 70 ? '🧡 Struggles with uncertainty' :
+        '❌ Intolerant of ambiguity';
+      uncertText += uncertaintySymptoms > 0 ? ` (${uncertaintySymptoms}/3 symptoms)` : '';
+      document.getElementById('uncertaintyFeedback').textContent = uncertText;
+
+      const conf = primesData.conflict;
+      const conflictSymptoms = document.querySelectorAll('.conflict-symptom:checked').length;
+      let confText = conf < 30 ? '💚 Manages conflicts realistically' :
+        conf < 55 ? '💚 Realistic about conflict' :
+        conf < 70 ? '🧡 Avoids necessary conflicts' :
+        '❌ Denies genuine conflicts';
+      confText += conflictSymptoms > 0 ? ` (${conflictSymptoms}/3 symptoms)` : '';
+      document.getElementById('conflictFeedback').textContent = confText;
+
+      const embod = primesData.embodiment;
+      const embodimentSymptoms = document.querySelectorAll('.embodiment-symptom:checked').length;
+      let embodText = embod < 30 ? '💚 Honors embodied limits' :
+        embod < 55 ? '💚 Moderate embodiment acceptance' :
+        embod < 70 ? '🧡 Some body-mind dualism' :
+        '❌ Significant embodiment denial';
+      embodText += embodimentSymptoms > 0 ? ` (${embodimentSymptoms}/3 symptoms)` : '';
+      document.getElementById('embodimentFeedback').textContent = embodText;
+    }
+
+    function updatePrimesDiagnosis() {
+      const avg = (primesData.mortality + primesData.scarcity + primesData.uncertainty + 
+                   primesData.conflict + primesData.embodiment) / 5;
+      
+      let html = '<div class="mb-4">';
+      html += '<h4 class="text-lg font-semibold mb-2">Reality Acceptance: ';
+      
+      if (avg < 40) {
+        html += '<span class="text-green-400">High</span></h4>';
+        html += '<p class="text-sm text-gray-400">System accepts irreducible constraints and works within them.</p>';
+      } else if (avg < 55) {
+        html += '<span class="text-blue-400">Moderate</span></h4>';
+        html += '<p class="text-sm text-gray-400">Generally realistic with some avoidance patterns.</p>';
+      } else if (avg < 70) {
+        html += '<span class="text-yellow-400">Low</span></h4>';
+        html += '<p class="text-sm text-gray-400">Significant denial of fundamental constraints.</p>';
+      } else {
+        html += '<span class="text-red-400">Critical Denial</span></h4>';
+        html += '<p class="text-sm text-gray-400">Severe reality denial—system attempting to "solve" unsolvable constraints.</p>';
+      }
+      html += '</div>';
+
+      html += '<div class="space-y-2 text-sm">';
+      if (primesData.mortality > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Mortality denial creates urgency pathologies and poor prioritization</span></div>';
+      if (primesData.scarcity > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Scarcity denial prevents hard tradeoffs and sound resource allocation</span></div>';
+      if (primesData.uncertainty > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Uncertainty intolerance creates paralysis and over-planning</span></div>';
+      if (primesData.conflict > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Conflict avoidance allows dysfunction to persist</span></div>';
+      if (primesData.embodiment > 60) html += '<div class="flex gap-2"><span class="text-red-400">⚠️</span><span>Embodiment denial leads to burnout and health breakdown</span></div>';
+      html += '</div>';
+
+      document.getElementById('primesDiagnosis').innerHTML = html;
+    }
+
+    function completePrimes() {
+      const steps = document.querySelectorAll('.progress-step');
+      steps[3].classList.remove('active');
+      steps[3].classList.add('completed');
+      steps[3].querySelector('.text-xs').textContent = '✓ Completed';
+      generateIntegration();
+      showSection('integration');
+    }
+
+    // Integration functions
+    function generateIntegration() {
+      // Update system name
+      const sysName = systemName || 'Your system';
+      document.getElementById('integrationSystemName').textContent = 
+        `Complete diagnostic profile for ${sysName} across all four constraint frameworks`;
+
+      // Calculate overall health
+      const forcesAvg = (forcesData.flow + forcesData.opacity + forcesData.rigidity + 
+                         forcesData.coupling + forcesData.entropy + forcesData.scale) / 6;
+      const gravityAvg = (gravityData.thermodynamic + gravityData.information + gravityData.coordination + 
+                          gravityData.temporal + gravityData.evolutionary) / 5;
+      const anchorsAvg = (anchorsData.biological + anchorsData.social + anchorsData.material + 
+                          anchorsData.temporal + anchorsData.meaning) / 5;
+      const primesAvg = (primesData.mortality + primesData.scarcity + primesData.uncertainty + 
+                         primesData.conflict + primesData.embodiment) / 5;
+
+      // FORCES: lower is healthier (pathology scores)
+      // GRAVITY: lower is better (less fighting)
+      // ANCHORS: higher is better (stronger anchors)
+      // PRIMES: lower is better (more acceptance)
+      
+      const forcesHealth = 100 - forcesAvg;
+      const gravityHealth = 100 - gravityAvg;
+      const anchorsHealth = anchorsAvg;
+      const primesHealth = 100 - primesAvg;
+      
+      const overallHealth = (forcesHealth + gravityHealth + anchorsHealth + primesHealth) / 4;
+
+      // Display overall health
+      let healthColor = '';
+      let healthLabel = '';
+      let healthEmoji = '';
+      if (overallHealth > 75) {
+        healthColor = 'text-green-400';
+        healthLabel = 'Excellent';
+        healthEmoji = '🎯';
+      } else if (overallHealth > 60) {
+        healthColor = 'text-blue-400';
+        healthLabel = 'Good';
+        healthEmoji = '✓';
+      } else if (overallHealth > 45) {
+        healthColor = 'text-yellow-400';
+        healthLabel = 'Fair';
+        healthEmoji = '⚠️';
+      } else if (overallHealth > 30) {
+        healthColor = 'text-orange-400';
+        healthLabel = 'Poor';
+        healthEmoji = '⚠️';
+      } else {
+        healthColor = 'text-red-400';
+        healthLabel = 'Critical';
+        healthEmoji = '🚨';
+      }
+
+      let html = `<div class="text-6xl mb-4">${healthEmoji}</div>`;
+      html += `<div class="text-4xl font-bold ${healthColor} mb-2">${healthLabel}</div>`;
+      html += `<div class="text-xl text-gray-400 mb-6">${Math.round(overallHealth)}% System Health</div>`;
+      html += '<div class="w-full max-w-md mx-auto bg-gray-700 rounded-full h-4">';
+      html += `<div class="h-4 rounded-full transition-all duration-500" style="width: ${overallHealth}%; background: ${overallHealth > 75 ? '#22c55e' : overallHealth > 60 ? '#60a5fa' : overallHealth > 45 ? '#f59e0b' : overallHealth > 30 ? '#fb923c' : '#ef4444'}"></div>`;
+      html += '</div>';
+      
+      document.getElementById('overallHealthDisplay').innerHTML = html;
+
+      // Framework summaries
+      document.getElementById('forcesSummary').innerHTML = generateForcesSummary();
+      document.getElementById('gravitySummary').innerHTML = generateGravitySummary();
+      document.getElementById('anchorsSummary').innerHTML = generateAnchorsSummary();
+      document.getElementById('primesSummary').innerHTML = generatePrimesSummary();
+
+      // Generate priority interventions
+      document.getElementById('priorityInterventions').innerHTML = generateInterventions();
+    }
+
+    function generateForcesSummary() {
+      const issues = [];
+      if (forcesData.flow > 60) issues.push('Flow pathology');
+      if (forcesData.opacity > 60) issues.push('High opacity');
+      if (forcesData.rigidity > 60) issues.push('Excessive rigidity');
+      if (forcesData.coupling > 60) issues.push('Tight coupling');
+      if (forcesData.entropy > 60) issues.push('Rapid entropy');
+      if (forcesData.scale > 60) issues.push('Scale mismatch');
+
+      const avg = (forcesData.flow + forcesData.opacity + forcesData.rigidity + 
+                   forcesData.coupling + forcesData.entropy + forcesData.scale) / 6;
+      const health = 100 - avg;
+
+      let html = `<div class="text-2xl font-bold mb-2">${Math.round(health)}%</div>`;
+      if (issues.length === 0) {
+        html += '<p class="text-sm text-green-400">✓ No critical pathologies</p>';
+      } else {
+        html += '<p class="text-sm text-gray-400">Issues: ' + issues.join(', ') + '</p>';
+      }
+      return html;
+    }
+
+    function generateGravitySummary() {
+      const fighting = [];
+      if (gravityData.thermodynamic > 60) fighting.push('Energy limits');
+      if (gravityData.information > 60) fighting.push('Information gaps');
+      if (gravityData.coordination > 60) fighting.push('Coordination costs');
+      if (gravityData.temporal > 60) fighting.push('Time scales');
+      if (gravityData.evolutionary > 60) fighting.push('Selection pressure');
+
+      const avg = (gravityData.thermodynamic + gravityData.information + gravityData.coordination + 
+                   gravityData.temporal + gravityData.evolutionary) / 5;
+      const health = 100 - avg;
+
+      let html = `<div class="text-2xl font-bold mb-2">${Math.round(health)}%</div>`;
+      if (fighting.length === 0) {
+        html += '<p class="text-sm text-green-400">✓ Working with inevitabilities</p>';
+      } else {
+        html += '<p class="text-sm text-gray-400">Fighting: ' + fighting.join(', ') + '</p>';
+      }
+      return html;
+    }
+
+    function generateAnchorsSummary() {
+      const weak = [];
+      if (anchorsData.biological < 40) weak.push('Biological');
+      if (anchorsData.social < 40) weak.push('Social');
+      if (anchorsData.material < 40) weak.push('Material');
+      if (anchorsData.temporal < 40) weak.push('Temporal');
+      if (anchorsData.meaning < 40) weak.push('Meaning');
+
+      const avg = (anchorsData.biological + anchorsData.social + anchorsData.material + 
+                   anchorsData.temporal + anchorsData.meaning) / 5;
+
+      let html = `<div class="text-2xl font-bold mb-2">${Math.round(avg)}%</div>`;
+      if (weak.length === 0) {
+        html += '<p class="text-sm text-green-400">✓ Strong anchoring</p>';
+      } else {
+        html += '<p class="text-sm text-gray-400">Weak: ' + weak.join(', ') + '</p>';
+      }
+      return html;
+    }
+
+    function generatePrimesSummary() {
+      const denying = [];
+      if (primesData.mortality > 60) denying.push('Mortality');
+      if (primesData.scarcity > 60) denying.push('Scarcity');
+      if (primesData.uncertainty > 60) denying.push('Uncertainty');
+      if (primesData.conflict > 60) denying.push('Conflict');
+      if (primesData.embodiment > 60) denying.push('Embodiment');
+
+      const avg = (primesData.mortality + primesData.scarcity + primesData.uncertainty + 
+                   primesData.conflict + primesData.embodiment) / 5;
+      const health = 100 - avg;
+
+      let html = `<div class="text-2xl font-bold mb-2">${Math.round(health)}%</div>`;
+      if (denying.length === 0) {
+        html += '<p class="text-sm text-green-400">✓ Accepting constraints</p>';
+      } else {
+        html += '<p class="text-sm text-gray-400">Denying: ' + denying.join(', ') + '</p>';
+      }
+      return html;
+    }
+
+    function generateInterventions() {
+      const interventions = [];
+
+      // Collect all issues with scores
+      if (forcesData.flow > 60) interventions.push({score: forcesData.flow, text: '🔧 <strong>Flow:</strong> Implement information filters, rate limiting, or better channel design'});
+      if (forcesData.opacity > 60) interventions.push({score: forcesData.opacity, text: '🔧 <strong>Opacity:</strong> Create transparency mechanisms, feedback loops, and visible metrics'});
+      if (forcesData.rigidity > 60) interventions.push({score: forcesData.rigidity, text: '🔧 <strong>Rigidity:</strong> Build adaptive capacity through modularity and flexible procedures'});
+      if (forcesData.coupling > 60) interventions.push({score: forcesData.coupling, text: '🔧 <strong>Coupling:</strong> Introduce buffers, redundancy, and failure isolation'});
+      if (forcesData.entropy > 60) interventions.push({score: forcesData.entropy, text: '🔧 <strong>Entropy:</strong> Invest in maintenance, documentation, and knowledge preservation'});
+      if (forcesData.scale > 60) interventions.push({score: forcesData.scale, text: '🔧 <strong>Scale:</strong> Redesign structures to match current system size'});
+
+      if (gravityData.thermodynamic > 60) interventions.push({score: gravityData.thermodynamic, text: '⚖️ <strong>Thermodynamic Reality:</strong> Build realistic resource budgets and accept energy costs'});
+      if (gravityData.information > 60) interventions.push({score: gravityData.information, text: '⚖️ <strong>Information Limits:</strong> Develop decision protocols for incomplete information'});
+      if (gravityData.coordination > 60) interventions.push({score: gravityData.coordination, text: '⚖️ <strong>Coordination Costs:</strong> Design for minimal necessary coordination'});
+      if (gravityData.temporal > 60) interventions.push({score: gravityData.temporal, text: '⚖️ <strong>Temporal Asymmetries:</strong> Align expectations with natural time scales'});
+      if (gravityData.evolutionary > 60) interventions.push({score: gravityData.evolutionary, text: '⚖️ <strong>Selection Pressure:</strong> Build adaptive capacity and monitor fitness'});
+
+      if (anchorsData.biological < 40) interventions.push({score: 100 - anchorsData.biological, text: '⚓ <strong>Biological Anchors:</strong> Establish exercise, sleep, nutrition routines'});
+      if (anchorsData.social < 40) interventions.push({score: 100 - anchorsData.social, text: '⚓ <strong>Social Anchors:</strong> Build stable relationships and community ties'});
+      if (anchorsData.material < 40) interventions.push({score: 100 - anchorsData.material, text: '⚓ <strong>Material Anchors:</strong> Engage with physical making/building/maintaining'});
+      if (anchorsData.temporal < 40) interventions.push({score: 100 - anchorsData.temporal, text: '⚓ <strong>Temporal Anchors:</strong> Create routines, rituals, regular cycles'});
+      if (anchorsData.meaning < 40) interventions.push({score: 100 - anchorsData.meaning, text: '⚓ <strong>Meaning Anchors:</strong> Clarify values, purpose, ethical commitments'});
+
+      if (primesData.mortality > 60) interventions.push({score: primesData.mortality, text: '🔒 <strong>Mortality:</strong> Accept finitude; prioritize ruthlessly; plan for legacy'});
+      if (primesData.scarcity > 60) interventions.push({score: primesData.scarcity, text: '🔒 <strong>Scarcity:</strong> Make hard tradeoffs; accept opportunity costs'});
+      if (primesData.uncertainty > 60) interventions.push({score: primesData.uncertainty, text: '🔒 <strong>Uncertainty:</strong> Build antifragility; embrace experimentation'});
+      if (primesData.conflict > 60) interventions.push({score: primesData.conflict, text: '🔒 <strong>Conflict:</strong> Establish clear authority; manage genuine divergence'});
+      if (primesData.embodiment > 60) interventions.push({score: primesData.embodiment, text: '🔒 <strong>Embodiment:</strong> Honor body needs; reject mind-body dualism'});
+
+      // Sort by severity
+      interventions.sort((a, b) => b.score - a.score);
+
+      if (interventions.length === 0) {
+        return '<div class="text-green-400">✓ No critical interventions needed. System shows healthy patterns across all frameworks.</div>';
+      }
+
+      let html = '<ol class="list-decimal list-inside space-y-3">';
+      interventions.slice(0, 5).forEach(int => {
+        html += `<li class="text-sm">${int.text}</li>`;
+      });
+      html += '</ol>';
+
+      if (interventions.length > 5) {
+        html += `<p class="text-sm text-gray-400 mt-4 italic">+ ${interventions.length - 5} additional interventions identified</p>`;
+      }
+
+      return html;
+    }
+
+    function startOver() {
+      if (confirm('Start a new assessment? Current progress will be lost.')) {
+        location.reload();
+      }
+    }
+
+    function exportResults() {
+      alert('Export functionality coming in Phase 4!\n\nWill include:\n• PDF report generation\n• Save/load assessment profiles\n• Share link generation');
+    }
+
+    function toggleCriteria(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.classList.toggle('expanded');
+      }
+    }
+
+    function showSection(section) {
+      // Hide all sections
+      document.getElementById('contextSection').style.display = 'none';
+      document.getElementById('forcesSection').style.display = 'none';
+      document.getElementById('gravitySection').style.display = 'none';
+      document.getElementById('anchorsSection').style.display = 'none';
+      document.getElementById('primesSection').style.display = 'none';
+      document.getElementById('integrationSection').style.display = 'none';
+
+      // Show selected section
+      if (section === 'context') {
+        document.getElementById('contextSection').style.display = 'block';
+      } else if (section === 'forces') {
+        document.getElementById('forcesSection').style.display = 'block';
+      } else if (section === 'gravity') {
+        document.getElementById('gravitySection').style.display = 'block';
+      } else if (section === 'anchors') {
+        document.getElementById('anchorsSection').style.display = 'block';
+      } else if (section === 'primes') {
+        document.getElementById('primesSection').style.display = 'block';
+      } else if (section === 'integration') {
+        document.getElementById('integrationSection').style.display = 'block';
+      }
+
+      // Update progress tracker
+      const steps = document.querySelectorAll('.progress-step');
+      steps.forEach((step, index) => {
+        step.classList.remove('active');
+        step.style.opacity = '0.6';
+      });
+
+      if (section === 'forces') {
+        steps[0].classList.add('active');
+        steps[0].style.opacity = '1';
+      } else if (section === 'gravity') {
+        steps[1].classList.add('active');
+        steps[1].style.opacity = '1';
+      } else if (section === 'anchors') {
+        steps[2].classList.add('active');
+        steps[2].style.opacity = '1';
+      } else if (section === 'primes') {
+        steps[3].classList.add('active');
+        steps[3].style.opacity = '1';
+      }
+    }
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+      initRadarChart();
+      initAnchorsChart();
+      updateFORCES();
+      updateGRAVITY();
+      updateANCHORS();
+      updatePRIMES();
+    });
+  </script>
+</body>
+</html>

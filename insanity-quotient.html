@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insanity Quotient Calculator - NiCE Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0f1a;
+      color: #e8edf4;
+    }
+    .serif { font-family: 'Fraunces', serif; }
+    .glass-card {
+      background: rgba(20, 30, 48, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100, 130, 180, 0.2);
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(100, 130, 180, 0.3);
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #3b82f6;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav class="glass-card border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="text-2xl font-bold serif">NiCE Framework</span>
+      </a>
+      <div class="flex gap-6">
+        <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+        <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <a href="/interactive-lab.html" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Interactive Lab
+      </a>
+      <h1 class="text-4xl md:text-5xl font-bold serif mb-4">Insanity Quotient Calculator</h1>
+      <p class="text-xl text-gray-400 mb-4">
+        Quantify systemic deviation from ecological rationality using the formula:
+      </p>
+      <div class="glass-card p-6 rounded-lg text-center mb-4">
+        <code class="text-2xl text-blue-300 font-mono">IQₘ = (L × T) / (B × M)</code>
+      </div>
+      <p class="text-gray-400">
+        Where symbolic abstraction (L × T) is constrained by biophysical feedback and moral limits (B × M).
+      </p>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="glass-card p-8 rounded-lg mb-8">
+      <h2 class="text-2xl font-bold serif mb-6">Input Parameters</h2>
+      
+      <!-- Symbolic Leverage (L) -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Symbolic Leverage (L)</label>
+          <span id="leverageValue" class="text-blue-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="leverage" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Total non-financial debt / GDP (1=low leverage, 10=extreme debt burden)</p>
+      </div>
+
+      <!-- Tempo Desynchronization (T) -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Tempo Desynchronization (T)</label>
+          <span id="tempoValue" class="text-emerald-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="tempo" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Financial trading speed/volume relative to real economy (1=slow/matched, 10=hyper-fast speculation)</p>
+      </div>
+
+      <!-- Biophysical Feedback (B) -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Biophysical Feedback (B)</label>
+          <span id="biophysicalValue" class="text-green-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="biophysical" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Ecological tethering: biocapacity/footprint ratio (1=severe overshoot, 10=large surplus)</p>
+      </div>
+
+      <!-- Moral Constraint (M) -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-2">
+          <label class="font-semibold">Moral Constraint (M)</label>
+          <span id="moralValue" class="text-purple-400 font-mono">5.0</span>
+        </div>
+        <input type="range" id="moral" min="1" max="10" step="0.1" value="5.0" class="w-full">
+        <p class="text-sm text-gray-400 mt-1">Institutional integrity & equality (1=high inequality/corruption, 10=low inequality/high integrity)</p>
+      </div>
+
+      <!-- Results Display -->
+      <div class="border-t border-gray-700 pt-6">
+        <h3 class="text-xl font-bold mb-4">Your Results</h3>
+        
+        <div class="grid md:grid-cols-3 gap-6 mb-6">
+          <div class="glass-card p-6 rounded text-center">
+            <div class="text-sm text-gray-400 mb-2">Insanity Quotient (IQₘ)</div>
+            <div id="iqScore" class="text-5xl font-bold font-mono mb-2">1.00</div>
+            <div id="iqCategory" class="inline-block px-3 py-1 rounded-full text-sm font-medium">
+              <!-- Category badge -->
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded">
+            <div class="text-sm text-gray-400 mb-2">Numerator (Abstraction)</div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>L × T =</span>
+                <span id="numerator" class="font-mono">25.0</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-2">Symbolic leverage × Speed of detachment</div>
+            </div>
+          </div>
+
+          <div class="glass-card p-6 rounded">
+            <div class="text-sm text-gray-400 mb-2">Denominator (Constraint)</div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>B × M =</span>
+                <span id="denominator" class="font-mono">25.0</span>
+              </div>
+              <div class="text-xs text-gray-500 mt-2">Biophysical tether × Moral brake</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interpretation -->
+        <div class="glass-card p-6 rounded mb-6">
+          <h4 class="font-semibold mb-3">Interpretation</h4>
+          <p id="interpretation" class="text-gray-300 text-sm leading-relaxed">
+            <!-- Interpretation will be inserted here -->
+          </p>
+        </div>
+
+        <!-- Interventions -->
+        <div id="interventions" class="grid md:grid-cols-2 gap-4">
+          <!-- Intervention cards will be inserted here -->
+        </div>
+      </div>
+
+      <!-- Export Button -->
+      <div class="mt-6 flex justify-end">
+        <button id="exportBtn" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          Export Report
+        </button>
+      </div>
+    </div>
+
+    <!-- Historical Benchmarks -->
+    <div class="glass-card p-8 rounded-lg mb-8">
+      <h2 class="text-2xl font-bold serif mb-4">Historical Benchmarks</h2>
+      <p class="text-gray-400 mb-6">
+        Real-world examples from "The Insanity Quotient" (Kitcey, 2025). Click to load values.
+      </p>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="border-b border-gray-700">
+            <tr class="text-left">
+              <th class="pb-3 font-semibold">Case Study</th>
+              <th class="pb-3 font-semibold">L</th>
+              <th class="pb-3 font-semibold">T</th>
+              <th class="pb-3 font-semibold">B</th>
+              <th class="pb-3 font-semibold">M</th>
+              <th class="pb-3 font-semibold">IQₘ</th>
+              <th class="pb-3 font-semibold">Category</th>
+            </tr>
+          </thead>
+          <tbody id="benchmarks" class="divide-y divide-gray-800">
+            <!-- Benchmark rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Methodology Documentation -->
+    <div class="glass-card p-8 rounded-lg">
+      <h2 class="text-2xl font-bold serif mb-4">Methodology & Formula</h2>
+      <p class="text-gray-400 mb-6">
+        Based on "The Insanity Quotient: A Comparative Analysis" by R.D. Kitcey (2025)
+      </p>
+
+      <div class="space-y-6">
+        <!-- Formula -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">The Formula</h3>
+          <div class="glass-card p-4 rounded border border-blue-500/30 bg-blue-500/5 mb-3">
+            <code class="text-blue-300 font-mono text-lg">IQₘ = (Symbolic Leverage × Tempo Desynchronization) / (Biophysical Feedback × Moral Constraint)</code>
+          </div>
+          <p class="text-sm text-gray-400">
+            All variables are normalized to a 1-10 scale for comparability. IQₘ approaches zero in ecologically sane systems where feedback dominates, 
+            but escalates toward infinity in monetarily unanchored regimes where leverage is unbounded and constraints are minimized.
+          </p>
+        </div>
+
+        <!-- Symbolic Leverage (L) -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Symbolic Leverage (L)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> The degree of abstraction and reliance on financial fictions over tangible assets.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Proxy:</strong> Total Non-Financial Debt-to-GDP Ratio</p>
+            <p class="text-gray-400">Measures total debt of governments, households, and non-financial corporations relative to real economy (GDP). Higher ratio means more activity fueled by promises (abstraction) rather than current production (reality).</p>
+            <p><strong>Normalization:</strong> 1 = ~50% Debt/GDP (minimal leverage), 10 = ~350%+ (extreme debt burden)</p>
+            <p><strong>Source:</strong> Bank for International Settlements (BIS), IMF, national central banks</p>
+          </div>
+        </div>
+
+        <!-- Tempo Desynchronization (T) -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Tempo Desynchronization (T)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> The mismatch between speed of financial processes and tempo of ecological/social processes.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Proxy:</strong> Stock Market Total Value Traded-to-GDP Ratio (turnover ratio)</p>
+            <p class="text-gray-400">High value indicates hyper-fast financial system focused on short-term speculation, drastically out of sync with slow cycles of nature (seasons, generations) and long-term business investment.</p>
+            <p><strong>Normalization:</strong> 1 = ~5% (slow, matched tempo), 10 = ~300%+ (hyper-speed speculation)</p>
+            <p><strong>Source:</strong> World Bank, national stock exchanges</p>
+          </div>
+        </div>
+
+        <!-- Biophysical Feedback (B) -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Biophysical Feedback (B)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> The system's tethering to physical limits and capacity for self-correction.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Proxy:</strong> Biocapacity-to-Ecological Footprint Ratio (inversely scaled)</p>
+            <p class="text-gray-400">If population's Footprint exceeds Biocapacity, it runs an ecological deficit (not tethered to local reality). Lower ratio = weaker feedback.</p>
+            <p><strong>Normalization:</strong> 1 = Severe overshoot (ratio < 0.5), 10 = Large surplus (ratio > 1.5)</p>
+            <p><strong>Source:</strong> Global Footprint Network</p>
+          </div>
+        </div>
+
+        <!-- Moral Constraint (M) -->
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Moral Constraint (M)</h3>
+          <p class="text-gray-300 mb-2">
+            <strong>Definition:</strong> The presence of intrinsic, pro-social, and ethical limits on self-interested behavior.
+          </p>
+          <div class="bg-gray-800/50 p-4 rounded text-sm space-y-2">
+            <p><strong>Proxy:</strong> Composite Index of Gini Coefficient and Corruption Perceptions Index (CPI)</p>
+            <p class="text-gray-400">Gini (0=perfect equality, 1=perfect inequality) measures distributive justice. CPI (0=highly corrupt, 100=very clean) measures abuse of power. High inequality + high corruption = weak moral constraint.</p>
+            <p><strong>Normalization:</strong> 1 = High inequality & corruption (Gini > 0.55, CPI < 25), 10 = Low inequality & high integrity (Gini < 0.25, CPI > 85)</p>
+            <p><strong>Source:</strong> World Bank (Gini), Transparency International (CPI)</p>
+          </div>
+        </div>
+
+        <!-- Interpretation Scale -->
+        <div class="border-t border-gray-700 pt-6">
+          <h3 class="text-xl font-semibold mb-3">IQₘ Interpretation Scale</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-blue-300 w-24">~0 - 0.5</span>
+              <span class="inline-block px-3 py-1 rounded-full text-xs bg-emerald-500/20 text-emerald-300">Ecological Sanity</span>
+              <span class="text-gray-400">Very constrained, low leverage, slow tempo</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-blue-300 w-24">0.5 - 2.0</span>
+              <span class="inline-block px-3 py-1 rounded-full text-xs bg-green-500/20 text-green-300">Tense but Manageable</span>
+              <span class="text-gray-400">Sanity with some pressure</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-blue-300 w-24">2.0 - 6.0</span>
+              <span class="inline-block px-3 py-1 rounded-full text-xs bg-yellow-500/20 text-yellow-300">Pathological Normality</span>
+              <span class="text-gray-400">Structurally fragile, "running hot"</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-blue-300 w-24">6.0 - 10.0</span>
+              <span class="inline-block px-3 py-1 rounded-full text-xs bg-orange-500/20 text-orange-300">Critical Insanity</span>
+              <span class="text-gray-400">Very fragile, "house of cards"</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-blue-300 w-24">> 10.0</span>
+              <span class="inline-block px-3 py-1 rounded-full text-xs bg-red-500/20 text-red-300">Hyper-Abstracted</span>
+              <span class="text-gray-400">Pure symbolic ecology (e.g., crypto)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Limitations -->
+        <div class="border-t border-gray-700 pt-6">
+          <h3 class="text-xl font-semibold mb-3">Limitations & Transparency</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            The IQₘ is sensitive to normalization choices and proxy selection. All historical benchmarks use best-available data 
+            from authoritative sources (BIS, World Bank, Global Footprint Network, Transparency International) but involve judgment 
+            in the 1-10 scaling. The model assumes a linear relationship between normalized proxies and systemic insanity, which may 
+            not fully capture non-linear, emergent properties of complex systems. Use as a diagnostic heuristic for pattern recognition, 
+            not as a precise prediction algorithm. Different analysts may arrive at different values depending on data sources and 
+            interpretive frameworks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const leverageSlider = document.getElementById('leverage');
+    const tempoSlider = document.getElementById('tempo');
+    const biophysicalSlider = document.getElementById('biophysical');
+    const moralSlider = document.getElementById('moral');
+    
+    const leverageValue = document.getElementById('leverageValue');
+    const tempoValue = document.getElementById('tempoValue');
+    const biophysicalValue = document.getElementById('biophysicalValue');
+    const moralValue = document.getElementById('moralValue');
+    
+    const iqScore = document.getElementById('iqScore');
+    const iqCategory = document.getElementById('iqCategory');
+    const numerator = document.getElementById('numerator');
+    const denominator = document.getElementById('denominator');
+    const interpretationEl = document.getElementById('interpretation');
+    const interventionsEl = document.getElementById('interventions');
+    const exportBtn = document.getElementById('exportBtn');
+    const benchmarksEl = document.getElementById('benchmarks');
+
+    // Historical Benchmarks from source material (Kitcey, 2025)
+    const historicalBenchmarks = [
+      { 
+        name: 'United States, 2007 (Pre-GFC)', 
+        L: 9.0, T: 10.0, B: 4.5, M: 3.5, 
+        iq: 5.71, 
+        category: 'Critical',
+        description: 'Extreme financial complexity and speed (peak HFT, structured products). High debt but not maximum. Moderate ecological overshoot. Rising inequality, weak constraint. Numerator massively outweighed ecological/moral brakes.'
+      },
+      { 
+        name: 'United States, 2024 (Current)', 
+        L: 10.0, T: 7.5, B: 4.8, M: 4.0, 
+        iq: 3.91, 
+        category: 'Pathological',
+        description: 'Historic peak debt/GDP (~280%). Slightly slower tempo post-GFC regulation. Worsening ecological overshoot. Modest improvements in constraint but still weak. Shifted from immediate crisis to chronic structural fragility.'
+      },
+      { 
+        name: 'Global Financial Crisis, 2008', 
+        L: 9.5, T: 10.0, B: 3.2, M: 3.15, 
+        iq: 9.42, 
+        category: 'Extreme',
+        description: 'Global leverage peak across US + Europe (housing bubbles, SIVs, derivatives). Extreme trading activity and securitization. Weak global biophysical constraint. High inequality, weak anti-corruption. Near-total collapse state.'
+      },
+      { 
+        name: 'Global Inflation Surge, 2022', 
+        L: 10.0, T: 7.0, B: 3.0, M: 4.5, 
+        iq: 5.19, 
+        category: 'Critical',
+        description: 'Record global debt after pandemic stimulus. Still-high trading activity. Global ecological overshoot at ~1.7 Earths. Slightly stronger institutions in some regions. Structural decay rather than rapid collapse.'
+      },
+      { 
+        name: 'Global Crypto Market, 2024', 
+        L: 10.0, T: 10.0, B: 2.5, M: 2.0, 
+        iq: 20.0, 
+        category: 'Hyper-Abstracted',
+        description: 'Infinite leverage (derivatives on tokens with no biophysical claim). 24/7 millisecond trading. Almost no biophysical tether. Anonymity, weak regulation, fraud. Pure symbolic ecology, cleanest "Trojan Horse" example.'
+      },
+      { 
+        name: 'Sweden, 2024', 
+        L: 5.0, T: 5.0, B: 6.5, M: 8.5, 
+        iq: 0.45, 
+        category: 'Grounded',
+        description: 'Moderate leverage and tempo. Strong environmental policy, carbon taxes, high efficiency. Low inequality (Gini ~0.27), very low corruption (CPI ~85). Demonstrates that strong denominators counteract leverage.'
+      },
+      { 
+        name: 'China, 2024', 
+        L: 8.0, T: 7.0, B: 3.0, M: 4.0, 
+        iq: 4.67, 
+        category: 'Pathological',
+        description: 'High debt (local government + SOE + households). Rapid investment cycles, large active markets. Significant ecological overshoot (air/water stress, coal). Moderate inequality & corruption (CPI ~42). High-pressure industrial catch-up.'
+      },
+      { 
+        name: 'Theoretical Anchored Community', 
+        L: 1.0, T: 1.0, B: 10.0, M: 10.0, 
+        iq: 0.01, 
+        category: 'Ecological Sanity',
+        description: 'Minimal debt, seasonal/generational tempo. Direct biophysical feedback from land. Strong stewardship norms. Represents theoretical ideal: numerator minimized, denominator maximized. Perfect reality anchor.'
+      }
+    ];
+
+    // Calculate IQₘ using the actual formula: IQₘ = (L × T) / (B × M)
+    function calculateIQ(L, T, B, M) {
+      const num = L * T;
+      const denom = B * M;
+      const iq = num / denom;
+      
+      return {
+        total: parseFloat(iq.toFixed(2)),
+        numerator: parseFloat(num.toFixed(1)),
+        denominator: parseFloat(denom.toFixed(1))
+      };
+    }
+
+    // Get category based on IQₘ value
+    function getCategory(iq) {
+      if (iq < 0.5) return { 
+        name: 'Ecological Sanity', 
+        color: 'bg-emerald-500/20 text-emerald-300', 
+        description: 'Very constrained system. Low leverage, slow tempo. Strong ecological and moral anchoring. Highly resilient and antifragile.' 
+      };
+      if (iq < 2.0) return { 
+        name: 'Tense but Manageable', 
+        color: 'bg-green-500/20 text-green-300', 
+        description: 'Sanity with some pressure. Constraints still dominant but showing strain. Regular monitoring recommended.' 
+      };
+      if (iq < 6.0) return { 
+        name: 'Pathological Normality', 
+        color: 'bg-yellow-500/20 text-yellow-300', 
+        description: 'Structurally fragile, "running hot". Numerator and denominator competing. Chronic unanchoring. Not in immediate collapse but courting crisis.' 
+      };
+      if (iq < 10.0) return { 
+        name: 'Critical Insanity', 
+        color: 'bg-orange-500/20 text-orange-300', 
+        description: 'Very fragile "house of cards". Abstraction forces massively outweigh reality constraints. High collapse risk. Urgent intervention required.' 
+      };
+      return { 
+        name: 'Hyper-Abstracted Pathology', 
+        color: 'bg-red-500/20 text-red-300', 
+        description: 'Pure symbolic ecology. Effectively infinite IQₘ. Near-total detachment from biophysical and moral reality. Extreme exploitation and irrationality.' 
+      };
+    }
+
+    // Get interpretation text
+    function getInterpretation(iq, L, T, B, M, category) {
+      const interpretations = {
+        'Ecological Sanity': `Your IQₘ of ${iq} indicates exceptional system health and reality-anchoring. The numerator (L×T = ${(L*T).toFixed(1)}) is minimal, indicating low symbolic leverage and slow, matched tempo. The denominator (B×M = ${(B*M).toFixed(1)}) is maximized through strong biophysical feedback and robust moral constraints. This represents an antifragile system that benefits from localized stress and operates within planetary boundaries. Continue maintaining tight coupling between symbols and substance.`,
+        
+        'Tense but Manageable': `Your IQₘ of ${iq} shows a system under moderate strain but still anchored. The numerator (${(L*T).toFixed(1)}) indicates some abstraction and acceleration, while the denominator (${(B*M).toFixed(1)}) provides meaningful constraint. This is within healthy operational parameters but requires vigilance. Recommend regular reality checks, especially monitoring the L and T components for drift. Strengthen B and M where possible to build resilience.`,
+        
+        'Pathological Normality': `Your IQₘ of ${iq} indicates structural fragility—the modern global norm. The numerator (${(L*T).toFixed(1)}) shows significant symbolic leverage and/or tempo desynchronization. The denominator (${(B*M).toFixed(1)}) provides some constraint but not enough to prevent chronic unanchoring. This system is not in immediate collapse but is "running hot," constantly courting crisis. The danger is that this fragility becomes normalized. Urgent action needed to strengthen biophysical feedback (B=${B}) and moral constraint (M=${M}) while reducing leverage (L=${L}) and tempo (T=${T}).`,
+        
+        'Critical Insanity': `Your IQₘ of ${iq} represents dangerous systemic fragility with high collapse risk. The numerator (${(L*T).toFixed(1)}) vastly exceeds the denominator (${(B*M).toFixed(1)}), indicating that abstraction forces are overwhelming reality constraints. Small shocks can cascade catastrophically through this "house of cards" structure. This was the state of the global system in 2007-2008. Emergency intervention required: radically reduce symbolic leverage, slow tempo to allow feedback loops to catch up, strengthen ecological tethering, and fortify moral/institutional constraints. The system is living on borrowed time.`,
+        
+        'Hyper-Abstracted Pathology': `Your IQₘ of ${iq} indicates near-total detachment from reality—pure symbolic ecology. The numerator (${(L*T).toFixed(1)}) is maximized while the denominator (${(B*M).toFixed(1)}) is minimized. This is the "Trojan Horse" in action: a frictionless environment enabling covert exploitation with almost zero biophysical or moral constraint. Examples include crypto markets, shadow banking, and fully abstracted financial instruments. The system is inherently, structurally irrational. Collapse is not a risk but a certainty; the only question is timing. Complete restructuring required to re-anchor in material and moral reality.`
+      };
+      
+      return interpretations[category] || `IQₘ of ${iq} with numerator ${(L*T).toFixed(1)} and denominator ${(B*M).toFixed(1)}.`;
+    }
+
+    // Get intervention recommendations
+    function getInterventions(iq, L, T, B, M) {
+      const interventions = [];
+      
+      if (L > 7) {
+        interventions.push({
+          title: 'Reduce Symbolic Leverage',
+          description: `L=${L} is critically high. Implement debt ceiling policies, discourage financialization, promote equity over debt financing. Transition from M→M' (money to more money) logic to M→C→M' (money through commodity to money) to re-couple finance with real production.`,
+          priority: L > 9 ? 'high' : 'medium',
+          component: 'L'
+        });
+      }
+      
+      if (T > 7) {
+        interventions.push({
+          title: 'Slow Tempo Desynchronization',
+          description: `T=${T} indicates hyper-speed. Introduce financial transaction taxes (FTT), mandatory minimum holding periods, circuit breakers. Goal is to re-synchronize financial tempo with ecological and social cycles (seasons, generations).`,
+          priority: T > 9 ? 'high' : 'medium',
+          component: 'T'
+        });
+      }
+      
+      if (B < 5) {
+        interventions.push({
+          title: 'Strengthen Biophysical Feedback',
+          description: `B=${B} shows weak ecological tethering. Implement resource-indexed economic indicators (use Ecological Footprint alongside GDP). Establish biophysical reserve requirements for financial institutions. Enforce planetary boundary limits. Increase transparency of resource flows.`,
+          priority: B < 3 ? 'high' : 'medium',
+          component: 'B'
+        });
+      }
+      
+      if (M < 5) {
+        interventions.push({
+          title: 'Fortify Moral Constraint',
+          description: `M=${M} indicates weak institutional integrity. Address inequality through progressive taxation and wealth redistribution. Combat corruption via transparency registries and beneficial ownership disclosure. Foster polycentric governance and pro-social norms. Remove perverse incentives that reward extraction over stewardship.`,
+          priority: M < 3 ? 'high' : 'medium',
+          component: 'M'
+        });
+      }
+      
+      if (iq > 5) {
+        interventions.push({
+          title: 'Emergency System-Wide Re-Anchoring',
+          description: `IQₘ=${iq} indicates critical fragility. Comprehensive "friction engineering" required: simultaneously reduce numerator (L+T) while strengthening denominator (B+M). This is not about efficiency but about survival. The goal is epistemic refrigeration—continuous re-grounding in material, moral, and ecological verification.`,
+          priority: 'high',
+          component: 'System'
+        });
+      }
+      
+      if (interventions.length === 0) {
+        interventions.push({
+          title: 'Maintain Vigilance & Resilience',
+          description: 'Current IQₘ is relatively healthy. Continue monitoring all four components. Resist temptation to increase L or T for short-term growth. Preserve and strengthen B and M. Build antifragility through distributed, modular structures rather than hyper-connected monocultures.',
+          priority: 'low',
+          component: 'Maintenance'
+        });
+      }
+      
+      return interventions;
+    }
+
+    // Update calculator display
+    function updateCalculator() {
+      const L = parseFloat(leverageSlider.value);
+      const T = parseFloat(tempoSlider.value);
+      const B = parseFloat(biophysicalSlider.value);
+      const M = parseFloat(moralSlider.value);
+      
+      leverageValue.textContent = L.toFixed(1);
+      tempoValue.textContent = T.toFixed(1);
+      biophysicalValue.textContent = B.toFixed(1);
+      moralValue.textContent = M.toFixed(1);
+      
+      const result = calculateIQ(L, T, B, M);
+      iqScore.textContent = result.total;
+      numerator.textContent = result.numerator;
+      denominator.textContent = result.denominator;
+      
+      const category = getCategory(result.total);
+      iqCategory.textContent = category.name;
+      iqCategory.className = `inline-block px-3 py-1 rounded-full text-sm font-medium ${category.color}`;
+      
+      interpretationEl.textContent = getInterpretation(result.total, L, T, B, M, category.name);
+      
+      const interventions = getInterventions(result.total, L, T, B, M);
+      interventionsEl.innerHTML = interventions.map(int => {
+        const colors = {
+          high: 'border-red-500/30 bg-red-500/10',
+          medium: 'border-yellow-500/30 bg-yellow-500/10',
+          low: 'border-emerald-500/30 bg-emerald-500/10'
+        };
+        const badges = {
+          high: 'bg-red-500/20 text-red-300',
+          medium: 'bg-yellow-500/20 text-yellow-300',
+          low: 'bg-emerald-500/20 text-emerald-300'
+        };
+        return `
+          <div class="glass-card p-4 rounded border ${colors[int.priority]}">
+            <div class="flex items-start justify-between mb-2">
+              <h4 class="font-semibold">${int.title}</h4>
+              <div class="flex gap-2">
+                <span class="text-xs px-2 py-1 rounded ${badges[int.priority]}">${int.priority}</span>
+                <span class="text-xs px-2 py-1 rounded bg-gray-700 text-gray-300">${int.component}</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-300">${int.description}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render benchmarks table
+    benchmarksEl.innerHTML = historicalBenchmarks.map(b => {
+      const cat = getCategory(b.iq);
+      return `
+        <tr class="hover:bg-white/5 cursor-pointer transition-colors" onclick="loadBenchmark(${b.L}, ${b.T}, ${b.B}, ${b.M})">
+          <td class="py-3 font-medium">${b.name}</td>
+          <td class="py-3">${b.L}</td>
+          <td class="py-3">${b.T}</td>
+          <td class="py-3">${b.B}</td>
+          <td class="py-3">${b.M}</td>
+          <td class="py-3 font-mono">${b.iq}</td>
+          <td class="py-3"><span class="inline-block px-2 py-1 rounded text-xs ${cat.color}">${b.category}</span></td>
+        </tr>
+      `;
+    }).join('');
+
+    // Global function to load benchmark
+    window.loadBenchmark = function(L, T, B, M) {
+      leverageSlider.value = L;
+      tempoSlider.value = T;
+      biophysicalSlider.value = B;
+      moralSlider.value = M;
+      updateCalculator();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Event listeners
+    leverageSlider.addEventListener('input', updateCalculator);
+    tempoSlider.addEventListener('input', updateCalculator);
+    biophysicalSlider.addEventListener('input', updateCalculator);
+    moralSlider.addEventListener('input', updateCalculator);
+
+    // Export functionality
+    exportBtn.addEventListener('click', () => {
+      const L = parseFloat(leverageSlider.value);
+      const T = parseFloat(tempoSlider.value);
+      const B = parseFloat(biophysicalSlider.value);
+      const M = parseFloat(moralSlider.value);
+      const result = calculateIQ(L, T, B, M);
+      const category = getCategory(result.total);
+      
+      const report = `INSANITY QUOTIENT ASSESSMENT REPORT
+Generated: ${new Date().toLocaleString()}
+Based on "The Insanity Quotient" by R.D. Kitcey (2025)
+
+FORMULA: IQₘ = (L × T) / (B × M)
+
+INPUT PARAMETERS:
+- Symbolic Leverage (L): ${L.toFixed(1)}
+- Tempo Desynchronization (T): ${T.toFixed(1)}
+- Biophysical Feedback (B): ${B.toFixed(1)}
+- Moral Constraint (M): ${M.toFixed(1)}
+
+CALCULATION:
+- Numerator (L × T): ${result.numerator}
+- Denominator (B × M): ${result.denominator}
+- Insanity Quotient (IQₘ): ${result.total}
+
+CATEGORY: ${category.name}
+ASSESSMENT: ${category.description}
+
+INTERPRETATION:
+${getInterpretation(result.total, L, T, B, M, category.name)}
+
+RECOMMENDED INTERVENTIONS:
+${getInterventions(result.total, L, T, B, M).map((int, i) => 
+  `${i+1}. [${int.component}] ${int.title} [${int.priority.toUpperCase()} PRIORITY]
+   ${int.description}`
+).join('\n\n')}
+
+---
+Generated by NiCE Framework Insanity Quotient Calculator
+https://nice.lernaen.org/insanity-quotient.html
+
+Reference: Kitcey, R.D. (2025). The Insanity Quotient: A Comparative Analysis of 
+Ecologically Anchored Versus Monetarily Unanchored Value Systems.
+`;
+
+      const blob = new Blob([report], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `IQ-Assessment-${Date.now()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Initial update
+    updateCalculator();
+  </script>
+</body>
+</html>

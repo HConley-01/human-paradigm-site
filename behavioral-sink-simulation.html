@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Sink Simulation | NiCE Framework</title>
+    <meta name="description" content="Agent-based model of pathological behaviors emerging from complexity overload. Reinterprets Calhoun's mouse utopia experiments through the NiCE Framework.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a2e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .serif {
+            font-family: 'Fraunces', serif;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        
+        #canvas {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            cursor: crosshair;
+        }
+        
+        .control-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .control-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .control-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .metric-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .agent {
+            position: absolute;
+            border-radius: 50%;
+            transition: all 0.1s;
+        }
+        
+        .phase-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-white/10 mb-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <a href="/" class="flex items-center gap-2 text-white hover:text-blue-400 transition-colors">
+                        <span class="text-xl font-semibold">NiCE Framework</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex gap-6 items-center">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="/nice-framework.html" class="text-gray-400 hover:text-white transition-colors">NiCE Synthesis</a>
+                    <a href="/interactive-nice-explorer.html" class="text-gray-400 hover:text-white transition-colors">Interactive Explorer</a>
+                    <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Lab</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="inline-block px-3 py-1 bg-red-500/20 border border-red-500/30 rounded-full mb-4">
+                <span class="text-red-300 text-sm font-medium">Advanced Simulation</span>
+            </div>
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent serif">
+                Behavioral Sink Simulation
+            </h1>
+            <p class="text-gray-300 text-lg max-w-4xl">
+                Agent-based model of pathological behaviors emerging from symbolic complexity overload. Reinterprets Calhoun's mouse utopia experiments through the NiCE Framework: when symbolic structures decouple from biological needs and environmental capacity, populations exhibit reproductive collapse, violence, and social withdrawal.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Main Simulation Canvas -->
+            <div class="lg:col-span-3 glass-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">Population Dynamics</h2>
+                    <div id="phase-display" class="phase-indicator bg-green-500/20 text-green-300">
+                        Phase 1: Equilibrium
+                    </div>
+                </div>
+                
+                <canvas id="canvas" width="900" height="600"></canvas>
+                
+                <div class="mt-4 flex gap-3 flex-wrap">
+                    <button id="startBtn" class="btn btn-primary">Start Simulation</button>
+                    <button id="pauseBtn" class="btn btn-secondary">Pause</button>
+                    <button id="resetBtn" class="btn btn-secondary">Reset</button>
+                    <button id="interventionBtn" class="btn btn-secondary">Apply Intervention</button>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="space-y-4">
+                <!-- Real-time Metrics -->
+                <div class="glass-card p-4">
+                    <h3 class="text-lg font-semibold mb-3">System Metrics</h3>
+                    
+                    <div class="metric-card border-blue-400 mb-3">
+                        <div class="text-xs text-gray-400 mb-1">Population</div>
+                        <div class="text-2xl font-bold" id="populationMetric">50</div>
+                    </div>
+                    
+                    <div class="metric-card border-green-400 mb-3">
+                        <div class="text-xs text-gray-400 mb-1">Reproduction Rate</div>
+                        <div class="text-2xl font-bold" id="reproductionMetric">100%</div>
+                    </div>
+                    
+                    <div class="metric-card border-purple-400 mb-3">
+                        <div class="text-xs text-gray-400 mb-1">Symbolic Complexity</div>
+                        <div class="text-2xl font-bold" id="complexityMetric">Low</div>
+                    </div>
+                    
+                    <div class="metric-card border-red-400 mb-3">
+                        <div class="text-xs text-gray-400 mb-1">Pathology Index</div>
+                        <div class="text-2xl font-bold" id="pathologyMetric">0%</div>
+                    </div>
+                    
+                    <div class="metric-card border-yellow-400">
+                        <div class="text-xs text-gray-400 mb-1">Social Withdrawal</div>
+                        <div class="text-2xl font-bold" id="withdrawalMetric">0%</div>
+                    </div>
+                </div>
+
+                <!-- System Parameters -->
+                <div class="glass-card p-4">
+                    <h3 class="text-lg font-semibold mb-3">Parameters</h3>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm text-gray-300">Population Density</label>
+                            <span id="densityValue" class="text-sm font-mono text-blue-300">50</span>
+                        </div>
+                        <input type="range" id="densitySlider" class="control-slider" min="10" max="200" value="50">
+                        <div id="densityEffect" class="text-xs text-gray-400 mt-1"></div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm text-gray-300">Resource Abundance</label>
+                            <span id="resourceValue" class="text-sm font-mono text-green-300">100%</span>
+                        </div>
+                        <input type="range" id="resourceSlider" class="control-slider" min="20" max="200" value="100">
+                        <div id="resourceEffect" class="text-xs text-gray-400 mt-1"></div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm text-gray-300">Symbolic Complexity</label>
+                            <span id="symbolicValue" class="text-sm font-mono text-purple-300">1.0x</span>
+                        </div>
+                        <input type="range" id="symbolicSlider" class="control-slider" min="10" max="100" value="10">
+                        <div id="symbolicEffect" class="text-xs text-gray-400 mt-1"></div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm text-gray-300">Environmental Friction</label>
+                            <span id="frictionValue" class="text-sm font-mono text-orange-300">0.5</span>
+                        </div>
+                        <input type="range" id="frictionSlider" class="control-slider" min="0" max="100" value="50">
+                        <div id="frictionEffect" class="text-xs text-gray-400 mt-1"></div>
+                    </div>
+                </div>
+
+                <!-- System Diagnosis -->
+                <div class="glass-card p-4">
+                    <h3 class="text-lg font-semibold mb-3">System Diagnosis</h3>
+                    <div id="systemDiagnosis" class="space-y-2 text-sm">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Scenario Presets -->
+                <div class="glass-card p-4">
+                    <h3 class="text-lg font-semibold mb-3">Scenarios</h3>
+                    <div class="space-y-2">
+                        <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('sustainable')">
+                            <div class="font-semibold text-green-400">✓ Sustainable Community</div>
+                            <div class="text-xs text-gray-400 mt-1">Low complexity + high friction = stable equilibrium</div>
+                        </button>
+                        <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('modern')">
+                            <div class="font-semibold text-yellow-400">⚠ Modern Urban Society</div>
+                            <div class="text-xs text-gray-400 mt-1">Medium complexity + some friction = chronic stress</div>
+                        </button>
+                        <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('calhoun')">
+                            <div class="font-semibold text-orange-400">⚠ Calhoun's Universe 25</div>
+                            <div class="text-xs text-gray-400 mt-1">High complexity + low friction = behavioral sink</div>
+                        </button>
+                        <button class="w-full btn btn-secondary text-left text-sm p-3" onclick="loadScenario('social-media')">
+                            <div class="font-semibold text-red-400">✗ Social Media Dynamics</div>
+                            <div class="text-xs text-gray-400 mt-1">Extreme complexity + zero friction = rapid collapse</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Behavioral Patterns Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold mb-4">Behavior Timeline</h3>
+                <canvas id="timelineChart" width="500" height="300"></canvas>
+            </div>
+            
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold mb-4">Phase Progression</h3>
+                <div class="space-y-4" id="phaseInfo">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Theoretical Framework -->
+        <div class="glass-card p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 serif">Theoretical Foundation</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 bg-black/30 rounded-lg">
+                    <div class="text-blue-400 font-semibold mb-2">Nature (N)</div>
+                    <p class="text-sm text-gray-300">
+                        Biological needs: reproduction, territory, social bonding. When symbolic complexity exceeds biological capacity for integration, reproductive function collapses.
+                    </p>
+                </div>
+                
+                <div class="p-4 bg-black/30 rounded-lg">
+                    <div class="text-green-400 font-semibold mb-2">Consciousness (C)</div>
+                    <p class="text-sm text-gray-300">
+                        Social hierarchies and status symbols. As symbolic structures decouple from reality, agents compete for meaningless markers, generating violence and withdrawal.
+                    </p>
+                </div>
+                
+                <div class="p-4 bg-black/30 rounded-lg">
+                    <div class="text-purple-400 font-semibold mb-2">Environment (E)</div>
+                    <p class="text-sm text-gray-300">
+                        Physical and symbolic environment. Abundance removes natural constraints, creating frictionless space where pathological behaviors propagate without correction.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+                <h3 class="font-semibold text-red-300 mb-2">Calhoun's Universe 25 Reinterpreted</h3>
+                <p class="text-sm text-gray-300">
+                    John B. Calhoun's mouse utopia experiments (1968-1972) are often misinterpreted as demonstrating that "overpopulation causes collapse." 
+                    The NiCE Framework reveals the true mechanism: <strong>symbolic dysregulation, not density</strong>. Mice developed pathological 
+                    social hierarchies (symbolic structures) that became decoupled from biological needs and environmental capacity. Result: 
+                    reproductive collapse, violence, social withdrawal—the same behavioral sink symptoms observed in modern human societies 
+                    experiencing symbolic abundance despite resource constraints.
+                </p>
+            </div>
+        </div>
+
+        <!-- Intervention Strategies -->
+        <div class="glass-card p-6">
+            <h2 class="text-2xl font-bold mb-4 serif">Intervention Strategies</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-black/30 rounded-lg border border-green-500/30">
+                    <h4 class="font-semibold text-green-300 mb-2">✓ Winning Strategies</h4>
+                    <ul class="text-sm text-gray-300 space-y-2">
+                        <li>• <strong>Keep symbolic complexity low (1.0-2.0x):</strong> Simple social structures prevent overload</li>
+                        <li>• <strong>Maintain high environmental friction (0.6-1.0):</strong> Delays and feedback ground behavior in reality</li>
+                        <li>• <strong>Adequate resources (100-120%):</strong> Neither scarcity nor excess; balance is key</li>
+                        <li>• <strong>Moderate density (30-60):</strong> Social bonds without overcrowding stress</li>
+                        <li>• <strong>Watch reproduction rate:</strong> Stable population = winning; decline = intervention needed</li>
+                    </ul>
+                </div>
+                
+                <div class="p-4 bg-black/30 rounded-lg border bordLosing Strategies (Path to Collapse)</h4>
+                    <ul class="text-sm text-gray-300 space-y-2">
+                        <li>• <strong>High symbolic complexity (>4.0):</strong> Social hierarchies decouple from biological needs</li>
+                        <li>• <strong>Low environmental friction (&lt;0.3):</strong> No grounding = runaway symbolic drift</li>
+                        <li>• <strong>Extreme resource abundance (>150%):</strong> Masks underlying dysfunction, delays correction</li>
+                        <li>• <strong>High density + high complexity:</strong> Stress cascade amplifies pathology</li>
+                        <li>• <strong>Ignoring early warnings:</strong> Small reproductive decline becomes irreversible collapseics</li>
+                        <li>• <strong>Technological acceleration:</strong> Removes friction, worsens decoupling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================================
+        // BEHAVIORAL SINK SIMULATION ENGINE
+        // ============================================================================
+        
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const timelineCanvas = document.getElementById('timelineChart');
+        const timelineCtx = timelineCanvas.getContext('2d');
+        
+        // Simulation state
+        let agents = [];
+        let running = false;
+        let time = 0;
+        let phase = 1;
+        
+        // Historical data for charts
+        let history = {
+            population: [],
+            reproduction: [],
+            violence: [],
+            withdrawal: [],
+            pathology: []
+        };
+        
+        // Parameters
+        let params = {
+            populationDensity: 50,
+            resourceAbundance: 100,
+            symbolicComplexity: 1.0,
+            environmentalFriction: 0.5
+        };
+        
+        // Agent class
+        class Agent {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = 6;
+                this.health = 100;
+                this.reproductiveHealth = 100;
+                this.socialStatus = Math.random() * 100;
+                this.withdrawn = false;
+                this.stressed = false;
+                this.violent = false;
+                this.age = 0;
+                this.maxAge = 400 + Math.random() * 400; // More variable lifespan
+                this.color = this.getColor();
+            }
+            
+            getColor() {
+                if (this.withdrawn) return '#6b7280'; // Gray - withdrawn
+                if (this.violent) return '#ef4444'; // Red - violent
+                if (this.stressed) return '#f59e0b'; // Orange - stressed
+                if (this.reproductiveHealth < 30) return '#ec4899'; // Pink - reproductive failure
+                return '#3b82f6'; // Blue - healthy
+            }
+            
+            update() {
+                this.age++;
+                
+                // Apply environmental friction
+                this.vx *= (1 - params.environmentalFriction * 0.01);
+                this.vy *= (1 - params.environmentalFriction * 0.01);
+                
+                // Random walk with reduced friction in low-friction environments
+                const walkForce = (1 - params.environmentalFriction * 0.01) * 0.5;
+                this.vx += (Math.random() - 0.5) * walkForce;
+                this.vy += (Math.random() - 0.5) * walkForce;
+                
+                // Speed limit
+                const maxSpeed = 3;
+                const speed = Math.sqrt(this.vx**2 + this.vy**2);
+                if (speed > maxSpeed) {
+                    this.vx = (this.vx / speed) * maxSpeed;
+                    this.vy = (this.vy / speed) * maxSpeed;
+                }
+                
+                // Move
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce off walls
+                if (this.x < this.size || this.x > canvas.width - this.size) {
+                    this.vx *= -1;
+                    this.x = Math.max(this.size, Math.min(canvas.width - this.size, this.x));
+                }
+                if (this.y < this.size || this.y > canvas.height - this.size) {
+                    this.vy *= -1;
+                    this.y = Math.max(this.size, Math.min(canvas.height - this.size, this.y));
+                }
+                
+                // Calculate stress from density and symbolic complexity
+                const nearbyAgents = agents.filter(other => 
+                    other !== this && 
+                    Math.hypot(this.x - other.x, this.y - other.y) < 50
+                ).length;
+                
+                // Rebalanced: Lower density stress baseline, make complexity actually matter
+                const densityStress = Math.max(0, (nearbyAgents - 3) * 10); // Only stressful when >3 nearby
+                const complexityStress = Math.max(0, (params.symbolicComplexity - 1) * 15);
+                const totalStress = densityStress + complexityStress;
+                
+                this.stressed = totalStress > 40;
+                
+                // Health degradation from stress - scaled by actual stress level
+                if (this.stressed) {
+                    const stressDamage = (totalStress / 100) * 0.15; // Max 0.15/frame at 100 stress
+                    this.health -= stressDamage;
+                    this.reproductiveHealth -= stressDamage * params.symbolicComplexity * 0.5;
+                } else {
+                    // Slow natural recovery when NOT stressed
+                    this.health += 0.1;
+                    this.reproductiveHealth += 0.05;
+                }
+                
+                // Resource recovery - much stronger, scales with abundance
+                const resourceFactor = params.resourceAbundance / 100;
+                const densityBonus = Math.max(0.3, 1 - (agents.length / (params.populationDensity * 3)));
+                const frictionBonus = params.environmentalFriction; // High friction = more grounding = faster recovery
+                this.health += 0.2 * resourceFactor * densityBonus * (1 + frictionBonus);
+                
+                // Reproductive health recovery - faster when conditions are good
+                if (!this.stressed && this.reproductiveHealth < 100) {
+                    this.reproductiveHealth += 0.15 * resourceFactor * (1 + frictionBonus);
+                }
+                
+                // Behavioral sink symptoms
+                if (this.reproductiveHealth < 30) {
+                    // High symbolic complexity + low reproductive health = violence OR withdrawal
+                    if (params.symbolicComplexity > 3 && Math.random() < 0.001) {
+                        this.violent = Math.random() < 0.5;
+                        this.withdrawn = !this.violent;
+                    }
+                }
+                
+                // Social withdrawal from chronic stress
+                if (totalStress > 60 && Math.random() < 0.005) {
+                    this.withdrawn = true;
+                }
+                
+                // Clamp values
+                this.health = Math.max(0, Math.min(100, this.health));
+                this.reproductiveHealth = Math.max(0, Math.min(100, this.reproductiveHealth));
+                
+                // Update color
+                this.color = this.getColor();
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw status indicator for violent agents
+                if (this.violent) {
+                    ctx.strokeStyle = '#dc2626';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size + 3, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+                
+                // Draw faded circle for withdrawn agents
+                if (this.withdrawn) {
+                    ctx.globalAlpha = 0.3;
+                    ctx.fillStyle = '#6b7280';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size + 5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+        }
+        
+        // Initialize simulation
+        function init() {
+            agents = [];
+            for (let i = 0; i < params.populationDensity; i++) {
+                agents.push(new Agent(
+                    Math.random() * (canvas.width - 40) + 20,
+                    Math.random() * (canvas.height - 40) + 20
+                ));
+            }
+            time = 0;
+            phase = 1;
+            history = {
+                population: [],
+                reproduction: [],
+                violence: [],
+                withdrawal: [],
+                pathology: []
+            };
+        }
+        
+        // Reproduction logic - rebalanced for stability
+        function reproduce() {
+            if (agents.length >= params.populationDensity * 5) return; // Higher cap
+            
+            const healthyAgents = agents.filter(a => 
+                !a.withdrawn && 
+                !a.violent && 
+                a.reproductiveHealth > 40 && // Lower threshold
+                a.health > 40 &&
+                a.age > 30 // Shorter maturity time
+            );
+            
+            // Reproduction rate - much more generous at low complexity
+            const baseRate = 0.08 * (params.resourceAbundance / 100); // 4x higher base
+            const complexityPenalty = 1 / (1 + params.symbolicComplexity * 0.3); // Less harsh
+            const targetPop = params.populationDensity * 1.5;
+            const densityPenalty = Math.max(0.1, 1 - (agents.length / targetPop));
+            const frictionBonus = 1 + (params.environmentalFriction * 0.5); // Friction helps reproduction!
+            const reproductionRate = baseRate * complexityPenalty * densityPenalty * frictionBonus;
+            
+            // Multiple births possible per cycle when conditions are good
+            const birthAttempts = Math.floor(healthyAgents.length / 10) + 1;
+            for (let i = 0; i < birthAttempts; i++) {
+                if (healthyAgents.length > 1 && Math.random() < reproductionRate) {
+                    const parent = healthyAgents[Math.floor(Math.random() * healthyAgents.length)];
+                    agents.push(new Agent(
+                        parent.x + (Math.random() - 0.5) * 30,
+                        parent.y + (Math.random() - 0.5) * 30
+                    ));
+                }
+            }
+        }
+        
+        // Death logic - with longevity bonus for low-complexity environments
+        function removeDead() {
+            agents = agents.filter(a => {
+                if (a.health <= 0) return false;
+                // Low complexity = longer life
+                const complexityLifeBonus = Math.max(1, 2 - (params.symbolicComplexity * 0.1));
+                const adjustedMaxAge = a.maxAge * complexityLifeBonus;
+                return a.age < adjustedMaxAge;
+            });
+        }
+        
+        // Update phase
+        function updatePhase() {
+            const avgReproHealth = agents.reduce((sum, a) => sum + a.reproductiveHealth, 0) / agents.length;
+            const violentCount = agents.filter(a => a.violent).length;
+            const withdrawnCount = agents.filter(a => a.withdrawn).length;
+            const pathologyRate = (violentCount + withdrawnCount) / agents.length;
+            
+            let newPhase = 1;
+            let phaseLabel = '';
+            let phaseColor = '';
+            
+            if (pathologyRate > 0.4 || avgReproHealth < 20) {
+                newPhase = 4;
+                phaseLabel = 'Phase 4: Collapse';
+                phaseColor = 'bg-red-500/20 text-red-300';
+            } else if (pathologyRate > 0.2 || avgReproHealth < 40) {
+                newPhase = 3;
+                phaseLabel = 'Phase 3: Pathological';
+                phaseColor = 'bg-orange-500/20 text-orange-300';
+            } else if (params.symbolicComplexity > 2 || agents.length > params.populationDensity * 1.5) {
+                newPhase = 2;
+                phaseLabel = 'Phase 2: Symbolic Overload';
+                phaseColor = 'bg-yellow-500/20 text-yellow-300';
+            } else {
+                newPhase = 1;
+                phaseLabel = 'Phase 1: Equilibrium';
+                phaseColor = 'bg-green-500/20 text-green-300';
+            }
+            
+            if (newPhase !== phase) {
+                phase = newPhase;
+                const phaseDisplay = document.getElementById('phase-display');
+                phaseDisplay.textContent = phaseLabel;
+                phaseDisplay.className = 'phase-indicator ' + phaseColor;
+            }
+        }
+        
+        // Update metrics display
+        function updateMetrics() {
+            document.getElementById('populationMetric').textContent = agents.length;
+            
+            const avgReproHealth = agents.reduce((sum, a) => sum + a.reproductiveHealth, 0) / agents.length;
+            document.getElementById('reproductionMetric').textContent = Math.round(avgReproHealth) + '%';
+            
+            let complexityLabel = 'Low';
+            if (params.symbolicComplexity > 5) complexityLabel = 'Extreme';
+            else if (params.symbolicComplexity > 3) complexityLabel = 'High';
+            else if (params.symbolicComplexity > 1.5) complexityLabel = 'Medium';
+            document.getElementById('complexityMetric').textContent = complexityLabel;
+            
+            const violentCount = agents.filter(a => a.violent).length;
+            const withdrawnCount = agents.filter(a => a.withdrawn).length;
+            const pathologyRate = ((violentCount + withdrawnCount) / agents.length * 100).toFixed(1);
+            document.getElementById('pathologyMetric').textContent = pathologyRate + '%';
+            
+            const withdrawalRate = (withdrawnCount / agents.length * 100).toFixed(1);
+            document.getElementById('withdrawalMetric').textContent = withdrawalRate + '%';
+            
+            // Record history
+            if (time % 10 === 0) {
+                history.population.push(agents.length);
+                history.reproduction.push(avgReproHealth);
+                history.violence.push(violentCount / agents.length * 100);
+                history.withdrawal.push(withdrawnCount / agents.length * 100);
+                history.pathology.push(parseFloat(pathologyRate));
+                
+                // Keep only last 200 data points
+                if (history.population.length > 200) {
+                    for (let key in history) {
+                        history[key].shift();
+                    }
+                }
+            }
+        }
+        
+        // Draw timeline chart
+        function drawTimeline() {
+            const ctx = timelineCtx;
+            const w = timelineCanvas.width;
+            const h = timelineCanvas.height;
+            
+            // Clear
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, w, h);
+            
+            if (history.population.length < 2) return;
+            
+            // Draw grid
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 10; i++) {
+                const y = (h / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+                ctx.stroke();
+            }
+            
+            // Draw lines
+            const datasets = [
+                { data: history.reproduction, color: '#10b981', label: 'Reproduction' },
+                { data: history.violence, color: '#ef4444', label: 'Violence' },
+                { data: history.withdrawal, color: '#6b7280', label: 'Withdrawal' },
+                { data: history.pathology, color: '#f59e0b', label: 'Total Pathology' }
+            ];
+            
+            datasets.forEach(dataset => {
+                ctx.strokeStyle = dataset.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                dataset.data.forEach((value, i) => {
+                    const x = (i / (history.population.length - 1)) * w;
+                    const y = h - (value / 100) * h;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                
+                ctx.stroke();
+            });
+            
+            // Draw legend
+            ctx.font = '12px Inter';
+            datasets.forEach((dataset, i) => {
+                ctx.fillStyle = dataset.color;
+                ctx.fillRect(10, 10 + i * 20, 12, 12);
+                ctx.fillText(dataset.label, 28, 20 + i * 20);
+            });
+        }
+        
+        // Main animation loop
+        function animate() {
+            if (!running) return;
+            
+            // Clear canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw agents
+            agents.forEach(agent => {
+                agent.update();
+                agent.draw();
+            });
+            
+            // Reproduction and death
+            if (time % 20 === 0) {
+                reproduce();
+                removeDead();
+            }
+            
+            // Update metrics
+            updateMetrics();
+            updatePhase();
+            
+            // Draw timeline
+            if (time % 5 === 0) {
+                drawTimeline();
+            }
+            
+            time++;
+            requestAnimationFrame(animate);
+        }
+        
+        // Event listeners
+        document.getElementById('startBtn').addEventListener('click', () => {
+            running = true;
+            animate();
+        });
+        
+        document.getElementById('pauseBtn').addEventListener('click', () => {
+            running = false;
+        });
+        
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            running = false;
+            init();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            agents.forEach(a => a.draw());
+            updateMetrics();
+            drawTimeline();
+        });
+        
+        document.getElementById('interventionBtn').addEventListener('click', () => {
+            // Apply intervention: reduce symbolic complexity, increase friction
+            params.symbolicComplexity = Math.max(1.0, params.symbolicComplexity * 0.5);
+            params.environmentalFriction = Math.min(1.0, params.environmentalFriction * 1.5);
+            document.getElementById('symbolicSlider').value = params.symbolicComplexity * 10;
+            document.getElementById('frictionSlider').value = params.environmentalFriction * 100;
+            document.getElementById('symbolicValue').textContent = params.symbolicComplexity.toFixed(1) + 'x';
+            document.getElementById('frictionValue').textContent = params.environmentalFriction.toFixed(2);
+            updateSystemDiagnosis();
+        });
+        
+        // System diagnosis function
+        function updateSystemDiagnosis() {
+            const diagnosis = [];
+            let overallRisk = 'low';
+            let riskColor = 'text-green-400';
+            
+            // Analyze symbolic complexity
+            if (params.symbolicComplexity < 1.5) {
+                diagnosis.push({
+                    icon: '✓',
+                    color: 'text-green-400',
+                    text: 'Low symbolic complexity: Social structures remain grounded in biological needs'
+                });
+            } else if (params.symbolicComplexity < 3.0) {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-yellow-400',
+                    text: 'Moderate complexity: Some stress but manageable with sufficient friction'
+                });
+                overallRisk = 'medium';
+            } else if (params.symbolicComplexity < 5.0) {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-orange-400',
+                    text: 'High complexity: Symbolic hierarchies starting to decouple from reality'
+                });
+                overallRisk = 'high';
+            } else {
+                diagnosis.push({
+                    icon: '✗',
+                    color: 'text-red-400',
+                    text: 'Extreme complexity: Behavioral sink likely - symbolic structures completely ungrounded'
+                });
+                overallRisk = 'critical';
+            }
+            
+            // Analyze environmental friction
+            if (params.environmentalFriction > 0.6) {
+                diagnosis.push({
+                    icon: '✓',
+                    color: 'text-green-400',
+                    text: 'High friction: Strong feedback loops maintain reality-grounding'
+                });
+            } else if (params.environmentalFriction > 0.3) {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-yellow-400',
+                    text: 'Moderate friction: Some delays/feedback but vulnerable to complexity spikes'
+                });
+                if (overallRisk === 'low') overallRisk = 'medium';
+            } else {
+                diagnosis.push({
+                    icon: '✗',
+                    color: 'text-red-400',
+                    text: 'Low friction: Frictionless environment enables runaway symbolic drift'
+                });
+                overallRisk = 'critical';
+            }
+            
+            // Analyze resource abundance
+            if (params.resourceAbundance >= 90 && params.resourceAbundance <= 130) {
+                diagnosis.push({
+                    icon: '✓',
+                    color: 'text-green-400',
+                    text: 'Balanced resources: Adequate supply without masking dysfunction'
+                });
+            } else if (params.resourceAbundance < 90) {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-orange-400',
+                    text: 'Resource scarcity: Health recovery slower, stress from competition'
+                });
+                if (overallRisk === 'low') overallRisk = 'medium';
+            } else {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-yellow-400',
+                    text: 'Resource excess: Abundance masks underlying pathology, delays natural correction'
+                });
+            }
+            
+            // Analyze population density
+            if (params.populationDensity < 70) {
+                diagnosis.push({
+                    icon: '✓',
+                    color: 'text-green-400',
+                    text: 'Low-moderate density: Space for social bonds without overcrowding stress'
+                });
+            } else if (params.populationDensity < 120) {
+                diagnosis.push({
+                    icon: '⚠',
+                    color: 'text-yellow-400',
+                    text: 'High density: Increased contact stress, requires low complexity to remain stable'
+                });
+                if (overallRisk === 'low') overallRisk = 'medium';
+            } else {
+                diagnosis.push({
+                    icon: '✗',
+                    color: 'text-red-400',
+                    text: 'Extreme density: Chronic overcrowding stress amplifies symbolic complexity effects'
+                });
+                if (overallRisk !== 'critical') overallRisk = 'high';
+            }
+            
+            // Calculate interaction effects
+            const complexityFrictionRatio = params.symbolicComplexity / (params.environmentalFriction + 0.1);
+            if (complexityFrictionRatio > 10) {
+                diagnosis.push({
+                    icon: '✗',
+                    color: 'text-red-400',
+                    text: 'CRITICAL: Complexity vastly exceeds friction - rapid collapse imminent'
+                });
+                overallRisk = 'critical';
+            } else if (complexityFrictionRatio < 2 && params.symbolicComplexity < 2) {
+                diagnosis.push({
+                    icon: '✓',
+                    color: 'text-green-400',
+                    text: 'Excellent balance: Friction sufficient to ground low-complexity social structures'
+                });
+            }
+            
+            // Overall prognosis
+            let prognosis = '';
+            if (overallRisk === 'low') {
+                riskColor = 'text-green-400';
+                prognosis = '🎯 SUSTAINABLE: Population should stabilize and thrive';
+            } else if (overallRisk === 'medium') {
+                riskColor = 'text-yellow-400';
+                prognosis = '⚠ SURVIVABLE: Chronic stress but population can persist';
+            } else if (overallRisk === 'high') {
+                riskColor = 'text-orange-400';
+                prognosis = '⚠ PATHOLOGICAL: Reproductive decline likely, intervention needed';
+            } else {
+                riskColor = 'text-red-400';
+                prognosis = '✗ COLLAPSE: Behavioral sink trajectory - population extinction probable';
+            }
+            
+            // Render diagnosis
+            const diagnosisDiv = document.getElementById('systemDiagnosis');
+            diagnosisDiv.innerHTML = `
+                <div class="p-3 mb-3 rounded-lg border-2 ${riskColor.replace('text-', 'border-')} bg-black/30">
+                    <div class="font-bold ${riskColor}">${prognosis}</div>
+                </div>
+                ${diagnosis.map(d => `
+                    <div class="flex gap-2">
+                        <span class="${d.color}">${d.icon}</span>
+                        <span class="text-gray-300">${d.text}</span>
+                    </div>
+                `).join('')}
+            `;
+        }
+        
+        // Update slider effect explanations
+        function updateSliderEffects() {
+            // Density effects
+            const density = params.populationDensity;
+            let densityText = '';
+            if (density < 40) {
+                densityText = '💚 Low density - minimal contact stress, easy social bonding';
+            } else if (density < 70) {
+                densityText = '💛 Moderate density - balanced social interaction';
+            } else if (density < 120) {
+                densityText = '🧡 High density - increased stress from proximity';
+            } else {
+                densityText = '❤️ Extreme density - chronic overcrowding stress';
+            }
+            document.getElementById('densityEffect').textContent = densityText;
+            
+            // Resource effects
+            const resources = params.resourceAbundance;
+            let resourceText = '';
+            if (resources < 70) {
+                resourceText = '🧡 Scarcity - slow health recovery, competition stress';
+            } else if (resources < 90) {
+                resourceText = '💛 Limited - adequate but tight, some stress';
+            } else if (resources <= 130) {
+                resourceText = '💚 Balanced - optimal health recovery';
+            } else {
+                resourceText = '💙 Excess - abundant but masks dysfunction';
+            }
+            document.getElementById('resourceEffect').textContent = resourceText;
+            
+            // Symbolic complexity effects
+            const complexity = params.symbolicComplexity;
+            let complexityText = '';
+            if (complexity < 1.5) {
+                complexityText = '💚 Minimal - simple social structures, grounded in biology';
+            } else if (complexity < 3.0) {
+                complexityText = '💛 Moderate - some abstraction, manageable';
+            } else if (complexity < 5.0) {
+                complexityText = '🧡 High - hierarchies decoupling from needs';
+            } else if (complexity < 7.0) {
+                complexityText = '❤️ Very High - severe symbolic overload';
+            } else {
+                complexityText = '🚨 Extreme - complete reality decoupling';
+            }
+            document.getElementById('symbolicEffect').textContent = complexityText;
+            
+            // Friction effects
+            const friction = params.environmentalFriction;
+            let frictionText = '';
+            if (friction < 0.2) {
+                frictionText = '🚨 Near-zero - frictionless drift, no reality grounding';
+            } else if (friction < 0.4) {
+                frictionText = '❤️ Low - minimal feedback, vulnerable to drift';
+            } else if (friction < 0.65) {
+                frictionText = '💛 Moderate - some delays and feedback';
+            } else {
+                frictionText = '💚 High - strong reality grounding, delayed consequences felt';
+            }
+            document.getElementById('frictionEffect').textContent = frictionText;
+        }
+        
+        // Parameter sliders with live diagnosis
+        document.getElementById('densitySlider').addEventListener('input', (e) => {
+            params.populationDensity = parseInt(e.target.value);
+            document.getElementById('densityValue').textContent = params.populationDensity;
+            updateSliderEffects();
+            updateSystemDiagnosis();
+        });
+        
+        document.getElementById('resourceSlider').addEventListener('input', (e) => {
+            params.resourceAbundance = parseInt(e.target.value);
+            document.getElementById('resourceValue').textContent = params.resourceAbundance + '%';
+            updateSliderEffects();
+            updateSystemDiagnosis();
+        });
+        
+        document.getElementById('symbolicSlider').addEventListener('input', (e) => {
+            params.symbolicComplexity = parseInt(e.target.value) / 10;
+            document.getElementById('symbolicValue').textContent = params.symbolicComplexity.toFixed(1) + 'x';
+            updateSliderEffects();
+            updateSystemDiagnosis();
+        });
+        
+        document.getElementById('frictionSlider').addEventListener('input', (e) => {
+            params.environmentalFriction = parseInt(e.target.value) / 100;
+            document.getElementById('frictionValue').textContent = params.environmentalFriction.toFixed(2);
+            updateSliderEffects();
+            updateSystemDiagnosis();
+        });
+        
+        // Scenario presets
+        function loadScenario(scenario) {
+            const scenarios = {
+                'calhoun': {
+                    populationDensity: 120,
+                    resourceAbundance: 200,
+                    symbolicComplexity: 7.0,
+                    environmentalFriction: 0.05,
+                    description: 'COLLAPSE: Resources abundant but extreme symbolic complexity with no friction → behavioral sink'
+                },
+                'modern': {
+                    populationDensity: 80,
+                    resourceAbundance: 120,
+                    symbolicComplexity: 4.0,
+                    environmentalFriction: 0.3,
+                    description: 'STRESS: Moderate complexity, some friction → chronic stress but survivable'
+                },
+                'social-media': {
+                    populationDensity: 150,
+                    resourceAbundance: 180,
+                    symbolicComplexity: 9.0,
+                    environmentalFriction: 0.02,
+                    description: 'RAPID COLLAPSE: Extreme complexity, near-zero friction → fastest path to extinction'
+                },
+                'sustainable': {
+                    populationDensity: 50,
+                    resourceAbundance: 110,
+                    symbolicComplexity: 1.2,
+                    environmentalFriction: 0.8,
+                    description: 'EQUILIBRIUM: Low complexity, high friction, adequate resources → stable thriving population'
+                }
+            };
+            
+            if (scenarios[scenario]) {
+                params = {...scenarios[scenario]};
+                document.getElementById('densitySlider').value = params.populationDensity;
+                document.getElementById('resourceSlider').value = params.resourceAbundance;
+                document.getElementById('symbolicSlider').value = params.symbolicComplexity * 10;
+                document.getElementById('frictionSlider').value = params.environmentalFriction * 100;
+                document.getElementById('densityValue').textContent = params.populationDensity;
+                document.getElementById('resourceValue').textContent = params.resourceAbundance + '%';
+                document.getElementById('symbolicValue').textContent = params.symbolicComplexity.toFixed(1) + 'x';
+                document.getElementById('frictionValue').textContent = params.environmentalFriction.toFixed(2);
+                init();
+                if (running) {
+                    animate();
+                } else {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    agents.forEach(a => a.draw());
+                }
+                updateSliderEffects();
+                updateSystemDiagnosis();
+            }
+        }
+        
+        // Phase information
+        const phaseDescriptions = [
+            {
+                phase: 1,
+                title: 'Phase 1: Equilibrium',
+                description: 'Population stable, reproduction healthy, low pathology. Symbolic structures aligned with biological needs.',
+                color: 'border-green-500'
+            },
+            {
+                phase: 2,
+                title: 'Phase 2: Symbolic Overload',
+                description: 'Density increasing, symbolic complexity rising. Stress levels climb as social structures become more complex.',
+                color: 'border-yellow-500'
+            },
+            {
+                phase: 3,
+                title: 'Phase 3: Pathological Emergence',
+                description: 'Reproductive health declining, violence and withdrawal appearing. Symbolic structures decoupling from reality.',
+                color: 'border-orange-500'
+            },
+            {
+                phase: 4,
+                title: 'Phase 4: Behavioral Sink Collapse',
+                description: 'Population collapse imminent. Widespread pathology: reproductive failure, violence, social withdrawal. System failure.',
+                color: 'border-red-500'
+            }
+        ];
+        
+        const phaseInfo = document.getElementById('phaseInfo');
+        phaseDescriptions.forEach(p => {
+            const div = document.createElement('div');
+            div.className = `p-3 bg-black/30 rounded-lg border-l-4 ${p.color}`;
+            div.innerHTML = `
+                <div class="font-semibold mb-1">${p.title}</div>
+                <div class="text-sm text-gray-300">${p.description}</div>
+            `;
+            phaseInfo.appendChild(div);
+        });
+        
+        // Initialize
+        init();
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        agents.forEach(a => a.draw());
+        updateMetrics();
+        updateSliderEffects();
+        updateSystemDiagnosis();
+    </script>
+</body>
+</html>
