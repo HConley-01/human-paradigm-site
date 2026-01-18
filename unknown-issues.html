@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unknown Issues | NiCE Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; min-height: 100vh; }
+        h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
+        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+        .void-pulse { animation: voidPulse 3s ease-in-out infinite; }
+        @keyframes voidPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+        }
+        .glitch { animation: glitch 0.3s ease-in-out infinite; }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        .mystery-card:hover { 
+            background: rgba(139, 92, 246, 0.1); 
+            border-color: rgba(139, 92, 246, 0.3);
+            cursor: not-allowed;
+        }
+        .redacted { 
+            background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+            background-size: 200% 100%;
+            animation: redactedShimmer 2s linear infinite;
+            color: transparent;
+            user-select: none;
+        }
+        @keyframes redactedShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .floating { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="https://lernaean.net" title="Back to Lernaean Research">
+                        <img src="/images/Lern_Logo2.png" alt="Lernaean Research" class="h-10 w-auto hover:opacity-80 transition-opacity">
+                    </a>
+                    <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <img src="/images/NiCE_Logo_New.png" alt="NiCE Framework Logo" class="h-10 w-auto">
+                        <span class="text-2xl font-bold text-white" style="font-family: 'Fraunces', serif;">NiCE Framework</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex gap-6 items-center">
+                    <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="/nice-framework.html" class="text-gray-400 hover:text-white transition-colors">NiCE Synthesis</a>
+                    <a href="/known-issues.html" class="text-gray-400 hover:text-white transition-colors">Known Issues</a>
+                    <span class="text-purple-400 font-semibold">Unknown Issues</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-purple-400 mb-6">
+                <span class="text-lg">🕳️</span>
+                <span class="text-sm font-medium">Epistemic Void</span>
+            </div>
+            <h1 class="text-5xl font-bold mb-4">Unknown Issues</h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                The things we don't know we don't know. <em>Obviously.</em>
+            </p>
+        </div>
+
+        <!-- Rumsfeld Quote -->
+        <div class="glass-card p-6 mb-8 border-l-4 border-purple-500">
+            <blockquote class="text-gray-300 italic">
+                "There are known knowns... there are known unknowns... But there are also unknown unknowns—the ones we don't know we don't know."
+            </blockquote>
+            <p class="text-gray-500 text-sm mt-2">— Donald Rumsfeld, 2002 (accidentally being profound)</p>
+        </div>
+
+        <!-- Stats Dashboard (Unhelpful) -->
+        <div class="grid grid-cols-3 gap-4 mb-12">
+            <div class="glass-card p-4 text-center">
+                <div class="text-3xl font-bold text-purple-400">?</div>
+                <div class="text-sm text-gray-400">Total Unknown</div>
+            </div>
+            <div class="glass-card p-4 text-center">
+                <div class="text-3xl font-bold text-fuchsia-400">∞</div>
+                <div class="text-sm text-gray-400">Unquantifiable</div>
+            </div>
+            <div class="glass-card p-4 text-center">
+                <div class="text-3xl font-bold text-violet-400">¯\_(ツ)_/¯</div>
+                <div class="text-sm text-gray-400">Resolution ETA</div>
+            </div>
+        </div>
+
+        <!-- Mystery Issue Cards -->
+        <div class="space-y-4 mb-12">
+            <h2 class="text-2xl font-bold text-gray-300 mb-4">Catalogued Unknowns</h2>
+            
+            <!-- Issue 1 -->
+            <div class="glass-card p-6 mystery-card border-l-4 border-purple-500 transition-all">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-purple-500/20 rounded text-purple-300 text-xs">COSMIC</span>
+                            <span class="px-2 py-1 bg-gray-500/20 rounded text-gray-400 text-xs">SEVERITY: YES</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">████████ ███ ██████████</h3>
+                        <p class="text-gray-400 text-sm"><span class="redacted">If we knew what this was, it wouldn't be an unknown issue now would it?</span></p>
+                    </div>
+                    <span class="text-2xl void-pulse">🌀</span>
+                </div>
+            </div>
+
+            <!-- Issue 2 -->
+            <div class="glass-card p-6 mystery-card border-l-4 border-fuchsia-500 transition-all">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-fuchsia-500/20 rounded text-fuchsia-300 text-xs">EXISTENTIAL</span>
+                            <span class="px-2 py-1 bg-gray-500/20 rounded text-gray-400 text-xs">SEVERITY: PROBABLY</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">That Thing You Forgot</h3>
+                        <p class="text-gray-400 text-sm">You know that feeling when you walk into a room and forget why? It's like that, but for the entire codebase.</p>
+                    </div>
+                    <span class="text-2xl floating">🧠</span>
+                </div>
+            </div>
+
+            <!-- Issue 3 -->
+            <div class="glass-card p-6 mystery-card border-l-4 border-violet-500 transition-all">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-violet-500/20 rounded text-violet-300 text-xs">QUANTUM</span>
+                            <span class="px-2 py-1 bg-gray-500/20 rounded text-gray-400 text-xs">SEVERITY: BOTH</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Schrödinger's Bug</h3>
+                        <p class="text-gray-400 text-sm">This bug both exists and doesn't exist until you observe it. Please don't observe it.</p>
+                    </div>
+                    <span class="text-2xl">🐱📦</span>
+                </div>
+            </div>
+
+            <!-- Issue 4 -->
+            <div class="glass-card p-6 mystery-card border-l-4 border-indigo-500 transition-all">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-indigo-500/20 rounded text-indigo-300 text-xs">TEMPORAL</span>
+                            <span class="px-2 py-1 bg-gray-500/20 rounded text-gray-400 text-xs">SEVERITY: EVENTUALLY</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Future Regression</h3>
+                        <p class="text-gray-400 text-sm">A bug we haven't written yet, but rest assured, we will. We always do.</p>
+                    </div>
+                    <span class="text-2xl">⏰</span>
+                </div>
+            </div>
+
+            <!-- Issue 5 -->
+            <div class="glass-card p-6 mystery-card border-l-4 border-pink-500 transition-all">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-pink-500/20 rounded text-pink-300 text-xs">PHILOSOPHICAL</span>
+                            <span class="px-2 py-1 bg-gray-500/20 rounded text-gray-400 text-xs">SEVERITY: DEBATABLE</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Is This Even A Bug?</h3>
+                        <p class="text-gray-400 text-sm">Some would say it's working as intended. Others would say "intended" is doing a lot of heavy lifting there.</p>
+                    </div>
+                    <span class="text-2xl">🤔</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Void -->
+        <div class="glass-card p-8 text-center mb-12 border border-purple-500/30">
+            <h2 class="text-2xl font-bold text-purple-400 mb-4">Peer Into The Void</h2>
+            <p class="text-gray-400 mb-6">
+                You've reached the edge of documented reality. Beyond this point lies only the unknown—the bugs we haven't discovered, the features we didn't know we needed, the existential dread of maintaining legacy code.
+            </p>
+            <p class="text-gray-500 text-sm mb-6">
+                If you stare long enough into the unknown issues, the unknown issues stare back.
+            </p>
+            
+            <a href="https://hmpg.net/" 
+               target="_blank"
+               class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-lg text-white font-medium transition-all hover:scale-105">
+                <span>🕳️</span>
+                <span>Continue to the End</span>
+                <span>→</span>
+            </a>
+            
+            <p class="text-gray-600 text-xs mt-4">
+                (You have been warned)
+            </p>
+        </div>
+
+        <!-- Easter Egg Note -->
+        <div class="text-center text-gray-600 text-sm">
+            <p>Looking for <a href="/known-issues.html" class="text-blue-400 hover:underline">Known Issues</a>? Those are the boring ones we can actually fix.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-white/10 mt-12">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-500 mb-2">
+                © 2026 Robert D. Kitcey • <a href="mailto:rkitcey@humanparadigm.org" class="hover:text-gray-300">rkitcey@humanparadigm.org</a>
+            </p>
+            <p class="text-gray-600 text-xs">
+                This page exists in a superposition of being serious and not serious until observed.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
