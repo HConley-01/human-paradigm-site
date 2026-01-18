@@ -1,16 +1,28 @@
 {
   "site": {
-    "version": "0.9.3-beta",
-    "codename": "Human Essence Update",
+    "version": "0.9.4-beta",
+    "codename": "Advanced Analysis Update",
     "releaseDate": "2026-01-18",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
-      "version": "0.9.3-beta",
+      "version": "0.9.4-beta",
       "date": "2026-01-18",
       "status": "current",
+      "summary": "Advanced Analysis publication updated to v0.8.0",
+      "changes": [
+        {
+          "type": "changed",
+          "description": "Updated 'Intellectual Progression and Philosophical Development' (Advanced Analysis) to v0.8.0"
+        }
+      ]
+    },
+    {
+      "version": "0.9.3-beta",
+      "date": "2026-01-18",
+      "status": "previous",
       "summary": "Human Essence publication updated to v0.9.1",
       "changes": [
         {
