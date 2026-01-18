@@ -1,16 +1,32 @@
 {
   "site": {
-    "version": "0.9.2-beta",
-    "codename": "Registry & Epistemic Void",
+    "version": "0.9.3-beta",
+    "codename": "Human Essence Update",
     "releaseDate": "2026-01-18",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
-      "version": "0.9.2-beta",
+      "version": "0.9.3-beta",
       "date": "2026-01-18",
       "status": "current",
+      "summary": "Human Essence publication updated to v0.9.1",
+      "changes": [
+        {
+          "type": "changed",
+          "description": "Updated 'The Human Essence: An AI Perspective on Human Nature' to v0.9.1"
+        },
+        {
+          "type": "added",
+          "description": "How to Cite link added to homepage navigation"
+        }
+      ]
+    },
+    {
+      "version": "0.9.2-beta",
+      "date": "2026-01-18",
+      "status": "previous",
       "summary": "Document registry system, site management documentation, and unknown issues easter egg",
       "changes": [
         {
