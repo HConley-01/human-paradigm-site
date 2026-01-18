@@ -56,11 +56,11 @@
             </p>
         </div>
 
-        <!-- Current Version Badge -->
+        <!-- Current Version Badge (Dynamic) -->
         <div class="glass-card p-6 mb-12 text-center">
             <div class="text-sm text-gray-400 mb-2">Current Version</div>
-            <div class="text-4xl font-bold text-blue-400 mb-2">0.9.1-beta</div>
-            <div class="text-gray-400">Pre-release · Active Development</div>
+            <div id="current-version" class="text-4xl font-bold text-blue-400 mb-2">Loading...</div>
+            <div id="version-status" class="text-gray-400">Pre-release · Active Development</div>
         </div>
 
         <!-- Versioning Note -->
@@ -74,198 +74,10 @@
             </p>
         </div>
 
-        <!-- Timeline -->
-        <div class="relative">
+        <!-- Timeline (Dynamic) -->
+        <div id="changelog-timeline" class="relative">
             <div class="timeline-line"></div>
-
-            <!-- v0.9.1-beta -->
-            <div class="relative pl-12 pb-12">
-                <div class="version-dot bg-blue-500 border-blue-400 top-1"></div>
-                <div class="glass-card p-6">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span class="text-2xl font-bold text-white">v0.9.1-beta</span>
-                        <span class="px-2 py-1 text-xs rounded bg-blue-500/20 text-blue-300">Current</span>
-                        <span class="text-gray-400 text-sm">January 17, 2026</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-purple-400 mb-3">🔍 Comprehensive Site Audit & Publications Expansion</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span><strong>Site Audit:</strong> Comprehensive quality assessment with 16 tracked issues across UX, content, performance, and accessibility</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span><strong>Publications:</strong> Added 5 new worked examples—China Diagnostic, IMF/World Bank Analysis, US Academia Reform, US Diagnostic, Ecological Value-Debt Sign Flip</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-blue-400 mt-1">~</span>
-                            <span><strong>Publications Reorganization:</strong> Separated core framework documents from worked example case studies</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-blue-400 mt-1">~</span>
-                            <span><strong>Document Conversion:</strong> Upstream Pathogenesis and Omnidirectional Stigma now served as PDF instead of DOCX</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-blue-400 mt-1">~</span>
-                            <span><strong>Sign-Flip Interactive:</strong> Clarified pedagogical note to reflect sign-flip as central framework mechanism</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-yellow-400 mt-1">!</span>
-                            <span><strong>Known Issues:</strong> Documented 16 audit findings including missing citation guidance, licensing clarity, and mobile optimization needs</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- v0.9.0-beta -->
-            <div class="relative pl-12 pb-12">
-                <div class="version-dot bg-slate-500 border-slate-400 top-1"></div>
-                <div class="glass-card p-6">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span class="text-2xl font-bold text-white">v0.9.0-beta</span>
-                        <span class="text-gray-400 text-sm">January 14, 2026</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-green-400 mb-3">🚀 Major Interactive Updates</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span><strong>Behavioral Sink Simulation:</strong> Billionaire parallel section, evolutionary core with two modes of reproductive decline</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span><strong>Ecological dynamics:</strong> Earth Overshoot Factor, empirically-grounded model overhaul</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span><strong>Friction mechanics:</strong> Now calculated as emergent property from abstraction and abundance</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span><strong>Model transparency:</strong> Added caveats about empirical grounding and limitations</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-blue-400 mt-1">~</span>
-                            <span><strong>Publications:</strong> Added Upstream Pathogenesis v8, Omnidirectional Stigma Diagnosis v2</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-blue-400 mt-1">~</span>
-                            <span><strong>Navigation:</strong> Lernaean logo now visible on all pages</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- v0.8.0-beta -->
-            <div class="relative pl-12 pb-12">
-                <div class="version-dot bg-slate-500 border-slate-400 top-1"></div>
-                <div class="glass-card p-6">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span class="text-2xl font-bold text-white">v0.8.0-beta</span>
-                        <span class="text-gray-400 text-sm">January 2026</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-blue-400 mb-3">🌐 Domain Migration & Branding</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-blue-400 mt-1">~</span>
-                            <span>Migrated primary domain from lernaean.net to humanparadigm.org</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>New NiCE Framework logo with elegant triadic system visualization</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Updated hero imagery throughout site</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- v0.7.0-beta -->
-            <div class="relative pl-12 pb-12">
-                <div class="version-dot bg-slate-600 border-slate-500 top-1"></div>
-                <div class="glass-card p-6">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span class="text-2xl font-bold text-white">v0.7.0-beta</span>
-                        <span class="text-gray-400 text-sm">December 2025</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-purple-400 mb-3">🧪 Interactive Lab Launch</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Behavioral Sink Simulation with Calhoun experiment model</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Insanity Quotient Calculator</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Asymmetric Propagation Simulator</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Triadic Space 3D Visualization</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Interactive Lab landing page</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- v0.5.0-beta -->
-            <div class="relative pl-12 pb-12">
-                <div class="version-dot bg-slate-700 border-slate-600 top-1"></div>
-                <div class="glass-card p-6">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span class="text-2xl font-bold text-white">v0.5.0-beta</span>
-                        <span class="text-gray-400 text-sm">November 2025</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-amber-400 mb-3">📄 Core Content</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>NiCE Framework Synthesis v1.3.1 (comprehensive document)</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Homepage with triadic system overview</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Publications section with PDF downloads</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Cloudflare Pages deployment</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- v0.1.0-alpha -->
-            <div class="relative pl-12 pb-4">
-                <div class="version-dot bg-slate-800 border-slate-700 top-1"></div>
-                <div class="glass-card p-6 opacity-75">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span class="text-2xl font-bold text-white">v0.1.0-alpha</span>
-                        <span class="text-gray-400 text-sm">October 2025</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-400 mb-3">🌱 Initial Release</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Project scaffolding and initial structure</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-green-400 mt-1">+</span>
-                            <span>Basic static site framework</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div class="text-center text-gray-500 py-8">Loading changelog...</div>
         </div>
 
         <!-- Roadmap Preview -->
@@ -280,10 +92,10 @@
                     </div>
                 </div>
                 <div class="flex items-start gap-4 p-4 rounded-lg bg-white/5">
-                    <div class="px-3 py-1 rounded text-xs font-medium bg-blue-500/20 text-blue-300">In Progress</div>
+                    <div class="px-3 py-1 rounded text-xs font-medium bg-green-500/20 text-green-300">Complete</div>
                     <div>
                         <div class="font-semibold text-white">Citation System</div>
-                        <div class="text-gray-400 text-sm">Proper academic citations with DOI links and export functionality</div>
+                        <div class="text-gray-400 text-sm">Academic citations with APA format, BibTeX export, and copy functionality</div>
                     </div>
                 </div>
                 <div class="flex items-start gap-4 p-4 rounded-lg bg-white/5">
@@ -300,9 +112,9 @@
         <div class="flex justify-center gap-6 mt-12 text-sm">
             <a href="/known-issues.html" class="text-blue-400 hover:text-blue-300 hover:underline">Known Issues</a>
             <span class="text-gray-600">•</span>
-            <a href="/" class="text-blue-400 hover:text-blue-300 hover:underline">Back to Home</a>
+            <a href="/unknown-issues.html" class="text-purple-400 hover:text-purple-300 hover:underline">Unknown Issues</a>
             <span class="text-gray-600">•</span>
-            <a href="/interactive-lab.html" class="text-blue-400 hover:text-blue-300 hover:underline">Interactive Lab</a>
+            <a href="/" class="text-blue-400 hover:text-blue-300 hover:underline">Back to Home</a>
         </div>
     </div>
 
@@ -312,5 +124,94 @@
             © 2026 Robert D. Kitcey • <a href="mailto:rkitcey@humanparadigm.org" class="hover:text-white">rkitcey@humanparadigm.org</a>
         </div>
     </footer>
+
+    <script>
+        // Fetch and render changelog from site-version.json
+        async function loadChangelog() {
+            try {
+                const response = await fetch('/site-version.json');
+                const data = await response.json();
+                
+                // Update current version badge
+                document.getElementById('current-version').textContent = data.site.version;
+                document.getElementById('version-status').textContent = 
+                    data.site.status === 'beta' ? 'Pre-release · Active Development' : 
+                    data.site.status === 'alpha' ? 'Early Development' : 'Stable Release';
+                
+                // Render changelog timeline
+                renderTimeline(data.changelog);
+            } catch (error) {
+                console.error('Failed to load changelog:', error);
+                document.getElementById('changelog-timeline').innerHTML = 
+                    '<div class="text-center text-red-400 py-8">Failed to load changelog data</div>';
+            }
+        }
+
+        function renderTimeline(changelog) {
+            const container = document.getElementById('changelog-timeline');
+            
+            const typeIcons = {
+                'added': { symbol: '+', color: 'text-green-400' },
+                'changed': { symbol: '~', color: 'text-blue-400' },
+                'fixed': { symbol: '✓', color: 'text-emerald-400' },
+                'removed': { symbol: '-', color: 'text-red-400' },
+                'deprecated': { symbol: '!', color: 'text-yellow-400' },
+                'security': { symbol: '🔒', color: 'text-orange-400' }
+            };
+
+            const summaryColors = [
+                'text-purple-400', 'text-green-400', 'text-blue-400', 
+                'text-amber-400', 'text-cyan-400', 'text-pink-400'
+            ];
+
+            let html = '<div class="timeline-line"></div>';
+            
+            changelog.forEach((release, index) => {
+                const isCurrent = release.status === 'current';
+                const dotClass = isCurrent ? 'bg-blue-500 border-blue-400' : 'bg-slate-500 border-slate-400';
+                const opacity = index > 4 ? 'opacity-75' : '';
+                const summaryColor = summaryColors[index % summaryColors.length];
+                
+                html += `
+                    <div class="relative pl-12 pb-12 ${opacity}">
+                        <div class="version-dot ${dotClass} top-1"></div>
+                        <div class="glass-card p-6">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="text-2xl font-bold text-white">v${release.version}</span>
+                                ${isCurrent ? '<span class="px-2 py-1 text-xs rounded bg-blue-500/20 text-blue-300">Current</span>' : ''}
+                                <span class="text-gray-400 text-sm">${formatDate(release.date)}</span>
+                            </div>
+                            <h3 class="text-lg font-semibold ${summaryColor} mb-3">${release.summary}</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                ${release.changes.map(change => {
+                                    const icon = typeIcons[change.type] || { symbol: '•', color: 'text-gray-400' };
+                                    return `
+                                        <li class="flex items-start gap-2">
+                                            <span class="${icon.color} mt-1">${icon.symbol}</span>
+                                            <span>${change.description}</span>
+                                        </li>
+                                    `;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        // Load on page ready
+        loadChangelog();
+    </script>
 </body>
 </html>
