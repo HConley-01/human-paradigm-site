@@ -20,7 +20,9 @@ const DocRegistry = {
         if (this._loaded) return this._data;
         
         try {
-            const response = await fetch('/data/document-registry.json');
+            // Add cache-busting timestamp to force fresh data
+            const timestamp = new Date().getTime();
+            const response = await fetch(`/data/document-registry.json?v=${timestamp}`);
             this._data = await response.json();
             this._loaded = true;
             this._applyToDOM();
