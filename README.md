@@ -36,6 +36,7 @@ dist/public/
 ├── interactive-lab.html          # Interactive tools hub
 ├── changelog.html                # Version history (auto-populated)
 ├── known-issues.html             # Issue tracker (auto-populated)
+├── unknown-issues.html           # Easter egg - epistemic void page
 ├── sitemap-visual.html           # Visual site navigation
 ├── sitemap.xml                   # SEO sitemap
 ├── robots.txt                    # Search engine directives
@@ -178,7 +179,7 @@ Follows [Semantic Versioning](https://semver.org/): `MAJOR.MINOR.PATCH[-STATUS]`
 
 ### Current Version
 
-**`0.9.1-beta`** — "Triadic Foundation"
+**`0.9.2-beta`** — "Registry & Epistemic Void"
 
 ### Updating Site Version
 
