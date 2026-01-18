@@ -78,6 +78,38 @@
         </div>
     </nav>
 
+    <!-- Development Notice Banner -->
+    <div class="bg-gradient-to-r from-blue-900/80 via-slate-800/80 to-blue-900/80 border-b border-blue-500/30">
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <div class="flex items-center justify-center gap-3 text-sm flex-wrap">
+                <span class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <span id="site-version" class="text-blue-300 font-medium">v0.9.1-beta</span>
+                </span>
+                <span class="text-gray-500">|</span>
+                <span class="text-gray-300">Site under active development</span>
+                <span class="text-gray-500">·</span>
+                <a href="/changelog.html" class="text-blue-400 hover:text-blue-300 hover:underline">Changelog</a>
+                <span class="text-gray-500">·</span>
+                <a href="/known-issues.html" class="text-blue-400 hover:text-blue-300 hover:underline">Known Issues</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-fetch version from site-version.json
+        fetch('/site-version.json')
+            .then(r => r.json())
+            .then(data => {
+                const el = document.getElementById('site-version');
+                if (el && data.site?.version) el.textContent = 'v' + data.site.version;
+            })
+            .catch(() => {}); // Silently fall back to hardcoded version
+    </script>
+
     <!-- Hero Section -->
     <section class="py-24 px-6">
         <div class="max-w-5xl mx-auto text-center">
@@ -94,7 +126,7 @@
                 <div class="flex items-center justify-center gap-2 mb-4">
                     <span class="text-3xl">🌟</span>
                     <h2 class="text-2xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-amber-400 bg-clip-text text-transparent">
-                        Featured: NiCE Framework Synthesis v1.3
+                        Featured: NiCE Framework Synthesis v1.3.1
                     </h2>
                 </div>
                 <p class="text-gray-300 mb-6">
@@ -107,7 +139,7 @@
                        class="px-8 py-4 bg-gradient-to-r from-green-500 via-blue-500 to-amber-500 rounded-xl text-white font-bold text-lg hover:opacity-90 transition-opacity shadow-lg">
                         Explore the Full Synthesis →
                     </a>
-                    <a href="/documents/NiCE_Framework_Synthesis_v1.3.pdf" download
+                    <a href="/documents/NiCE_Framework_Synthesis_v1.3.1.pdf" download
                        class="px-8 py-4 bg-white/10 border border-white/20 rounded-xl text-white font-medium text-lg hover:bg-white/20 transition-colors">
                         📄 Download PDF
                     </a>
@@ -235,12 +267,12 @@
                 <p class="text-xl text-gray-400">Research documents and theoretical development</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                 <!-- NiCE Framework Synthesis -->
                 <a href="/nice-framework.html" class="glass-card p-6 hover:border-blue-500/50 transition-all duration-300">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="px-2 py-1 bg-blue-500/20 rounded text-blue-400 text-xs font-medium">FEATURED</span>
-                        <span class="text-xs text-gray-500">v1.3</span>
+                        <span class="text-xs text-gray-500">v1.3.1</span>
                     </div>
                     <h3 class="text-lg font-bold mb-2">NiCE Framework Synthesis</h3>
                     <p class="text-gray-400 text-sm">
@@ -249,10 +281,10 @@
                 </a>
 
                 <!-- Human Paradigm -->
-                <a href="/documents/Kitcey_2025-The_Human_Paradigm_v1.8.4.pdf" class="glass-card p-6 hover:border-green-500/50 transition-all duration-300">
+                <a href="/documents/Kitcey_2025-The_Human_Paradigm_v1.8.5.pdf" class="glass-card p-6 hover:border-green-500/50 transition-all duration-300">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="px-2 py-1 bg-green-500/20 rounded text-green-400 text-xs font-medium">FOUNDATIONAL</span>
-                        <span class="text-xs text-gray-500">v1.8.4</span>
+                        <span class="text-xs text-gray-500">v1.8.5</span>
                     </div>
                     <h3 class="text-lg font-bold mb-2">The Human Paradigm</h3>
                     <p class="text-gray-400 text-sm">
@@ -284,6 +316,193 @@
                     </p>
                 </a>
             </div>
+
+            <!-- Worked Examples Subsection -->
+            <div class="text-center mb-10">
+                <h3 class="text-2xl font-bold mb-2 text-gray-300">NiCE Framework Worked Examples</h3>
+                <p class="text-gray-500">Applied diagnostic analyses demonstrating the framework in action</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Ecological Value-Debt Sign Flip -->
+                <a href="/documents/KITCEY_2026_Ecological_Value-Debt_Sign_Flip_Paper_v.0.2.9.pdf" target="_blank" class="glass-card p-6 hover:border-lime-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-lime-500/20 rounded text-lime-400 text-xs font-medium">SIGN-FLIP</span>
+                        <span class="text-xs text-gray-500">v0.2.9</span>
+                        <span class="px-2 py-1 bg-lime-500/20 rounded text-lime-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Ecological Value-Debt Sign Flip</h3>
+                    <p class="text-gray-400 text-sm">
+                        The theoretical foundation for the sign-flip mechanism (σ)—showing how redefining accumulation as ecological obligation reverses coupling dynamics across all nine N-C-E pathways.
+                    </p>
+                </a>
+
+                <!-- Upstream Pathogenesis -->
+                <a href="/documents/NiCE_Part_VII_Upstream_Pathogenesis_v8.pdf" target="_blank" class="glass-card p-6 hover:border-red-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-red-500/20 rounded text-red-400 text-xs font-medium">PATHOGENESIS</span>
+                        <span class="text-xs text-gray-500">v8.0</span>
+                        <span class="px-2 py-1 bg-red-500/20 rounded text-red-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Part VII: Upstream Systemic Pathogenesis</h3>
+                    <p class="text-gray-400 text-sm">
+                        Mental illness as natural system output. The Asymmetric Propagation Law: pathology propagates automatically across N-C-E regimes while health requires sustained energy input.
+                    </p>
+                </a>
+
+                <!-- Omnidirectional Stigma Diagnosis -->
+                <a href="/documents/NiCE_Omnidirectional_Stigma_Diagnosis_v2.pdf" target="_blank" class="glass-card p-6 hover:border-cyan-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-cyan-500/20 rounded text-cyan-400 text-xs font-medium">STIGMA ANALYSIS</span>
+                        <span class="text-xs text-gray-500">v2.0</span>
+                        <span class="px-2 py-1 bg-cyan-500/20 rounded text-cyan-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Omnidirectional Stigma Mechanics</h3>
+                    <p class="text-gray-400 text-sm">
+                        Comprehensive NiCE diagnosis of bidirectional stigma across all cohort pairs. Maps 49 stigma vectors (7×7 matrix) classified by N-C-E regime.
+                    </p>
+                </a>
+
+                <!-- US Diagnostic Analysis -->
+                <a href="/documents/KITCEY_2026_NiCE_Framework_US_Diagnostic_Analysis.v.0.2.4.pdf" target="_blank" class="glass-card p-6 hover:border-sky-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-sky-500/20 rounded text-sky-400 text-xs font-medium">CASE STUDY</span>
+                        <span class="text-xs text-gray-500">v0.2.4</span>
+                        <span class="px-2 py-1 bg-sky-500/20 rounded text-sky-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">US Diagnostic Analysis</h3>
+                    <p class="text-gray-400 text-sm">
+                        Comprehensive NiCE Framework diagnostic of United States societal dynamics—analyzing triadic dysfunction across political, economic, and cultural systems.
+                    </p>
+                </a>
+
+                <!-- China Diagnostic Analysis -->
+                <a href="/documents/KITCEY_2026_NiCE_Framework_China_Diagnostic_Analysis.v.0.6.4.pdf" target="_blank" class="glass-card p-6 hover:border-rose-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-rose-500/20 rounded text-rose-400 text-xs font-medium">CASE STUDY</span>
+                        <span class="text-xs text-gray-500">v0.6.4</span>
+                        <span class="px-2 py-1 bg-rose-500/20 rounded text-rose-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">China Diagnostic Analysis</h3>
+                    <p class="text-gray-400 text-sm">
+                        NiCE Framework diagnostic analysis of China's societal dynamics—examining triadic interplay across governance, economic, and cultural systems.
+                    </p>
+                </a>
+
+                <!-- IMF/World Bank Analysis -->
+                <a href="/documents/KITCEY_2026_IMF_WorldBank_NiCE_Framework_Worked_Analysis.v.0.3.2.pdf" target="_blank" class="glass-card p-6 hover:border-emerald-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-emerald-500/20 rounded text-emerald-400 text-xs font-medium">INSTITUTIONAL</span>
+                        <span class="text-xs text-gray-500">v0.3.2</span>
+                        <span class="px-2 py-1 bg-emerald-500/20 rounded text-emerald-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">IMF & World Bank Analysis</h3>
+                    <p class="text-gray-400 text-sm">
+                        Worked analysis applying the NiCE Framework to international financial institutions—diagnosing systemic dynamics and intervention leverage points.
+                    </p>
+                </a>
+
+                <!-- US Academia Reform -->
+                <a href="/documents/NiCE_Analysis_US_Academia_Reform.v0.4.0.0.pdf" target="_blank" class="glass-card p-6 hover:border-indigo-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-indigo-500/20 rounded text-indigo-400 text-xs font-medium">REFORM</span>
+                        <span class="text-xs text-gray-500">v0.4.0</span>
+                        <span class="px-2 py-1 bg-indigo-500/20 rounded text-indigo-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">US Academia Reform Analysis</h3>
+                    <p class="text-gray-400 text-sm">
+                        NiCE Framework analysis of US higher education—examining institutional drift, incentive misalignment, and pathways for systemic reform.
+                    </p>
+                </a>
+
+                <!-- Pennsylvania Diagnostic -->
+                <a href="/documents/KITCEY_2026_NiCE_PA_Diagnostic.v.0.4.1.pdf" target="_blank" class="glass-card p-6 hover:border-orange-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-orange-500/20 rounded text-orange-400 text-xs font-medium">REGIONAL</span>
+                        <span class="text-xs text-gray-500">v0.4.1</span>
+                        <span class="px-2 py-1 bg-orange-500/20 rounded text-orange-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Pennsylvania Diagnostic Analysis</h3>
+                    <p class="text-gray-400 text-sm">
+                        NiCE Framework regional diagnostic of Pennsylvania—analyzing state-level triadic dynamics, institutional patterns, and intervention pathways.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Cite -->
+    <section id="cite" class="py-20 px-6 border-t border-white/10">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">How to Cite</h2>
+                <p class="text-xl text-gray-400">Reference formats for academic and professional use</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Framework Citation -->
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-2xl">📚</span>
+                        <h3 class="text-xl font-bold text-blue-400">NiCE Framework (General)</h3>
+                    </div>
+                    <div class="bg-black/30 p-4 rounded-lg font-mono text-sm text-gray-300 mb-4 overflow-x-auto">
+                        <p>Kitcey, R. D. (2026). <em>The NiCE Framework: A triadic model of Nature, Consciousness, and Environment.</em> Human Paradigm Research. https://humanparadigm.org</p>
+                    </div>
+                    <button onclick="copyToClipboard('Kitcey, R. D. (2026). The NiCE Framework: A triadic model of Nature, Consciousness, and Environment. Human Paradigm Research. https://humanparadigm.org')" 
+                            class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                        📋 Copy APA citation
+                    </button>
+                </div>
+
+                <!-- Synthesis Document -->
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-2xl">📄</span>
+                        <h3 class="text-xl font-bold text-green-400">NiCE Framework Synthesis v1.3.1</h3>
+                    </div>
+                    <div class="bg-black/30 p-4 rounded-lg font-mono text-sm text-gray-300 mb-4 overflow-x-auto">
+                        <p>Kitcey, R. D. (2026). <em>NiCE Framework synthesis: A comprehensive integration of the triadic Nature-Consciousness-Environment model</em> (Version 1.3). Human Paradigm Research. https://humanparadigm.org/nice-framework.html</p>
+                    </div>
+                    <button onclick="copyToClipboard('Kitcey, R. D. (2026). NiCE Framework synthesis: A comprehensive integration of the triadic Nature-Consciousness-Environment model (Version 1.3). Human Paradigm Research. https://humanparadigm.org/nice-framework.html')" 
+                            class="text-sm text-green-400 hover:text-green-300 transition-colors">
+                        📋 Copy APA citation
+                    </button>
+                </div>
+
+                <!-- BibTeX -->
+                <div class="glass-card p-6 rounded-lg">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-2xl">🔧</span>
+                        <h3 class="text-xl font-bold text-amber-400">BibTeX Entry</h3>
+                    </div>
+                    <div class="bg-black/30 p-4 rounded-lg font-mono text-xs text-gray-300 mb-4 overflow-x-auto whitespace-pre">@misc{kitcey2026nice,
+  author       = {Kitcey, Robert D.},
+  title        = {The {NiCE} Framework: A Triadic Model of Nature, Consciousness, and Environment},
+  year         = {2026},
+  howpublished = {Human Paradigm Research},
+  url          = {https://humanparadigm.org},
+  note         = {ORCID: 0009-0004-8679-9155}
+}</div>
+                    <button onclick="copyToClipboard(`@misc{kitcey2026nice,
+  author       = {Kitcey, Robert D.},
+  title        = {The {NiCE} Framework: A Triadic Model of Nature, Consciousness, and Environment},
+  year         = {2026},
+  howpublished = {Human Paradigm Research},
+  url          = {https://humanparadigm.org},
+  note         = {ORCID: 0009-0004-8679-9155}
+}`)" 
+                            class="text-sm text-amber-400 hover:text-amber-300 transition-colors">
+                        📋 Copy BibTeX
+                    </button>
+                </div>
+
+                <!-- Note -->
+                <div class="text-center text-gray-500 text-sm">
+                    <p>ORCID: <a href="https://orcid.org/0009-0004-8679-9155" target="_blank" class="text-blue-400 hover:text-blue-300">0009-0004-8679-9155</a> • 
+                    For specific publications, please cite the individual document with its version number.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -312,15 +531,31 @@
     <!-- Footer -->
     <footer class="py-12 px-6 border-t border-white/10">
         <div class="max-w-7xl mx-auto text-center">
-            <p class="text-gray-500 mb-4">
-                © 2026 Robert D. Kitcey • rkitcey@humanparadigm.org • ORCID: 0009-0004-8679-9155
+            <p class="text-gray-500 mb-2">
+                © 2026 Robert D. Kitcey • <a href="mailto:rkitcey@humanparadigm.org" class="hover:text-gray-300">rkitcey@humanparadigm.org</a> • ORCID: <a href="https://orcid.org/0009-0004-8679-9155" target="_blank" class="hover:text-gray-300">0009-0004-8679-9155</a>
+            </p>
+            <p class="text-gray-600 text-xs mb-4">
+                Research content: <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" class="hover:text-gray-400">CC BY-NC-ND 4.0</a> • Website code: All Rights Reserved
             </p>
             <div class="flex justify-center gap-6 text-sm">
                 <a href="https://humanparadigm.org" class="text-gray-400 hover:text-white transition-colors">Home</a>
                 <a href="/nice-framework.html" class="text-gray-400 hover:text-white transition-colors">NiCE Framework</a>
                 <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
+                <a href="#cite" class="text-gray-400 hover:text-white transition-colors">Cite</a>
             </div>
         </div>
     </footer>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Brief visual feedback
+                const btn = event.target;
+                const original = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,113 @@
+{
+  "lastUpdated": "2026-01-18",
+  "documents": {
+    "synthesis": {
+      "id": "synthesis",
+      "title": "NiCE Framework Synthesis",
+      "version": "1.3.1",
+      "filename": "NiCE_Framework_Synthesis_v1.3.1.pdf",
+      "category": "core",
+      "tag": "FEATURED",
+      "tagColor": "blue"
+    },
+    "human-paradigm": {
+      "id": "human-paradigm",
+      "title": "The Human Paradigm",
+      "version": "1.8.5",
+      "filename": "Kitcey_2025-The_Human_Paradigm_v1.8.5.pdf",
+      "category": "core",
+      "tag": "FOUNDATIONAL",
+      "tagColor": "green"
+    },
+    "advanced-analysis": {
+      "id": "advanced-analysis",
+      "title": "Advanced Analysis",
+      "version": "0.73",
+      "filename": "KITCEY_Advanced_Analysis_FINAL.v.0.73.pdf",
+      "category": "core",
+      "tag": "ANALYSIS",
+      "tagColor": "amber"
+    },
+    "human-essence": {
+      "id": "human-essence",
+      "title": "The Human Essence",
+      "version": "0.9",
+      "filename": "The_Human_Essence-an_AI_Perspective_on_Human_Nature_Kitcey_R-2024.v.0.9.pdf",
+      "category": "core",
+      "tag": "AI PERSPECTIVE",
+      "tagColor": "purple"
+    },
+    "sign-flip": {
+      "id": "sign-flip",
+      "title": "Ecological Value-Debt Sign Flip",
+      "version": "0.2.9",
+      "filename": "KITCEY_2026_Ecological_Value-Debt_Sign_Flip_Paper_v.0.2.9.pdf",
+      "category": "worked-example",
+      "tag": "SIGN-FLIP",
+      "tagColor": "lime"
+    },
+    "pathogenesis": {
+      "id": "pathogenesis",
+      "title": "Part VII: Upstream Systemic Pathogenesis",
+      "version": "8.0",
+      "filename": "NiCE_Part_VII_Upstream_Pathogenesis_v8.pdf",
+      "category": "worked-example",
+      "tag": "PATHOGENESIS",
+      "tagColor": "red"
+    },
+    "stigma": {
+      "id": "stigma",
+      "title": "Omnidirectional Stigma Mechanics",
+      "version": "2.0",
+      "filename": "NiCE_Omnidirectional_Stigma_Diagnosis_v2.pdf",
+      "category": "worked-example",
+      "tag": "STIGMA ANALYSIS",
+      "tagColor": "cyan"
+    },
+    "us-diagnostic": {
+      "id": "us-diagnostic",
+      "title": "US Diagnostic Analysis",
+      "version": "0.2.4",
+      "filename": "KITCEY_2026_NiCE_Framework_US_Diagnostic_Analysis.v.0.2.4.pdf",
+      "category": "worked-example",
+      "tag": "CASE STUDY",
+      "tagColor": "sky"
+    },
+    "china-diagnostic": {
+      "id": "china-diagnostic",
+      "title": "China Diagnostic Analysis",
+      "version": "0.6.4",
+      "filename": "KITCEY_2026_NiCE_Framework_China_Diagnostic_Analysis.v.0.6.4.pdf",
+      "category": "worked-example",
+      "tag": "CASE STUDY",
+      "tagColor": "rose"
+    },
+    "imf-worldbank": {
+      "id": "imf-worldbank",
+      "title": "IMF & World Bank Analysis",
+      "version": "0.3.2",
+      "filename": "KITCEY_2026_IMF_WorldBank_NiCE_Framework_Worked_Analysis.v.0.3.2.pdf",
+      "category": "worked-example",
+      "tag": "INSTITUTIONAL",
+      "tagColor": "emerald"
+    },
+    "academia-reform": {
+      "id": "academia-reform",
+      "title": "US Academia Reform Analysis",
+      "version": "0.4.0",
+      "filename": "NiCE_Analysis_US_Academia_Reform.v0.4.0.0.pdf",
+      "category": "worked-example",
+      "tag": "REFORM",
+      "tagColor": "indigo"
+    },
+    "pa-diagnostic": {
+      "id": "pa-diagnostic",
+      "title": "Pennsylvania Diagnostic Analysis",
+      "version": "0.4.1",
+      "filename": "KITCEY_2026_NiCE_PA_Diagnostic.v.0.4.1.pdf",
+      "category": "worked-example",
+      "tag": "REGIONAL",
+      "tagColor": "orange"
+    }
+  }
+}

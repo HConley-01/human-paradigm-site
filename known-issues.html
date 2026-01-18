@@ -12,7 +12,13 @@
     <style>
         body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; min-height: 100vh; }
         h1, h2, h3, h4 { font-family: 'Fraunces', serif; }
-        .glass-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+        .glass-card { 
+            background: rgba(255,255,255,0.05); 
+            -webkit-backdrop-filter: blur(10px); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 12px; 
+        }
         .issue-card { transition: all 0.3s ease; cursor: pointer; }
         .issue-card:hover { background: rgba(255,255,255,0.08); }
         .issue-card.expanded { background: rgba(255,255,255,0.1); }
@@ -26,11 +32,71 @@
         .issue-details { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
         .issue-details.open { max-height: 1000px; }
         .notes-textarea { resize: vertical; min-height: 80px; }
+        
+        /* Mobile hamburger menu */
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        
+        /* Form inputs - Safari/iOS fixes */
+        input, select, textarea, button { 
+            font-size: 16px; /* Prevents iOS zoom on focus */
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 8px;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links { 
+                display: none; 
+                position: absolute; 
+                top: 100%; 
+                left: 0; 
+                right: 0; 
+                background: rgba(15, 23, 42, 0.98);
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+                flex-direction: column; 
+                padding: 1rem;
+                gap: 0.5rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a, .nav-links span { padding: 0.75rem 1rem; width: 100%; text-align: center; }
+            
+            h1 { font-size: 2rem !important; }
+            .max-w-7xl { padding-left: 1rem !important; padding-right: 1rem !important; }
+            
+            /* Stats grid mobile */
+            .grid.md\\:grid-cols-5 { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+            .grid.md\\:grid-cols-5 > div:nth-child(4),
+            .grid.md\\:grid-cols-5 > div:nth-child(5) { grid-column: span 1; }
+            
+            /* Filter bar mobile */
+            .flex.flex-wrap.gap-4 { flex-direction: column; }
+            .flex.flex-wrap.gap-4 input,
+            .flex.flex-wrap.gap-4 select { width: 100%; min-width: unset !important; }
+            .flex.flex-wrap.gap-4 button { width: 100%; justify-content: center; }
+            
+            /* Issue cards mobile */
+            .issue-card .flex.items-center.gap-3 { flex-wrap: wrap; }
+            .issue-card .text-xs { font-size: 0.7rem; }
+            
+            /* Form modal mobile */
+            .fixed.inset-0 .glass-card { margin: 1rem; max-height: 90vh; overflow-y: auto; }
+        }
+        
+        @media (max-width: 480px) {
+            .grid.md\\:grid-cols-5 { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 1.5rem !important; }
+            .text-xl { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="glass-card border-b border-white/10 sticky top-0 z-50">
+    <nav class="glass-card border-b border-white/10 sticky top-0 z-50" style="position: relative;">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
@@ -38,13 +104,14 @@
                         <img src="/images/Lern_Logo2.png" alt="Lernaean Research" class="h-10 w-auto hover:opacity-80 transition-opacity">
                     </a>
                     <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                        <img src="/images/NiCE_Logo_New.png" alt="NiCE Framework Logo" class="h-10 w-auto">
-                        <span class="text-2xl font-bold text-white">NiCE Framework</span>
+                        <img src="/images/NiCE_Logo_New.png" alt="NiCE Framework Logo" class="h-10 w-auto hidden sm:block">
+                        <span class="text-xl sm:text-2xl font-bold text-white">NiCE Framework</span>
                     </a>
                 </div>
-                <div class="flex gap-6 items-center">
+                <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+                <div class="nav-links">
                     <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
-                    <a href="/admin/" class="text-gray-400 hover:text-white transition-colors">Admin</a>
+                    <a href="/changelog.html" class="text-gray-400 hover:text-white transition-colors">Changelog</a>
                     <span class="text-blue-400 font-semibold">Known Issues</span>
                 </div>
             </div>
@@ -220,20 +287,88 @@
         // Issue storage and management
         class IssueTracker {
             constructor() {
-                this.issues = this.loadIssues();
+                this.issues = [];
                 this.expandedIssues = new Set();
-                this.init();
+                this.initialized = false;
             }
 
-            loadIssues() {
-                const stored = localStorage.getItem('nice-issues');
-                if (stored) {
-                    return JSON.parse(stored);
+            async init() {
+                if (this.initialized) {
+                    console.log('Already initialized, skipping');
+                    return;
                 }
-                // Initialize with some example issues
+                this.initialized = true;
+                console.log('IssueTracker init starting...');
+                
+                try {
+                    await this.loadIssues();
+                    console.log('Issues loaded:', this.issues.length, this.issues);
+                } catch (e) {
+                    console.error('Error loading issues:', e);
+                    this.issues = this.getDefaultIssues();
+                }
+                
+                this.render();
+                console.log('Render complete');
+                
+                // Set up form and filters
+                this.setupFormListener();
+                document.getElementById('filter-status').addEventListener('change', () => this.render());
+                document.getElementById('filter-severity').addEventListener('change', () => this.render());
+                document.getElementById('filter-type').addEventListener('change', () => this.render());
+            }
+
+            async loadIssues() {
+                // First, try to fetch official issues from server
+                try {
+                    const response = await fetch('/data/known-issues.json');
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Start with official issues
+                        this.issues = data.issues.map(issue => ({...issue, official: true}));
+                    } else {
+                        console.log('Could not load official issues (status ' + response.status + '), using defaults');
+                        this.issues = this.getDefaultIssues();
+                    }
+                } catch (e) {
+                    console.log('Could not load official issues:', e);
+                    this.issues = this.getDefaultIssues();
+                }
+                
+                // If still no issues, use defaults
+                if (!this.issues || this.issues.length === 0) {
+                    this.issues = this.getDefaultIssues();
+                }
+                
+                // Merge with any localStorage additions/modifications
+                const stored = localStorage.getItem('nice-issues-user');
+                if (stored) {
+                    try {
+                        const userIssues = JSON.parse(stored);
+                        // User can add new issues or modify status/notes of official ones
+                        userIssues.forEach(userIssue => {
+                            const existingIndex = this.issues.findIndex(i => i.id === userIssue.id);
+                            if (existingIndex >= 0) {
+                                // Update existing issue with user modifications
+                                this.issues[existingIndex] = {...this.issues[existingIndex], ...userIssue};
+                            } else {
+                                // Add user-created issue
+                                this.issues.push(userIssue);
+                            }
+                        });
+                    } catch (e) {
+                        console.log('Could not parse user issues:', e);
+                    }
+                }
+                
+                return this.issues;
+            }
+            
+            getDefaultIssues() {
+                // Fallback if JSON fails to load
                 return [
                     {
-                        id: this.generateId(),
+                        id: 'default-001',
                         type: 'bug',
                         severity: 'medium',
                         title: 'Mobile navigation menu not collapsing',
@@ -243,10 +378,11 @@
                         timestamp: new Date('2026-01-07').toISOString(),
                         status: 'open',
                         notes: '',
-                        order: 0
+                        order: 0,
+                        official: true
                     },
                     {
-                        id: this.generateId(),
+                        id: 'default-002',
                         type: 'content',
                         severity: 'low',
                         title: 'Typo in Domain Interactions section',
@@ -256,10 +392,11 @@
                         timestamp: new Date('2026-01-06').toISOString(),
                         status: 'open',
                         notes: '',
-                        order: 1
+                        order: 1,
+                        official: true
                     },
                     {
-                        id: this.generateId(),
+                        id: 'default-003',
                         type: 'feature',
                         severity: 'medium',
                         title: 'Add dark/light mode toggle',
@@ -269,10 +406,11 @@
                         timestamp: new Date('2026-01-05').toISOString(),
                         status: 'open',
                         notes: '',
-                        order: 2
+                        order: 2,
+                        official: true
                     },
                     {
-                        id: this.generateId(),
+                        id: 'default-004',
                         type: 'performance',
                         severity: 'high',
                         title: 'Cascade simulator lags on older devices',
@@ -282,13 +420,16 @@
                         timestamp: new Date('2026-01-04').toISOString(),
                         status: 'in-progress',
                         notes: 'Testing optimization with requestAnimationFrame',
-                        order: 3
+                        order: 3,
+                        official: true
                     }
                 ];
             }
 
             saveIssues() {
-                localStorage.setItem('nice-issues', JSON.stringify(this.issues));
+                // Only save user modifications/additions to localStorage
+                const userIssues = this.issues.filter(i => !i.official || i.userModified);
+                localStorage.setItem('nice-issues-user', JSON.stringify(userIssues));
             }
 
             generateId() {
@@ -313,6 +454,7 @@
                 const issue = this.issues.find(i => i.id === issueId);
                 if (issue) {
                     issue.status = newStatus;
+                    issue.userModified = true; // Mark as modified so it saves
                     
                     // Move deferred to bottom of open issues
                     if (newStatus === 'deferred') {
@@ -329,6 +471,7 @@
                 const issue = this.issues.find(i => i.id === issueId);
                 if (issue) {
                     issue.notes = notes;
+                    issue.userModified = true; // Mark as modified so it saves
                     this.saveIssues();
                 }
             }
@@ -625,9 +768,7 @@
                 URL.revokeObjectURL(url);
             }
 
-            init() {
-                this.render();
-
+            setupFormListener() {
                 // Form submission
                 document.getElementById('issue-form').addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -650,16 +791,18 @@
                     // Show success message
                     alert('✓ Issue submitted successfully!');
                 });
-
-                // Filter listeners
-                ['filter-severity', 'filter-type', 'filter-status'].forEach(id => {
-                    document.getElementById(id).addEventListener('change', () => this.render());
-                });
             }
         }
 
-        // Initialize tracker
+        // Initialize tracker when DOM is ready
         const tracker = new IssueTracker();
+        document.addEventListener('DOMContentLoaded', () => {
+            tracker.init();
+        });
+        // Also try immediate init in case DOM is already ready
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            tracker.init();
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Flip Pathway Comparison | NiCE Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0f1a; color: #e8edf4; }
+        .serif { font-family: 'Fraunces', serif; }
+        .glass-card { background: rgba(20, 30, 48, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(100, 130, 180, 0.2); }
+        .pathway-card { transition: all 0.3s ease; cursor: pointer; }
+        .pathway-card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .pathway-card.selected { border-color: #60a5fa; box-shadow: 0 0 20px rgba(96, 165, 250, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass-card border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="https://lernaean.net" title="Back to Lernaean Research">
+                    <img src="/images/Lern_Logo2.png" alt="Lernaean Research" class="h-10 w-auto hover:opacity-80 transition-opacity">
+                </a>
+                <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    <img src="/images/NiCE_Logo_New.png" alt="NiCE Framework Logo" class="h-10 w-auto">
+                    <span class="text-2xl font-bold serif">NiCE Framework</span>
+                </a>
+            </div>
+            <div class="hidden md:flex gap-6 items-center">
+                <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">← Back to Lab</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pedagogical Note -->
+    <div class="bg-gradient-to-r from-amber-900/30 via-slate-900/50 to-amber-900/30 border-b border-amber-500/20">
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <div class="flex items-start gap-3 text-sm">
+                <span class="text-amber-400 text-lg mt-0.5">⚗️</span>
+                <div class="text-gray-300">
+                    <strong class="text-amber-300">Interactive Demonstration:</strong> The Sign-Flip (σ) is central to the NiCE Framework's systems design logic—showing how a single parameter change in symbolic architecture reverses coupling dynamics across all nine pathways. This visualization makes the framework's core mechanism experientially graspable. For full methodology, see the <a href="/documents/NiCE_Framework_Synthesis_v1.3.1.pdf" class="text-blue-400 hover:underline">complete synthesis</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="inline-block px-4 py-2 bg-blue-500/20 rounded-full text-blue-300 text-sm font-medium mb-4">
+                9-Pathway Coupling Matrix
+            </div>
+            <h1 class="text-5xl font-bold mb-4 serif">
+                The Profit/Debt <span class="text-blue-400">Sign-Flip</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-4xl mx-auto">
+                How redefining symbolic value as ecological obligation reverses coupling direction across all nine pathways—transforming extraction incentives into regeneration imperatives
+            </p>
+        </div>
+
+        <!-- Sign Parameter Explanation -->
+        <div class="glass-card p-8 rounded-lg mb-12">
+            <h2 class="text-3xl font-bold mb-6 serif text-center">Understanding the <span class="text-blue-400">Sign Parameter (σ)</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="p-6 bg-red-900/20 border-2 border-red-500/30 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="text-4xl font-mono font-bold text-red-400">σ = +1</div>
+                        <div>
+                            <div class="font-bold text-red-300 text-lg">Profit-Sign Regime</div>
+                            <div class="text-sm text-red-200/70">Accumulation = Success</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        When profit is the symbolic marker of success, <strong>extraction is rewarded</strong>. 
+                        Natural limits become "inefficiencies to overcome." Harm is externalized and hidden. 
+                        The system optimizes for throughput, not sustainability. <em>Dysfunction propagates automatically.</em>
+                    </p>
+                </div>
+
+                <div class="p-6 bg-green-900/20 border-2 border-green-500/30 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="text-4xl font-mono font-bold text-green-400">σ = −1</div>
+                        <div>
+                            <div class="font-bold text-green-300 text-lg">Debt-Sign Regime</div>
+                            <div class="text-sm text-green-200/70">Accumulation = Obligation</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        When accumulation registers as <strong>ecological debt</strong>, extraction creates visible burden. 
+                        Natural limits become immediate constraints. Harm cannot be hidden. 
+                        The system optimizes for debt-retirement (restoration). <em>Regeneration propagates automatically.</em>
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-6 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                <h3 class="font-bold text-blue-300 mb-3 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    The Core Insight
+                </h3>
+                <p class="text-gray-300 leading-relaxed text-sm">
+                    This isn't about changing <em>what</em> we measure—it's about changing <strong>what the measurement means</strong>. 
+                    The same physical extraction can be encoded as "wealth generation" (profit-sign) or "obligation to restore" (debt-sign). 
+                    The sign determines whether pathology or health becomes the path of least resistance.
+                </p>
+            </div>
+        </div>
+
+        <!-- Pathway Selector -->
+        <div class="glass-card p-8 rounded-lg mb-12">
+            <h2 class="text-3xl font-bold mb-6 serif text-center">Select a Pathway to Explore</h2>
+            <div class="grid grid-cols-3 gap-4" id="pathway-selector">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Detailed Comparison View -->
+        <div id="comparison-view" class="glass-card p-8 rounded-lg mb-12 hidden">
+            <div class="mb-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="text-4xl" id="pathway-icon"></div>
+                    <div>
+                        <div class="text-sm text-gray-400" id="pathway-code"></div>
+                        <h2 class="text-3xl font-bold serif" id="pathway-title"></h2>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-lg" id="pathway-description"></p>
+            </div>
+
+            <!-- Before/After Comparison -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Profit-Sign -->
+                <div class="p-6 bg-red-900/20 border-2 border-red-500/30 rounded-lg">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="font-mono font-bold text-red-400">σ = +1</span>
+                        <span class="text-red-300 font-semibold">Profit-Sign</span>
+                    </div>
+                    <div id="profit-content" class="space-y-4">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+
+                <!-- Debt-Sign -->
+                <div class="p-6 bg-green-900/20 border-2 border-green-500/30 rounded-lg">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="font-mono font-bold text-green-400">σ = −1</span>
+                        <span class="text-green-300 font-semibold">Debt-Sign</span>
+                    </div>
+                    <div id="debt-content" class="space-y-4">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Human Behavior Impact -->
+            <div class="p-6 bg-purple-900/20 border-2 border-purple-500/30 rounded-lg">
+                <h3 class="text-xl font-bold mb-4 text-purple-300 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    Impact on Human Systems & Behavior
+                </h3>
+                <div id="behavior-impact" class="text-gray-300 leading-relaxed">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Table -->
+        <div class="glass-card p-8 rounded-lg mb-12">
+            <h2 class="text-3xl font-bold mb-6 serif text-center">Complete 9-Pathway Matrix</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-700">
+                            <th class="p-3 text-left font-semibold text-gray-400">Pathway</th>
+                            <th class="p-3 text-left font-semibold text-red-400">Profit-Sign (σ = +1)</th>
+                            <th class="p-3 text-center font-semibold text-gray-500">→</th>
+                            <th class="p-3 text-left font-semibold text-green-400">Debt-Sign (σ = −1)</th>
+                            <th class="p-3 text-left font-semibold text-blue-400">Net Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-table">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Formal Expression -->
+        <div class="glass-card p-8 rounded-lg mb-12">
+            <h2 class="text-3xl font-bold mb-6 serif text-center">Formal Mathematical Expression</h2>
+            <div class="bg-slate-900/50 p-6 rounded-lg border border-blue-500/30">
+                <div class="font-mono text-lg text-blue-300 mb-4 text-center">
+                    dx/dt = A(σ)·x + u(t) − Ω(x)
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
+                    <div class="p-3 bg-slate-800/50 rounded">
+                        <strong class="text-blue-400">A(σ)</strong> = Coupling matrix (sign-dependent)<br>
+                        <span class="text-gray-400">How the three domains influence each other</span>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded">
+                        <strong class="text-blue-400">x</strong> = State vector [Nature, Consciousness, Environment]<br>
+                        <span class="text-gray-400">Current condition of each domain</span>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded">
+                        <strong class="text-blue-400">u(t)</strong> = Intentional interventions<br>
+                        <span class="text-gray-400">Deliberate policy/technology changes</span>
+                    </div>
+                    <div class="p-3 bg-slate-800/50 rounded">
+                        <strong class="text-blue-400">Ω(x)</strong> = Entropic decay pressures<br>
+                        <span class="text-gray-400">Natural degradation without maintenance</span>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 bg-purple-900/20 border border-purple-500/30 rounded text-sm text-gray-300">
+                    <strong class="text-purple-300">Key Point:</strong> The sign parameter σ changes the <em>direction</em> of coupling. 
+                    When σ = +1 (profit), degradation in one domain reinforces degradation elsewhere. 
+                    When σ = −1 (debt), improvement in one domain enables improvement elsewhere.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pathways = [
+            {
+                id: 'NN', code: 'N→N', name: 'Nature Self-Dynamics', domain: 'nature', icon: '🌿',
+                description: 'How natural systems regulate their own health and capacity through internal feedback loops',
+                profitMechanism: 'Ecosystems treated as free inputs and waste sinks—stocks depleted faster than they can regenerate',
+                debtMechanism: 'Extraction automatically registers as obligation—system operates within regeneration rates',
+                profitBehavior: 'Short-term thinking dominates: "Extract now, worry about consequences later." Companies optimize for quarterly profits while degrading the resource base.',
+                debtBehavior: 'Long-term stewardship becomes rational: "Our success depends on maintaining this system." Economic activity aligns with ecological carrying capacity.',
+                outcome: 'Degradation becomes self-limiting; Restoration generates compounding returns',
+                citation: 'Rockström et al., 2009'
+            },
+            {
+                id: 'NC', code: 'N→C', name: 'Nature Shapes Consciousness', domain: 'nature', icon: '🌿',
+                description: 'How environmental quality affects cognitive capacity, stress levels, and time horizons',
+                profitMechanism: 'Degraded environments create chronic stress, forcing survival-mode thinking with shortened time horizons',
+                debtMechanism: 'Stabilizing nature reduces environmental volatility—cognition operates with longer planning horizons',
+                profitBehavior: 'People living in degraded environments experience "bandwidth tax"—constant stress narrows focus to immediate survival, making long-term planning psychologically impossible.',
+                debtBehavior: 'Stable environments restore cognitive bandwidth. People can plan beyond the next crisis, invest in education, build institutions that span generations.',
+                outcome: 'Scarcity mindset eliminated; Abundance thinking becomes accessible',
+                citation: 'Shah et al., 2012; Mullainathan & Shafir, 2013'
+            },
+            {
+                id: 'NE', code: 'N→E', name: 'Nature Constrains Environment', domain: 'nature', icon: '🌿',
+                description: 'How physical limits impose hard boundaries on economic and institutional systems',
+                profitMechanism: 'Physical limits treated as "price signals to outsmart"—extraction continues until catastrophic collapse',
+                debtMechanism: 'Limits encoded as immediate obligations—no "buying out of physics" through financial engineering',
+                profitBehavior: 'Innovation focuses on circumventing constraints rather than respecting them. "Efficiency gains" just enable more total extraction.',
+                debtBehavior: 'Innovation focuses on closing loops and reducing throughput. Success = doing more with less impact, not extracting more efficiently.',
+                outcome: 'Constraint-respecting design becomes default before collapse forces it',
+                citation: 'Steffen et al., 2015'
+            },
+            {
+                id: 'CN', code: 'C→N', name: 'Consciousness Shapes Nature', domain: 'consciousness', icon: '🧠',
+                description: 'How human choices, values, and awareness directly impact natural systems',
+                profitMechanism: 'Locally rational individual gain pursued even when it degrades collective capacity',
+                debtMechanism: 'Individual success = lower collective obligation—decisions naturally shift toward repair and restraint',
+                profitBehavior: 'Tragedy of the commons plays out everywhere. "Everyone else is doing it, so I\'d be a fool not to." Moral licensing: small green actions justify large harmful ones.',
+                debtBehavior: 'Cooperation becomes self-interested. "If I restore this, my debt goes down AND the system improves for everyone." Visible contribution = social status.',
+                outcome: 'Consciousness becomes viability regulator, not demand amplifier',
+                citation: 'Kasser, 2002'
+            },
+            {
+                id: 'CC', code: 'C→C', name: 'Consciousness Self-Dynamics', domain: 'consciousness', icon: '🧠',
+                description: 'How beliefs, identity, and culture self-reinforce through social dynamics',
+                profitMechanism: 'Identity and status bind to accumulation—"more" is moralized as intrinsically "better"',
+                debtMechanism: 'Accumulation registers as visible burden—stewardship and debt-retirement become high-status',
+                profitBehavior: 'Conspicuous consumption as status signal. Wealth = virtue. Restraint = failure or virtue-signaling. Social media amplifies comparison and inadequacy.',
+                debtBehavior: 'Conspicuous indebtedness inverts the game. High status = contributing more than you take. Simplicity = sophistication. Repair = mastery.',
+                outcome: 'Status competition redirected from extraction to contribution',
+                citation: 'Veblen, 1899; Dittmar et al., 2014'
+            },
+            {
+                id: 'CE', code: 'C→E', name: 'Consciousness Shapes Environment', domain: 'consciousness', icon: '🧠',
+                description: 'How collective beliefs and norms determine institutional structures and policies',
+                profitMechanism: 'Institutions designed to maximize throughput and minimize visible immediate costs',
+                debtMechanism: 'Institutions designed to maximize signal fidelity and debt-retirement throughput',
+                profitBehavior: 'Policy optimizes for GDP growth regardless of what\'s growing. Regulations are "red tape." Efficiency = speed and scale, not sustainability.',
+                debtBehavior: 'Policy optimizes for genuine well-being metrics. Regulations = essential feedback. Efficiency = achieving goals with minimal ecological debt.',
+                outcome: 'Default architecture shifts to circular design; "Nudges" toward regeneration',
+                citation: 'Thaler & Sunstein, 2008'
+            },
+            {
+                id: 'EN', code: 'E→N', name: 'Environment Shapes Nature', domain: 'environment', icon: '🏛️',
+                description: 'How built infrastructure and economic systems impact ecological health',
+                profitMechanism: 'Default institutional outputs: pollution, fragmentation, sink overrun (cheapest path wins)',
+                debtMechanism: 'Pollution persistence and ecosystem fragmentation = intolerable debt multipliers → closed-loop systems',
+                profitBehavior: 'Externalities are someone else\'s problem. Waste disposal = making it "go away." Linear take-make-dispose model. Planned obsolescence.',
+                debtBehavior: 'Externalities are impossible—all costs are internalized. Waste = design failure. Circular economy. Durability = selling point.',
+                outcome: 'Persistent pollution stops being economically selected',
+                citation: 'Cousins et al., 2019'
+            },
+            {
+                id: 'EC', code: 'E→C', name: 'Environment Shapes Consciousness', domain: 'environment', icon: '🏛️',
+                description: 'How system complexity and institutional opacity affect human agency and understanding',
+                profitMechanism: 'Opacity and complexity → learned helplessness, polarization, and conspiracy thinking',
+                debtMechanism: 'Visible causal pathways restore agency—people can see what matters and why',
+                profitBehavior: 'Systems too complex to understand breed cynicism. "It\'s all rigged." Disengage or rage. No clear path to meaningful action.',
+                debtBehavior: 'Transparency and legibility restore hope. "I can see the debt, I can reduce it." Clear feedback enables learning and adaptation.',
+                outcome: 'Taking responsibility becomes psychologically feasible',
+                citation: 'Ryan & Deci, 2000'
+            },
+            {
+                id: 'EE', code: 'E→E', name: 'Environment Self-Dynamics', domain: 'environment', icon: '🏛️',
+                description: 'How economic and institutional systems self-reinforce through feedback loops',
+                profitMechanism: 'Systems self-reinforce toward overshoot: credit expansion fuels growth targets that require more credit',
+                debtMechanism: 'Systems self-reinforce toward repair: debt constrains expansion, forcing efficiency and debt-retirement',
+                profitBehavior: 'Ponzi dynamics: growth must continue or system collapses. "Too big to fail." Bailouts normalize. Future obligations ignored.',
+                debtBehavior: 'Stability dynamics: debt-to-capacity ratio acts as thermostat. Growth pauses when approaching limits. Degrowth when overshoot is detected.',
+                outcome: 'Runaway exponential growth loop → homeostatic stabilizing loop',
+                citation: 'Minsky, 1986; Keen, 2011'
+            }
+        ];
+
+        const domainColors = {
+            nature: { bg: 'bg-green-900/10', border: 'border-green-500/30', text: 'text-green-400' },
+            consciousness: { bg: 'bg-blue-900/10', border: 'border-blue-500/30', text: 'text-blue-400' },
+            environment: { bg: 'bg-orange-900/10', border: 'border-orange-500/30', text: 'text-orange-400' }
+        };
+
+        let selectedPathway = null;
+
+        // Populate pathway selector
+        const selector = document.getElementById('pathway-selector');
+        pathways.forEach(pathway => {
+            const colors = domainColors[pathway.domain];
+            const card = document.createElement('div');
+            card.className = `pathway-card ${colors.bg} border-2 ${colors.border} rounded-lg p-4 text-center`;
+            card.innerHTML = `
+                <div class="text-3xl mb-2">${pathway.icon}</div>
+                <div class="font-bold ${colors.text} text-sm mb-1">${pathway.code}</div>
+                <div class="text-xs text-gray-400">${pathway.name}</div>
+            `;
+            card.onclick = () => selectPathway(pathway.id);
+            selector.appendChild(card);
+        });
+
+        // Populate summary table
+        const tableBody = document.getElementById('summary-table');
+        ['nature', 'consciousness', 'environment'].forEach(domain => {
+            const domainPathways = pathways.filter(p => p.domain === domain);
+            domainPathways.forEach(pathway => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-800 hover:bg-slate-800/30 cursor-pointer';
+                row.onclick = () => selectPathway(pathway.id);
+                row.innerHTML = `
+                    <td class="p-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">${pathway.icon}</span>
+                            <div>
+                                <div class="font-bold">${pathway.code}</div>
+                                <div class="text-xs text-gray-500">${pathway.name}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-3 text-red-300 text-xs">${pathway.profitMechanism}</td>
+                    <td class="p-3 text-center text-2xl text-gray-600">⟹</td>
+                    <td class="p-3 text-green-300 text-xs">${pathway.debtMechanism}</td>
+                    <td class="p-3 text-blue-300 text-xs font-medium">${pathway.outcome}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        });
+
+        function selectPathway(id) {
+            selectedPathway = pathways.find(p => p.id === id);
+            if (!selectedPathway) return;
+
+            // Update selected visual
+            document.querySelectorAll('.pathway-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            // Show comparison view
+            const view = document.getElementById('comparison-view');
+            view.classList.remove('hidden');
+            view.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Update header
+            document.getElementById('pathway-icon').textContent = selectedPathway.icon;
+            document.getElementById('pathway-code').textContent = selectedPathway.code;
+            document.getElementById('pathway-title').textContent = selectedPathway.name;
+            document.getElementById('pathway-description').textContent = selectedPathway.description;
+
+            // Update profit content
+            document.getElementById('profit-content').innerHTML = `
+                <div>
+                    <h4 class="font-semibold text-red-300 mb-2">System Mechanism</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">${selectedPathway.profitMechanism}</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-red-300 mb-2">Typical Human Behavior</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">${selectedPathway.profitBehavior}</p>
+                </div>
+            `;
+
+            // Update debt content
+            document.getElementById('debt-content').innerHTML = `
+                <div>
+                    <h4 class="font-semibold text-green-300 mb-2">System Mechanism</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">${selectedPathway.debtMechanism}</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-green-300 mb-2">Typical Human Behavior</h4>
+                    <p class="text-sm text-gray-300 leading-relaxed">${selectedPathway.debtBehavior}</p>
+                </div>
+            `;
+
+            // Update behavior impact
+            document.getElementById('behavior-impact').innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <h4 class="font-semibold text-red-300 mb-2">Under Profit-Sign (σ = +1)</h4>
+                        <p class="text-sm">${selectedPathway.profitBehavior}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-300 mb-2">Under Debt-Sign (σ = −1)</h4>
+                        <p class="text-sm">${selectedPathway.debtBehavior}</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-800/20 border border-purple-500/30 rounded">
+                    <h4 class="font-semibold text-purple-300 mb-2">Net Transformation</h4>
+                    <p class="text-sm">${selectedPathway.outcome}</p>
+                    <div class="text-xs text-gray-500 mt-2 italic">Reference: ${selectedPathway.citation}</div>
+                </div>
+            `;
+        }
+
+        // Auto-select first pathway on load
+        setTimeout(() => selectPathway('NN'), 500);
+    </script>
+</body>
+</html>

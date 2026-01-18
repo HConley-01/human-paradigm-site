@@ -1,0 +1,237 @@
+{
+  "site": {
+    "version": "0.9.1-beta",
+    "codename": "Triadic Foundation",
+    "releaseDate": "2026-01-17",
+    "status": "beta",
+    "repository": "https://github.com/HConley-01/human-paradigm-site"
+  },
+  "changelog": [
+    {
+      "version": "0.9.1-beta",
+      "date": "2026-01-17",
+      "status": "current",
+      "summary": "Comprehensive site audit and publications expansion",
+      "changes": [
+        {
+          "type": "added",
+          "description": "16 tracked issues from comprehensive site audit across UX, content, performance, and accessibility"
+        },
+        {
+          "type": "added",
+          "description": "5 new worked example publications: China Diagnostic, IMF/World Bank, US Academia Reform, US Diagnostic, Ecological Value-Debt Sign Flip"
+        },
+        {
+          "type": "changed",
+          "description": "Publications section reorganized into core documents and worked examples subsection"
+        },
+        {
+          "type": "changed",
+          "description": "Upstream Pathogenesis and Omnidirectional Stigma converted from DOCX to PDF"
+        },
+        {
+          "type": "changed",
+          "description": "Sign-Flip interactive pedagogical note clarified as central framework mechanism"
+        }
+      ]
+    },
+    {
+      "version": "0.9.0-beta",
+      "date": "2026-01-14",
+      "status": "previous",
+      "summary": "Major deployment fix and site infrastructure overhaul",
+      "changes": [
+        {
+          "type": "fixed",
+          "description": "Resolved Cloudflare Pages build failures caused by node_modules in git"
+        },
+        {
+          "type": "fixed",
+          "description": "Removed accidental git submodule references"
+        },
+        {
+          "type": "added",
+          "description": "Comprehensive site architecture documentation (SITE_ARCHITECTURE.md)"
+        },
+        {
+          "type": "added",
+          "description": "Centralized version management system"
+        },
+        {
+          "type": "added",
+          "description": "Scientific methodology disclaimers on interactive tools"
+        },
+        {
+          "type": "added",
+          "description": "Versioned sitemap with changelog"
+        },
+        {
+          "type": "improved",
+          "description": "Deployment workflow now uses direct asset upload"
+        }
+      ]
+    },
+    {
+      "version": "0.8.5-beta",
+      "date": "2026-01-13",
+      "status": "previous",
+      "summary": "Behavioral Sink Simulation enhancements",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Billionaire behavioral sink phenotype parallel analysis"
+        },
+        {
+          "type": "added",
+          "description": "Two modes of reproductive decline (sane vs insane) evolutionary core"
+        },
+        {
+          "type": "improved",
+          "description": "Resource slider now sets actual carrying capacity; perceived is emergent"
+        },
+        {
+          "type": "added",
+          "description": "'Humans Are Not Mice' caveat with nuanced analysis"
+        },
+        {
+          "type": "improved",
+          "description": "Population density calculation now real-time from initial population"
+        },
+        {
+          "type": "added",
+          "description": "Model Transparency notes on empirical grounding and limitations"
+        }
+      ]
+    },
+    {
+      "version": "0.8.0-beta",
+      "date": "2026-01-12",
+      "status": "previous",
+      "summary": "Ecological dynamics model overhaul",
+      "changes": [
+        {
+          "type": "improved",
+          "description": "Empirically-grounded ecological dynamics model"
+        },
+        {
+          "type": "added",
+          "description": "Earth Overshoot Factor and ecological collapse lifecycle"
+        },
+        {
+          "type": "improved",
+          "description": "Friction refactored as emergent property from abstraction and abundance"
+        }
+      ]
+    },
+    {
+      "version": "0.7.0-beta",
+      "date": "2026-01-10",
+      "status": "previous",
+      "summary": "Visual identity and domain updates",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Lernaean Research logo in navigation across all pages"
+        },
+        {
+          "type": "updated",
+          "description": "NiCE Framework logo with elegant triadic system visualizations"
+        },
+        {
+          "type": "updated",
+          "description": "Primary domain changed from lernaean.net to humanparadigm.org"
+        }
+      ]
+    },
+    {
+      "version": "0.6.0-beta",
+      "date": "2026-01-05",
+      "status": "previous",
+      "summary": "Interactive Lab expansion",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Constraint Framework Explorer interactive tool"
+        },
+        {
+          "type": "added",
+          "description": "Interactive NiCE Explorer with guided walkthroughs"
+        },
+        {
+          "type": "added",
+          "description": "Temporal Scales visualization"
+        }
+      ]
+    },
+    {
+      "version": "0.5.0-beta",
+      "date": "2025-12-20",
+      "status": "previous",
+      "summary": "Core interactive tools",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Behavioral Sink Simulation based on Calhoun's experiments"
+        },
+        {
+          "type": "added",
+          "description": "Insanity Quotient Calculator"
+        },
+        {
+          "type": "added",
+          "description": "Asymmetric Propagation Simulator"
+        },
+        {
+          "type": "added",
+          "description": "3D Triadic Space visualization"
+        }
+      ]
+    },
+    {
+      "version": "0.1.0-alpha",
+      "date": "2025-11-15",
+      "status": "initial",
+      "summary": "Initial site launch",
+      "changes": [
+        {
+          "type": "added",
+          "description": "NiCE Framework Synthesis documentation"
+        },
+        {
+          "type": "added",
+          "description": "Publication library with downloadable PDFs"
+        },
+        {
+          "type": "added",
+          "description": "Homepage with framework overview"
+        }
+      ]
+    }
+  ],
+  "pages": {
+    "core": [
+      {"path": "/", "title": "Homepage", "description": "Entry point and framework overview"},
+      {"path": "/nice-framework.html", "title": "NiCE Framework Synthesis", "description": "Complete theoretical framework documentation"},
+      {"path": "/sitemap-visual.html", "title": "Site Map", "description": "Visual navigation and site structure"},
+      {"path": "/changelog.html", "title": "Changelog", "description": "Version history and updates"}
+    ],
+    "interactive": [
+      {"path": "/interactive-lab.html", "title": "Interactive Lab", "description": "Hub for all interactive tools", "status": "pedagogical"},
+      {"path": "/behavioral-sink-simulation.html", "title": "Behavioral Sink Simulation", "description": "Calhoun experiment model", "status": "pedagogical"},
+      {"path": "/insanity-quotient.html", "title": "Insanity Quotient Calculator", "description": "Policy dysfunction diagnostic", "status": "pedagogical"},
+      {"path": "/asymmetric-propagation.html", "title": "Asymmetric Propagation Simulator", "description": "Degradation vs restoration dynamics", "status": "pedagogical"},
+      {"path": "/triadic-space.html", "title": "3D Triadic Space", "description": "N-C-E domain visualization", "status": "pedagogical"},
+      {"path": "/temporal-scales.html", "title": "Temporal Scales", "description": "Multi-scale temporal dynamics", "status": "pedagogical"},
+      {"path": "/constraint-framework-explorer.html", "title": "Constraint Framework Explorer", "description": "FORCES, GRAVITY, ANCHORS, PRIMES", "status": "pedagogical"},
+      {"path": "/interactive-nice-explorer.html", "title": "Interactive NiCE Explorer", "description": "Guided framework walkthrough", "status": "pedagogical"}
+    ],
+    "documents": [
+      {"path": "/documents/NiCE_Framework_Synthesis_v1.3.pdf", "title": "NiCE Framework Synthesis v1.3", "type": "pdf"},
+      {"path": "/documents/Kitcey_2025-The_Human_Paradigm_v1.8.4.pdf", "title": "The Human Paradigm v1.8.4", "type": "pdf"},
+      {"path": "/documents/KITCEY_Advanced_Analysis_FINAL.v.0.73.pdf", "title": "Advanced Analysis v0.73", "type": "pdf"},
+      {"path": "/documents/The_Human_Essence-an_AI_Perspective_on_Human_Nature_Kitcey_R-2024.v.0.9.pdf", "title": "The Human Essence v0.9", "type": "pdf"},
+      {"path": "/documents/NiCE_Part_VII_Upstream_Pathogenesis_v8.docx", "title": "Upstream Pathogenesis v8.0", "type": "docx"},
+      {"path": "/documents/NiCE_Omnidirectional_Stigma_Diagnosis_v2.docx", "title": "Omnidirectional Stigma Diagnosis v2.0", "type": "docx"}
+    ]
+  }
+}
