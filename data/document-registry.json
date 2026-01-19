@@ -58,8 +58,8 @@
                       "stigma":  {
                                      "id":  "stigma",
                                      "title":  "Omnidirectional Stigma Mechanics",
-                                     "version":  "2.0",
-                                     "filename":  "NiCE_Omnidirectional_Stigma_Diagnosis_v2.pdf",
+                                     "version":  "0.2.1",
+                                     "filename":  "NiCE_Omnidirectional_Stigma_Diagnosis_v0.2.1.pdf",
                                      "category":  "worked-example",
                                      "tag":  "STIGMA ANALYSIS",
                                      "tagColor":  "cyan"
@@ -102,7 +102,7 @@
                                           },
                       "pa-diagnostic":  {
                                             "id":  "pa-diagnostic",
-                                            "title": "Parental Alienation Phenomenology",
+                                            "title":  "Parental Alienation Phenomenology",
                                             "version":  "0.4.1",
                                             "filename":  "KITCEY_2026_NiCE_PA_Diagnostic.v.0.4.1.pdf",
                                             "category":  "worked-example",
