@@ -108,6 +108,24 @@
                                             "category":  "worked-example",
                                             "tag":  "REGIONAL",
                                             "tagColor":  "orange"
-                                        }
+                                        },
+                      "insanity-quotient":  {
+                                                "id":  "insanity-quotient",
+                                                "title":  "The Insanity Quotient",
+                                                "version":  "0.6.2",
+                                                "filename":  "Kitcey_2025-The_Insanity_Quotient.v.0.6.2.pdf",
+                                                "category":  "core",
+                                                "tag":  "DIAGNOSTIC",
+                                                "tagColor":  "fuchsia"
+                                            },
+                      "metaparadigm":  {
+                                          "id":  "metaparadigm",
+                                          "title":  "Human Paradigm Metaparadigm Article",
+                                          "version":  "0.7.4",
+                                          "filename":  "KITCEY_2026_HP_Metaparadigm_Article.v.0.7.4.pdf",
+                                          "category":  "core",
+                                          "tag":  "METAPARADIGM",
+                                          "tagColor":  "teal"
+                                      }
                   }
 }
