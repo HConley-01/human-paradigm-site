@@ -49,8 +49,8 @@
                       "pathogenesis":  {
                                            "id":  "pathogenesis",
                                            "title":  "Part VII: Upstream Systemic Pathogenesis",
-                                           "version":  "8.0",
-                                           "filename":  "NiCE_Part_VII_Upstream_Pathogenesis_v8.pdf",
+                                           "version":  "0.8.1",
+                                           "filename":  "NiCE_Part_VII_Upstream_Pathogenesis_v0.8.1.pdf",
                                            "category":  "worked-example",
                                            "tag":  "PATHOGENESIS",
                                            "tagColor":  "red"
@@ -119,13 +119,13 @@
                                                 "tagColor":  "fuchsia"
                                             },
                       "metaparadigm":  {
-                                          "id":  "metaparadigm",
-                                          "title":  "Human Paradigm Metaparadigm Article",
-                                          "version":  "0.7.4",
-                                          "filename":  "KITCEY_2026_HP_Metaparadigm_Article.v.0.7.4.pdf",
-                                          "category":  "core",
-                                          "tag":  "METAPARADIGM",
-                                          "tagColor":  "teal"
-                                      }
+                                           "id":  "metaparadigm",
+                                           "title":  "Human Paradigm Metaparadigm Article",
+                                           "version":  "0.7.4",
+                                           "filename":  "KITCEY_2026_HP_Metaparadigm_Article.v.0.7.4.pdf",
+                                           "category":  "core",
+                                           "tag":  "METAPARADIGM",
+                                           "tagColor":  "teal"
+                                       }
                   }
 }
