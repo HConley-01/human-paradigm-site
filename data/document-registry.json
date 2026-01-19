@@ -102,11 +102,11 @@
                                           },
                       "pa-diagnostic":  {
                                             "id":  "pa-diagnostic",
-                                            "title":  "Pennsylvania Diagnostic Analysis",
+                                            "title": "Parental Alienation Phenomenology",
                                             "version":  "0.4.1",
                                             "filename":  "KITCEY_2026_NiCE_PA_Diagnostic.v.0.4.1.pdf",
                                             "category":  "worked-example",
-                                            "tag":  "REGIONAL",
+                                            "tag":  "CASE STUDY",
                                             "tagColor":  "orange"
                                         },
                       "insanity-quotient":  {
