@@ -8,7 +8,8 @@
                                         "filename":  "NiCE_Framework_Synthesis_v1.3.1.pdf",
                                         "category":  "core",
                                         "tag":  "FEATURED",
-                                        "tagColor":  "blue"
+                                        "tagColor":  "blue",
+                                        "doi":  "10.5281/zenodo.18296630"
                                     },
                       "human-paradigm":  {
                                              "id":  "human-paradigm",
@@ -27,7 +28,8 @@
                                                 "filename":  "KITCEY_Advanced_Analysis_FINAL.v.0.8.0.pdf",
                                                 "category":  "core",
                                                 "tag":  "ANALYSIS",
-                                                "tagColor":  "amber"
+                                                "tagColor":  "amber",
+                                                "doi":  "10.5281/zenodo.18296695"
                                             },
                       "human-essence":  {
                                             "id":  "human-essence",
@@ -36,7 +38,8 @@
                                             "filename":  "KITCEY_2024_The_Human_Essence-an_AI_Perspective_on_Human_Nature_2024.v.0.9.1.pdf",
                                             "category":  "core",
                                             "tag":  "AI PERSPECTIVE",
-                                            "tagColor":  "purple"
+                                            "tagColor":  "purple",
+                                            "doi":  "10.5281/zenodo.18296815"
                                         },
                       "sign-flip":  {
                                         "id":  "sign-flip",
@@ -45,7 +48,8 @@
                                         "filename":  "KITCEY_2026_Ecological_Value-Debt_Sign_Flip_Paper_v.0.2.9.pdf",
                                         "category":  "worked-example",
                                         "tag":  "SIGN-FLIP",
-                                        "tagColor":  "lime"
+                                        "tagColor":  "lime",
+                                        "doi":  "10.5281/zenodo.18297033"
                                     },
                       "pathogenesis":  {
                                            "id":  "pathogenesis",
@@ -54,7 +58,8 @@
                                            "filename":  "NiCE_Part_VII_Upstream_Pathogenesis_v0.8.1.pdf",
                                            "category":  "worked-example",
                                            "tag":  "PATHOGENESIS",
-                                           "tagColor":  "red"
+                                           "tagColor":  "red",
+                                           "doi":  "10.5281/zenodo.18297192"
                                        },
                       "stigma":  {
                                      "id":  "stigma",
@@ -63,7 +68,8 @@
                                      "filename":  "NiCE_Omnidirectional_Stigma_Diagnosis_v0.2.1.pdf",
                                      "category":  "worked-example",
                                      "tag":  "STIGMA ANALYSIS",
-                                     "tagColor":  "cyan"
+                                     "tagColor":  "cyan",
+                                     "doi":  "10.5281/zenodo.18297243"
                                  },
                       "us-diagnostic":  {
                                             "id":  "us-diagnostic",
@@ -72,7 +78,8 @@
                                             "filename":  "KITCEY_2026_NiCE_Framework_US_Diagnostic_Analysis.v.0.2.4.pdf",
                                             "category":  "worked-example",
                                             "tag":  "CASE STUDY",
-                                            "tagColor":  "sky"
+                                            "tagColor":  "sky",
+                                            "doi":  "10.5281/zenodo.18297324"
                                         },
                       "china-diagnostic":  {
                                                "id":  "china-diagnostic",
@@ -81,7 +88,8 @@
                                                "filename":  "KITCEY_2026_NiCE_Framework_China_Diagnostic_Analysis.v.0.6.4.pdf",
                                                "category":  "worked-example",
                                                "tag":  "CASE STUDY",
-                                               "tagColor":  "rose"
+                                               "tagColor":  "rose",
+                                               "doi":  "10.5281/zenodo.18297373"
                                            },
                       "imf-worldbank":  {
                                             "id":  "imf-worldbank",
@@ -90,7 +98,8 @@
                                             "filename":  "KITCEY_2026_IMF_WorldBank_NiCE_Framework_Worked_Analysis.v.0.3.2.pdf",
                                             "category":  "worked-example",
                                             "tag":  "INSTITUTIONAL",
-                                            "tagColor":  "emerald"
+                                            "tagColor":  "emerald",
+                                            "doi":  "10.5281/zenodo.18297425"
                                         },
                       "academia-reform":  {
                                               "id":  "academia-reform",
@@ -99,7 +108,8 @@
                                               "filename":  "NiCE_Analysis_US_Academia_Reform.v0.4.0.0.pdf",
                                               "category":  "worked-example",
                                               "tag":  "REFORM",
-                                              "tagColor":  "indigo"
+                                              "tagColor":  "indigo",
+                                              "doi":  "10.5281/zenodo.18297471"
                                           },
                       "pa-diagnostic":  {
                                             "id":  "pa-diagnostic",
@@ -108,7 +118,8 @@
                                             "filename":  "KITCEY_2026_NiCE_PA_Diagnostic.v.0.4.1.pdf",
                                             "category":  "worked-example",
                                             "tag":  "CASE STUDY",
-                                            "tagColor":  "orange"
+                                            "tagColor":  "orange",
+                                            "doi":  "10.5281/zenodo.18297503"
                                         },
                       "insanity-quotient":  {
                                                 "id":  "insanity-quotient",
@@ -117,7 +128,8 @@
                                                 "filename":  "Kitcey_2025-The_Insanity_Quotient.v.0.6.2.pdf",
                                                 "category":  "core",
                                                 "tag":  "DIAGNOSTIC",
-                                                "tagColor":  "fuchsia"
+                                                "tagColor":  "fuchsia",
+                                                "doi":  "10.5281/zenodo.18296887"
                                             },
                       "metaparadigm":  {
                                            "id":  "metaparadigm",
@@ -126,7 +138,8 @@
                                            "filename":  "KITCEY_2026_HP_Metaparadigm_Article.v.0.7.4.pdf",
                                            "category":  "core",
                                            "tag":  "METAPARADIGM",
-                                           "tagColor":  "teal"
+                                           "tagColor":  "teal",
+                                           "doi":  "10.5281/zenodo.18296532"
                                        }
                   }
 }
