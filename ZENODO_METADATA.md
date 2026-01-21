@@ -23,7 +23,10 @@ metaparadigm, human paradigm, systems theory, triadic model, nature-consciousnes
 
 **License:** CC BY-NC-ND 4.0 (Creative Commons Attribution-NonCommercial-NoDerivatives)
 
+**Creative Commons Attribution Non Commercial No Derivatives 4.0 International**
+
 **Related/Alternate Identifiers:**
+
 - URL: https://humanparadigm.org
 - Related Publication: The Human Paradigm v1.8.5 (foundation work)
 - Related Publication: NiCE Framework Synthesis v1.3.1
@@ -145,6 +148,7 @@ human nature, AI perspective, consciousness, embodiment, meaning-making, NiCE fr
 **Title:** The Insanity Quotient: A Quantitative Framework for Measuring Systemic Dysfunction and Institutional Pathology
 
 **Creators:**
+
 - Kitcey, Robert D. (ORCID: 0009-0004-8679-9155)
 
 **Description:**

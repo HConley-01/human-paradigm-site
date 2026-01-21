@@ -1,0 +1,14 @@
+﻿<!-- Upstream Pathogenesis -->
+                <a data-doc="pathogenesis" data-doc-link target="_blank" class="glass-card p-6 hover:border-red-500/50 transition-all duration-300">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2 py-1 bg-red-500/20 rounded text-red-400 text-xs font-medium">PATHOGENESIS</span>
+                        <span class="text-xs text-gray-500" data-doc="pathogenesis" data-doc-version></span>
+                        <span class="px-2 py-1 bg-red-500/20 rounded text-red-300 text-xs">PDF</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2" data-doc="pathogenesis" data-doc-title>Part VII: Upstream Systemic Pathogenesis</h3>
+                    <p class="text-gray-400 text-sm mb-3">
+                        Mental illness as natural system output. The Asymmetric Propagation Law: pathology propagates automatically across N-C-E regimes while health requires sustained energy input.
+                    </p>
+                </a>
+
+                
