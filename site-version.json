@@ -1,16 +1,56 @@
 {
   "site": {
-    "version": "0.9.5-beta",
-    "codename": "Featured Research Layout Improvements",
-    "releaseDate": "2026-01-19",
+    "version": "0.9.6-beta",
+    "codename": "Publication Cards & Interactive Tools Restoration",
+    "releaseDate": "2026-01-21",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
+      "version": "0.9.6-beta",
+      "date": "2026-01-21",
+      "status": "current",
+      "summary": "Comprehensive fix for all publication cards and restoration of BSDI diagnostic tool",
+      "changes": [
+        {
+          "type": "fixed",
+          "description": "Restored Download PDF, Cite, and DOI buttons to all 8 Worked Example publication cards"
+        },
+        {
+          "type": "fixed",
+          "description": "Fixed all Major Framework Publication cards to properly link to PDFs via document registry"
+        },
+        {
+          "type": "fixed",
+          "description": "Changed all Download PDF buttons from 📄 to 📥 icon for consistency"
+        },
+        {
+          "type": "added",
+          "description": "Restored BSDI Diagnostic Tool card to main page Interactive Lab section"
+        },
+        {
+          "type": "added",
+          "description": "Added detailed BSDI Diagnostic Tool card to Interactive Lab page with full description"
+        },
+        {
+          "type": "changed",
+          "description": "Converted worked example cards from simple clickable links to cards with explicit Download PDF, Cite, and DOI buttons"
+        },
+        {
+          "type": "improved",
+          "description": "Standardized all publication card layouts for consistency across Major Framework and Worked Examples sections"
+        },
+        {
+          "type": "added",
+          "description": "Created git tag v0.9.2-working to preserve working state"
+        }
+      ]
+    },
+    {
       "version": "0.9.5-beta",
       "date": "2026-01-19",
-      "status": "current",
+      "status": "previous",
       "summary": "Improved featured research section layout and fixed publication link system",
       "changes": [
         {
