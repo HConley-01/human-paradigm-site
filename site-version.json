@@ -1,16 +1,32 @@
 {
   "site": {
-    "version": "0.9.6-beta",
-    "codename": "Publication Cards & Interactive Tools Restoration",
-    "releaseDate": "2026-01-21",
+    "version": "0.9.7-beta",
+    "codename": "Sign-Flipped Civilization Publication",
+    "releaseDate": "2026-01-27",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
+      "version": "0.9.7-beta",
+      "date": "2026-01-27",
+      "status": "current",
+      "summary": "New featured publication: Sign-Flipped Civilization v0.6.2",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Added 'A Theoretical Architecture for a Sign-Flipped Civilization' v0.6.2 as featured worked example"
+        },
+        {
+          "type": "changed",
+          "description": "Updated document registry with DOI 10.5281/zenodo.18394552"
+        }
+      ]
+    },
+    {
       "version": "0.9.6-beta",
       "date": "2026-01-21",
-      "status": "current",
+      "status": "previous",
       "summary": "Comprehensive fix for all publication cards and restoration of BSDI diagnostic tool",
       "changes": [
         {

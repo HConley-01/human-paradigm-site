@@ -1,5 +1,5 @@
 ﻿{
-    "lastUpdated":  "2026-01-18",
+    "lastUpdated":  "2026-01-27",
     "documents":  {
                       "synthesis":  {
                                         "id":  "synthesis",
@@ -50,6 +50,16 @@
                                         "tag":  "SIGN-FLIP",
                                         "tagColor":  "lime",
                                         "doi":  "10.5281/zenodo.18297033"
+                                    },
+                      "sign-flip-followup":  {
+                                        "id":  "sign-flip-followup",
+                                        "title":  "Sign-Flipped Civilization: Cross-Domain Sanity Restoration",
+                                        "version":  "0.6.2",
+                                        "filename":  "KITCEY_2026_Followup_Ecological_Value-Debt_Sign_Flip_Paper_v.0.6.1.pdf",
+                                        "category":  "worked-example",
+                                        "tag":  "FEATURED",
+                                        "tagColor":  "lime",
+                                        "doi":  "10.5281/zenodo.18394552"
                                     },
                       "pathogenesis":  {
                                            "id":  "pathogenesis",
