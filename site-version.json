@@ -1,16 +1,36 @@
 {
   "site": {
-    "version": "0.9.7-beta",
-    "codename": "Sign-Flipped Civilization Publication",
-    "releaseDate": "2026-01-27",
+    "version": "0.9.8-beta",
+    "codename": "NiCE Interactive Visual Modeling Integration",
+    "releaseDate": "2026-01-29",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
+      "version": "0.9.8-beta",
+      "date": "2026-01-29",
+      "status": "current",
+      "summary": "Added featured link to NiCE Interactive Visual Modeling subdomain",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Added prominent featured card linking to nice.humanparadigm.org on main homepage"
+        },
+        {
+          "type": "added",
+          "description": "Added featured NiCE Interactive Visual Modeling card to Interactive Lab page"
+        },
+        {
+          "type": "improved",
+          "description": "Created elegant gradient-styled cards highlighting 3D NiCE Engine, Learning Paths, and Case Studies"
+        }
+      ]
+    },
+    {
       "version": "0.9.7-beta",
       "date": "2026-01-27",
-      "status": "current",
+      "status": "previous",
       "summary": "New featured publication: Sign-Flipped Civilization v0.6.2",
       "changes": [
         {
