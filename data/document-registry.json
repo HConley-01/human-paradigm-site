@@ -1,5 +1,5 @@
 ﻿{
-    "lastUpdated":  "2026-01-27",
+    "lastUpdated":  "2026-02-01",
     "documents":  {
                       "synthesis":  {
                                         "id":  "synthesis",
@@ -130,6 +130,16 @@
                                             "tag":  "CASE STUDY",
                                             "tagColor":  "orange",
                                             "doi":  "10.5281/zenodo.18297503"
+                                        },
+                      "hard-problem":  {
+                                            "id":  "hard-problem",
+                                            "title":  "NiCE Approach to the Hard Problem of Consciousness",
+                                            "version":  "0.6.8",
+                                            "filename":  "KITCEY_2026_NiCE_Approach_to_the_Hard_Problem_of_Consciousness.v.0.6.8.pdf",
+                                            "category":  "worked-example",
+                                            "tag":  "CONSCIOUSNESS",
+                                            "tagColor":  "violet",
+                                            "doi":  "10.5281/zenodo.18394552"
                                         },
                       "insanity-quotient":  {
                                                 "id":  "insanity-quotient",
