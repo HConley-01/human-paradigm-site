@@ -105,7 +105,7 @@ export async function onRequestPost(context) {
 <body>
     <div class="container">
         <div class="header">
-            <h1>ðŸ“¨ New Contact Message</h1>
+            <h1>📨 New Contact Message</h1>
             <p>Someone reached out via your Lernaean Research website</p>
         </div>
         <div class="content">
@@ -140,56 +140,38 @@ export async function onRequestPost(context) {
                         timeZoneName: 'short'
                     })}</div>
                 </div>
- EW CONTACT MESSAGE - Lernaean Research
-${'='.repeat(60)}
-
-FROM:         ${name}
-EMAIL:        ${email}
-${affiliation && affiliation !== 'Not specified' ? `AFFILIATION:  ${affiliation}\n` : ''}${subject && subject !== 'No subject' ? `SUBJECT:      ${subject}\n` : ''}RECEIVED:     ${new Date().toLocaleString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZoneName: 'short'
-        })}
-
-${'='.repeat(60)}
-MESSAGE:
-
-${message}
-
-${'='.repeat(60)}
-
-Quick Reply: ${email}
-Message ID: ${messageId}
-View Dashboard: https://humanparadigm.org/admin/contact-messages.html
-
----
-This is an automated notification from your contact form.
-Â© ${new Date().getFullYear()} Lernaean Research
+            </div>
+            
+            <div class="message-box">
+                <div class="message-label">Message</div>
+                <div class="message-text">${escapeHtml(message)}</div>
+            </div>
+            
+            <div class="cta-box">
+                <strong>Quick Actions:</strong>
+                <a href="mailto:${escapeHtml(email)}" style="color: #0284c7; text-decoration: none; display: block; margin: 8px 0;">Reply directly to ${escapeHtml(email)}</a>
+                <a href="https://humanparadigm.org/admin/contact-messages.html" style="color: #0284c7; text-decoration: none; display: block;">View in admin dashboard</a>
             </div>
             
             <div style="text-align: center; margin-top: 25px;">
                 <a href="https://humanparadigm.org/admin/contact-messages.html" class="dashboard-link">
-                    ðŸ“Š View All Messages in Dashboard
+                    📊 View All Messages in Dashboard
                 </a>
             </div>
         </div>
         <div class="footer">
             <p><strong>Message ID:</strong> ${messageId}</p>
             <p>This is an automated notification from your contact form</p>
-            <p>Â© ${new Date().getFullYear()} Lernaean Research â€¢ humanparadigm.org</p>
+            <p>© ${new Date().getFullYear()} Lernaean Research • humanparadigm.org</p>
         </div>
     </div>
 </body>
 </html>
         `.trim();
 
-        // PlaemailSubject = subject && subject !== 'No subject' 
-            ? `ðŸ“¨ ${subject}` 
-            : `ðŸ“¨ New Contact from ${name}`;
+        const emailSubject = subject && subject !== 'No subject' 
+            ? `📨 ${subject}` 
+            : `📨 New Contact from ${name}`;
             
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -201,34 +183,13 @@ This is an automated notification from your contact form.
                 from: 'Lernaean Research <noreply@humanparadigm.org>',
                 to: ['rkitcey@lernaean.net'],
                 reply_to: email,
-                subject: emailSubject
----
-Reply to: ${email}
-View all messages: https://humanparadigm.org/admin/contact-messages.html
-        `.trim();
+                subject: emailSubject,
+                html: emailHtml
+            })
+        });
 
-        // Send email via Resend API
-        const response = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                from: 'NiCE Framework <noreply@humanparadigm.org>',
-                to: ['rkitcey@humanparadigm.org'],
-                reply_to: Message received and email sent successfully',
-                messageId,
-                emailId: result.id 
-            }),
-            { 
-                status: 200, 
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Content-Type'
-
+        const result = await response.json();
+        
         if (!response.ok) {
             console.error('Resend API error:', result);
             return new Response(
@@ -241,14 +202,17 @@ View all messages: https://humanparadigm.org/admin/contact-messages.html
         return new Response(
             JSON.stringify({ 
                 success: true, 
-                message: 'Email sent successfully',
+                message: 'Message received and email sent successfully',
+                messageId,
                 emailId: result.id 
             }),
             { 
                 status: 200, 
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*' // Allow CORS
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type'
                 } 
             }
         );
