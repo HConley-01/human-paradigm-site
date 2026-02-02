@@ -105,7 +105,7 @@ export async function onRequestPost(context) {
 <body>
     <div class="container">
         <div class="header">
-            <h1>â‰¡Æ’Ã´Â¿ New Contact Message</h1>
+            <h1>ðŸ“¨ New Contact Message</h1>
             <p>Someone reached out via your Lernaean Research website</p>
         </div>
         <div class="content">
@@ -168,19 +168,19 @@ View Dashboard: https://humanparadigm.org/admin/contact-messages.html
 
 ---
 This is an automated notification from your contact form.
-â”¬âŒ ${new Date().getFullYear()} Lernaean Research
+Â© ${new Date().getFullYear()} Lernaean Research
             </div>
             
             <div style="text-align: center; margin-top: 25px;">
                 <a href="https://humanparadigm.org/admin/contact-messages.html" class="dashboard-link">
-                    â‰¡Æ’Ã´Ã¨ View All Messages in Dashboard
+                    ðŸ“Š View All Messages in Dashboard
                 </a>
             </div>
         </div>
         <div class="footer">
             <p><strong>Message ID:</strong> ${messageId}</p>
             <p>This is an automated notification from your contact form</p>
-            <p>â”¬âŒ ${new Date().getFullYear()} Lernaean Research Î“Ã‡Ã³ humanparadigm.org</p>
+            <p>Â© ${new Date().getFullYear()} Lernaean Research â€¢ humanparadigm.org</p>
         </div>
     </div>
 </body>
@@ -188,8 +188,8 @@ This is an automated notification from your contact form.
         `.trim();
 
         // PlaemailSubject = subject && subject !== 'No subject' 
-            ? `â‰¡Æ’Ã´Â¿ ${subject}` 
-            : `â‰¡Æ’Ã´Â¿ New Contact from ${name}`;
+            ? `ðŸ“¨ ${subject}` 
+            : `ðŸ“¨ New Contact from ${name}`;
             
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
