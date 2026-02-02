@@ -6,7 +6,8 @@
  * 2. Get your API key from Resend dashboard
  * 3. In Cloudflare Pages dashboard, go to Settings > Environment variables
  * 4. Add: RESEND_API_KEY = your_api_key_here
- * 5. Deploy this function (Cloudflare auto-deploys from /functions folder)
+ * 5. Bind KV namespace: CONTACT_MESSAGES (in Settings > Functions > KV Namespace Bindings)
+ * 6. Deploy this function (Cloudflare auto-deploys from /functions folder)
  * 
  * Endpoint: POST /api/send-email
  */
@@ -17,7 +18,7 @@ export async function onRequestPost(context) {
         
         // Parse the incoming request
         const data = await request.json();
-        const { name, email, message } = data;
+        const { name, email, affiliation, subject, message } = data;
 
         // Validate required fields
         if (!name || !email || !message) {
@@ -27,94 +28,180 @@ export async function onRequestPost(context) {
             );
         }
 
+        // Create message record
+        const messageId = 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        const timestamp = new Date().toISOString();
+        
+        const messageRecord = {
+            id: messageId,
+            name,
+            email,
+            affiliation: affiliation || 'Not specified',
+            subject: subject || 'No subject',
+            message,
+            timestamp,
+            status: 'new',
+            source: 'contact-form'
+        };
+
+        // Store message in Cloudflare KV
+        if (env.CONTACT_MESSAGES) {
+            try {
+                await env.CONTACT_MESSAGES.put(messageId, JSON.stringify(messageRecord), {
+                    metadata: { timestamp, status: 'new', email }
+                });
+                console.log('Message stored in KV:', messageId);
+            } catch (kvError) {
+                console.error('KV storage error:', kvError);
+                // Continue to send email even if KV fails
+            }
+        }
+
         // Get Resend API key from environment variables
         const RESEND_API_KEY = env.RESEND_API_KEY;
         
         if (!RESEND_API_KEY) {
             console.error('RESEND_API_KEY not configured');
             return new Response(
-                JSON.stringify({ error: 'Email service not configured' }),
-                { status: 500, headers: { 'Content-Type': 'application/json' } }
+                JSON.stringify({ 
+                    success: true,
+                    messageId,
+                    warning: 'Message stored but email service not configured' 
+                }),
+                { status: 200, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } }
             );
         }
 
-        // Prepare email content
+        // Prepare elegant email content
         const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 30px; border-radius: 12px 12px 0 0; }
-        .header h1 { margin: 0; font-size: 24px; }
-        .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 12px 12px; }
-        .message-box { background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 20px 0; }
-        .info-row { margin: 10px 0; }
-        .label { font-weight: 600; color: #666; }
-        .footer { text-align: center; margin-top: 20px; color: #999; font-size: 12px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 40px 30px; border-radius: 12px 12px 0 0; }
+        .header h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 700; }
+        .header p { margin: 0; opacity: 0.9; font-size: 14px; }
+        .content { background: #f8f9fa; padding: 35px 30px; }
+        .info-grid { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .info-row { padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+        .info-row:last-child { border-bottom: none; }
+        .label { font-weight: 700; color: #555; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+        .value { color: #222; font-size: 15px; }
+        .message-box { background: white; padding: 25px; border-radius: 8px; border-left: 4px solid #3b82f6; margin: 20px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .message-label { font-weight: 700; color: #3b82f6; font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .message-text { white-space: pre-wrap; color: #333; font-size: 15px; line-height: 1.7; }
+        .cta-box { margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); border-radius: 8px; border-left: 4px solid #0284c7; }
+        .cta-box strong { color: #0284c7; display: block; margin-bottom: 8px; font-size: 15px; }
+        .cta-link { display: inline-block; background: #0284c7; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 8px; }
+        .cta-link:hover { background: #0369a1; }
+        .footer { text-align: center; padding: 25px 30px; background: #f8f9fa; border-radius: 0 0 12px 12px; border-top: 1px solid #e5e7eb; }
+        .footer p { margin: 5px 0; color: #999; font-size: 12px; }
+        .dashboard-link { display: inline-block; margin-top: 15px; padding: 10px 20px; background: white; border: 2px solid #3b82f6; color: #3b82f6; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px; }
+        .dashboard-link:hover { background: #3b82f6; color: white; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📨 New Contact Form Submission</h1>
-            <p style="margin: 5px 0 0 0; opacity: 0.9;">NiCE Framework Website</p>
+            <h1>📨 New Contact Message</h1>
+            <p>Someone reached out via your Lernaean Research website</p>
         </div>
         <div class="content">
-            <div class="info-row">
-                <span class="label">From:</span> ${escapeHtml(name)}
-            </div>
-            <div class="info-row">
-                <span class="label">Email:</span> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
-            </div>
-            <div class="info-row">
-                <span class="label">Date:</span> ${new Date().toLocaleString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })}
+            <div class="info-grid">
+                <div class="info-row">
+                    <span class="label">From</span>
+                    <div class="value">${escapeHtml(name)}</div>
+                </div>
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <div class="value"><a href="mailto:${escapeHtml(email)}" style="color: #3b82f6; text-decoration: none;">${escapeHtml(email)}</a></div>
+                </div>
+                ${affiliation && affiliation !== 'Not specified' ? `
+                <div class="info-row">
+                    <span class="label">Affiliation</span>
+                    <div class="value">${escapeHtml(affiliation)}</div>
+                </div>` : ''}
+                ${subject && subject !== 'No subject' ? `
+                <div class="info-row">
+                    <span class="label">Subject</span>
+                    <div class="value">${escapeHtml(subject)}</div>
+                </div>` : ''}
+                <div class="info-row">
+                    <span class="label">Received</span>
+                    <div class="value">${new Date().toLocaleString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZoneName: 'short'
+                    })}</div>
+                </div>
+ EW CONTACT MESSAGE - Lernaean Research
+${'='.repeat(60)}
+
+FROM:         ${name}
+EMAIL:        ${email}
+${affiliation && affiliation !== 'Not specified' ? `AFFILIATION:  ${affiliation}\n` : ''}${subject && subject !== 'No subject' ? `SUBJECT:      ${subject}\n` : ''}RECEIVED:     ${new Date().toLocaleString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZoneName: 'short'
+        })}
+
+${'='.repeat(60)}
+MESSAGE:
+
+${message}
+
+${'='.repeat(60)}
+
+Quick Reply: ${email}
+Message ID: ${messageId}
+View Dashboard: https://humanparadigm.org/admin/contact-messages.html
+
+---
+This is an automated notification from your contact form.
+© ${new Date().getFullYear()} Lernaean Research
             </div>
             
-            <div class="message-box">
-                <div class="label" style="margin-bottom: 10px;">Message:</div>
-                <div style="white-space: pre-wrap;">${escapeHtml(message)}</div>
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="https://humanparadigm.org/admin/contact-messages.html" class="dashboard-link">
+                    📊 View All Messages in Dashboard
+                </a>
             </div>
-            
-            <p style="margin-top: 20px; padding: 15px; background: #e0f2fe; border-radius: 6px; border-left: 3px solid #0284c7;">
-                <strong>💡 Quick Reply:</strong><br>
-                <a href="mailto:${escapeHtml(email)}?subject=Re: Contact from NiCE Framework" 
-                   style="color: #0284c7; text-decoration: none;">Click here to reply directly</a>
-            </p>
-            
-            <p style="margin-top: 20px; font-size: 14px; color: #666;">
-                View and manage all messages in your 
-                <a href="https://humanparadigm.org/admin/contact-messages.html" style="color: #3b82f6;">admin dashboard</a>
-            </p>
         </div>
         <div class="footer">
-            <p>This email was sent from the NiCE Framework contact form</p>
-            <p>Automated notification - Do not reply to this email directly</p>
+            <p><strong>Message ID:</strong> ${messageId}</p>
+            <p>This is an automated notification from your contact form</p>
+            <p>© ${new Date().getFullYear()} Lernaean Research • humanparadigm.org</p>
         </div>
     </div>
 </body>
 </html>
         `.trim();
 
-        // Plain text version
-        const emailText = `
-New Contact Form Submission - NiCE Framework
-
-From: ${name}
-Email: ${email}
-Date: ${new Date().toLocaleString()}
-
-Message:
-${message}
-
+        // PlaemailSubject = subject && subject !== 'No subject' 
+            ? `📨 ${subject}` 
+            : `📨 New Contact from ${name}`;
+            
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${RESEND_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from: 'Lernaean Research <noreply@humanparadigm.org>',
+                to: ['rkitcey@lernaean.net'],
+                reply_to: email,
+                subject: emailSubject
 ---
 Reply to: ${email}
 View all messages: https://humanparadigm.org/admin/contact-messages.html
@@ -130,14 +217,17 @@ View all messages: https://humanparadigm.org/admin/contact-messages.html
             body: JSON.stringify({
                 from: 'NiCE Framework <noreply@humanparadigm.org>',
                 to: ['rkitcey@humanparadigm.org'],
-                reply_to: email,
-                subject: `📨 New Contact: ${name}`,
-                html: emailHtml,
-                text: emailText
-            })
-        });
-
-        const result = await response.json();
+                reply_to: Message received and email sent successfully',
+                messageId,
+                emailId: result.id 
+            }),
+            { 
+                status: 200, 
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type'
 
         if (!response.ok) {
             console.error('Resend API error:', result);

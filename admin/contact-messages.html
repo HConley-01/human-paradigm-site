@@ -26,6 +26,27 @@
         .status-replied { border-left: 4px solid #22c55e; }
         .status-archived { border-left: 4px solid #6b7280; }
         
+        /* Email badge notification */
+        .unread-badge { 
+            position: absolute; 
+            top: -8px; 
+            right: -8px; 
+            background: #ef4444; 
+            color: white; 
+            font-size: 11px; 
+            font-weight: 700; 
+            border-radius: 999px; 
+            min-width: 20px; 
+            height: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 0 6px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+            animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes badgePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        
         /* Mobile hamburger menu */
         .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
@@ -109,7 +130,10 @@
                 <div class="nav-links">
                     <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
                     <a href="/admin/" class="text-gray-400 hover:text-white transition-colors">Admin</a>
-                    <span class="text-blue-400 font-semibold">Messages</span>
+                    <span class="relative inline-flex items-center text-blue-400 font-semibold">
+                        Messages
+                        <span id="nav-message-badge" class="hidden unread-badge">0</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -300,6 +324,15 @@
                 document.getElementById('stat-read').textContent = stats.read;
                 document.getElementById('stat-replied').textContent = stats.replied;
                 document.getElementById('stat-total').textContent = stats.total;
+                
+                // Update navigation badge
+                const navBadge = document.getElementById('nav-message-badge');
+                if (stats.new > 0) {
+                    navBadge.textContent = stats.new > 99 ? '99+' : stats.new;
+                    navBadge.classList.remove('hidden');
+                } else {
+                    navBadge.classList.add('hidden');
+                }
             }
 
             render() {

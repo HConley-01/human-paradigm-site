@@ -1,0 +1,317 @@
+# Contact Form System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        CONTACT FORM SUBMISSION                           │
+│                    (lernaen-homepage/index.html)                        │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ User fills form & clicks Submit
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │  JavaScript Handler (Client)  │
+                    │  • Validates input            │
+                    │  • Generates message ID       │
+                    │  • Adds timestamp            │
+                    └───────────────────────────────┘
+                                    │
+                ┌───────────────────┴────────────────────┐
+                │                                         │
+                ▼                                         ▼
+    ┌──────────────────────┐              ┌──────────────────────┐
+    │  localStorage BACKUP │              │  API Call (Primary)  │
+    │  ✓ Immediate save    │              │  POST /api/send-email│
+    │  ✓ No dependencies   │              └──────────────────────┘
+    │  ✓ Works offline     │                         │
+    └──────────────────────┘                         │
+                                                      ▼
+                                        ┌──────────────────────────┐
+                                        │ Cloudflare Function      │
+                                        │ (send-email.js)          │
+                                        │ • Parse request          │
+                                        │ • Generate message record│
+                                        └──────────────────────────┘
+                                                      │
+                              ┌───────────────────────┴──────────────────┐
+                              │                                          │
+                              ▼                                          ▼
+                  ┌───────────────────────┐              ┌───────────────────────┐
+                  │  Cloudflare KV Store  │              │   Resend Email API    │
+                  │  • Store message      │              │   • Send to:          │
+                  │  • Add metadata       │              │     rkitcey@          │
+                  │  • Durable storage    │              │     lernaean.net      │
+                  └───────────────────────┘              │   • HTML template     │
+                                                         │   • Plain text backup │
+                                                         │   • Reply-to header   │
+                                                         └───────────────────────┘
+                                                                    │
+                                                                    ▼
+                                                         ┌───────────────────────┐
+                                                         │   EMAIL DELIVERED     │
+                                                         │   ✉️ rkitcey@         │
+                                                         │   lernaean.net        │
+                                                         └───────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         ADMIN DASHBOARD                                  │
+│                      (admin/index.html)                                  │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ Page loads
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │  JavaScript Controller        │
+                    │  • Initialize                │
+                    │  • Auto-refresh every 30s    │
+                    └───────────────────────────────┘
+                                    │
+                                    ▼
+                         GET /api/messages
+                                    │
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │ Cloudflare Function           │
+                    │ (messages.js)                 │
+                    │ • List KV keys               │
+                    │ • Fetch all messages         │
+                    │ • Sort by timestamp          │
+                    └───────────────────────────────┘
+                                    │
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │  Return JSON Response         │
+                    │  { messages: [...], count }   │
+                    └───────────────────────────────┘
+                                    │
+                ┌───────────────────┴────────────────┐
+                │                                     │
+                ▼                                     ▼
+    ┌──────────────────────┐          ┌──────────────────────┐
+    │  Update Statistics   │          │  Update Email Badge  │
+    │  • New count         │          │  📧 with red badge   │
+    │  • Read count        │          │  • Show if > 0       │
+    │  • Total count       │          │  • Pulsing animation │
+    └──────────────────────┘          └──────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      MESSAGE MANAGEMENT                                  │
+│                  (admin/contact-messages.html)                          │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ Admin clicks message/status
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │  Update Status Action         │
+                    │  • User selects new status    │
+                    │  • JavaScript handler fires   │
+                    └───────────────────────────────┘
+                                    │
+                                    ▼
+                    POST /api/message-status
+                    { messageId, status }
+                                    │
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │ Cloudflare Function           │
+                    │ (message-status.js)           │
+                    │ • Validate message ID        │
+                    │ • Get from KV                │
+                    │ • Update status              │
+                    │ • Add lastUpdated            │
+                    │ • Save to KV                 │
+                    └───────────────────────────────┘
+                                    │
+                                    ▼
+                    ┌───────────────────────────────┐
+                    │  Refresh UI                   │
+                    │  • Update message display     │
+                    │  • Update counts             │
+                    │  • Update badge              │
+                    └───────────────────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════
+
+                            DATA FLOW DIAGRAM
+
+  ┌─────────┐         ┌──────────────┐         ┌─────────────┐
+  │  User   │────────▶│ Contact Form │────────▶│ localStorage│
+  │ (Public)│         │  (Homepage)  │         │  (Backup)   │
+  └─────────┘         └──────────────┘         └─────────────┘
+                             │
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │  Cloudflare     │
+                    │  Function API   │
+                    └─────────────────┘
+                             │
+                    ┌────────┴─────────┐
+                    │                  │
+                    ▼                  ▼
+          ┌──────────────┐    ┌──────────────┐
+          │ Cloudflare   │    │   Resend     │
+          │  KV Storage  │    │  Email API   │
+          └──────────────┘    └──────────────┘
+                    │                  │
+                    │                  ▼
+                    │         ┌──────────────┐
+                    │         │   Email to   │
+                    │         │  rkitcey@    │
+                    │         │lernaean.net  │
+                    │         └──────────────┘
+                    │
+                    ▼
+          ┌──────────────────┐
+          │ Admin Dashboard  │
+          │  • View messages │
+          │  • Update status │◀────── Admin
+          │  • Email badge   │
+          └──────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════
+
+                          MESSAGE LIFECYCLE
+
+    ┌───────────┐
+    │   NEW     │  ← Message just submitted
+    │  (Blue)   │
+    └─────┬─────┘
+          │
+          │ Admin views message
+          │
+          ▼
+    ┌───────────┐
+    │   READ    │  ← Admin opened/reviewed
+    │ (Yellow)  │
+    └─────┬─────┘
+          │
+          │ Admin replies via email
+          │
+          ▼
+    ┌───────────┐
+    │  REPLIED  │  ← Response sent
+    │  (Green)  │
+    └─────┬─────┘
+          │
+          │ Admin archives
+          │
+          ▼
+    ┌───────────┐
+    │ ARCHIVED  │  ← Old/resolved
+    │  (Gray)   │
+    └───────────┘
+
+
+════════════════════════════════════════════════════════════════════════════
+
+                      REDUNDANCY & RELIABILITY
+
+         Primary Storage          Backup Storage         Notification
+         ───────────────          ──────────────         ────────────
+    
+    ┌──────────────────┐    ┌──────────────────┐    ┌──────────────┐
+    │ Cloudflare KV    │    │  localStorage    │    │    Email     │
+    │                  │    │                  │    │  Delivery    │
+    │ ✓ Durable        │    │ ✓ Immediate      │    │              │
+    │ ✓ Global         │    │ ✓ No network     │    │ ✓ Inbox      │
+    │ ✓ Scalable       │    │ ✓ Offline works  │    │ ✓ Searchable │
+    │ ✓ Queryable      │    │ ✓ Browser-based  │    │ ✓ Permanent  │
+    └──────────────────┘    └──────────────────┘    └──────────────┘
+            │                        │                       │
+            └────────────────────────┴───────────────────────┘
+                                     │
+                            Zero Message Loss
+                          ═══════════════════════
+
+
+════════════════════════════════════════════════════════════════════════════
+
+                        ERROR HANDLING FLOW
+
+    Form Submission
+          │
+          ├──▶ Try localStorage save
+          │         │
+          │         ├─▶ Success ✓
+          │         │
+          │         └─▶ Fail ✗ → Log warning, continue
+          │
+          ├──▶ Try API call (/api/send-email)
+          │         │
+          │         ├─▶ Success ✓
+          │         │      │
+          │         │      ├─▶ KV Storage ✓
+          │         │      │
+          │         │      └─▶ Email Send ✓
+          │         │             │
+          │         │             └─▶ Show success message
+          │         │
+          │         └─▶ Fail ✗
+          │                │
+          │                ├─▶ Network error
+          │                │      └─▶ Show warning: "Saved locally"
+          │                │
+          │                └─▶ Server error
+          │                       └─▶ Show warning: "Pending delivery"
+          │
+          └──▶ Result: Message NEVER lost!
+                      ✓ In localStorage
+                      ✓ User notified
+                      ✓ Can retry later
+
+
+════════════════════════════════════════════════════════════════════════════
+
+                     DEPLOYMENT ARCHITECTURE
+
+    ┌──────────────────────────────────────────────────┐
+    │              GitHub Repository                    │
+    │  • Source code                                   │
+    │  • Functions                                     │
+    │  • Static files                                  │
+    └──────────────────┬───────────────────────────────┘
+                       │
+                       │ Auto-deploy on push
+                       │
+                       ▼
+    ┌──────────────────────────────────────────────────┐
+    │           Cloudflare Pages                        │
+    │  ┌────────────────────────────────────────────┐  │
+    │  │  Static Files                              │  │
+    │  │  • index.html                             │  │
+    │  │  • admin/*.html                           │  │
+    │  │  • CSS/JS                                 │  │
+    │  └────────────────────────────────────────────┘  │
+    │  ┌────────────────────────────────────────────┐  │
+    │  │  Serverless Functions                      │  │
+    │  │  • /api/send-email                        │  │
+    │  │  • /api/messages                          │  │
+    │  │  • /api/message-status                    │  │
+    │  └────────────────────────────────────────────┘  │
+    │  ┌────────────────────────────────────────────┐  │
+    │  │  KV Namespace: CONTACT_MESSAGES            │  │
+    │  │  • All messages stored here               │  │
+    │  └────────────────────────────────────────────┘  │
+    │  ┌────────────────────────────────────────────┐  │
+    │  │  Environment Variables                     │  │
+    │  │  • RESEND_API_KEY                         │  │
+    │  └────────────────────────────────────────────┘  │
+    └──────────────────────────────────────────────────┘
+                       │
+                       │ Sends emails via
+                       │
+                       ▼
+    ┌──────────────────────────────────────────────────┐
+    │              Resend API                           │
+    │  • Email delivery service                        │
+    │  • Domain: humanparadigm.org                    │
+    │  • Destination: rkitcey@lernaean.net            │
+    └──────────────────────────────────────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════
+```

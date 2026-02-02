@@ -19,6 +19,27 @@
         .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         
+        /* Email badge notification */
+        .email-icon-container { position: relative; display: inline-flex; align-items: center; }
+        .unread-badge { 
+            position: absolute; 
+            top: -8px; 
+            right: -8px; 
+            background: #ef4444; 
+            color: white; 
+            font-size: 11px; 
+            font-weight: 700; 
+            border-radius: 999px; 
+            min-width: 20px; 
+            height: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 0 6px;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
         /* Mobile hamburger menu */
         .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
@@ -76,6 +97,10 @@
                 <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Toggle menu">☰</button>
                 <div class="nav-links">
                     <a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                    <a href="/admin/contact-messages.html" class="relative inline-flex items-center text-gray-400 hover:text-white transition-colors">
+                        <span class="text-2xl mr-2">📧</span>
+                        <span id="nav-message-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">0</span>
+                    </a>
                     <span class="text-blue-400 font-semibold">Admin</span>
                 </div>
             </div>
@@ -244,15 +269,20 @@
                 const messages = await this.loadMessages();
                 const newCount = messages.filter(m => m.status === 'new').length;
                 const readCount = messages.filter(m => m.status === 'read').length;
+                const totalCount = messages.filter(m => m.status !== 'archived').length;
                 
                 document.getElementById('messages-new').textContent = newCount;
                 document.getElementById('messages-read').textContent = readCount;
-                document.getElementById('messages-total').textContent = messages.length;
+                document.getElementById('messages-total').textContent = totalCount;
 
-                // Show alert if there are new messages
+                // Update navigation badge
+                const navBadge = document.getElementById('nav-message-badge');
                 if (newCount > 0) {
+                    navBadge.textContent = newCount > 99 ? '99+' : newCount;
+                    navBadge.classList.remove('hidden');
                     document.getElementById('messages-alert').classList.remove('hidden');
                 } else {
+                    navBadge.classList.add('hidden');
                     document.getElementById('messages-alert').classList.add('hidden');
                 }
             }

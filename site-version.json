@@ -1,16 +1,68 @@
 {
   "site": {
-    "version": "0.9.9-beta",
-    "codename": "Hard Problem of Consciousness Publication",
-    "releaseDate": "2026-02-01",
+    "version": "0.9.10-beta",
+    "codename": "Contact Form System Enhancement",
+    "releaseDate": "2026-02-02",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
+      "version": "0.9.10-beta",
+      "date": "2026-02-02",
+      "status": "current",
+      "summary": "Enterprise-grade contact form with email delivery, message storage, and admin dashboard",
+      "changes": [
+        {
+          "type": "added",
+          "description": "Implemented robust contact form system with Cloudflare Functions and Resend API for email delivery to rkitcey@lernaean.net"
+        },
+        {
+          "type": "added",
+          "description": "Created Cloudflare KV storage backend for persistent message storage with localStorage backup"
+        },
+        {
+          "type": "added",
+          "description": "Built elegant admin dashboard at /admin/contact-messages.html with message management, filtering, search, and export"
+        },
+        {
+          "type": "added",
+          "description": "Added email indicator (📧) with unread message badge to homepage header (lernaean.net) for at-a-glance message awareness"
+        },
+        {
+          "type": "added",
+          "description": "Implemented unread message counter badge on admin dashboard navigation with auto-refresh every 30 seconds"
+        },
+        {
+          "type": "added",
+          "description": "Created three API endpoints: /api/send-email, /api/messages, /api/message-status for form handling"
+        },
+        {
+          "type": "improved",
+          "description": "Enhanced email template with elegant HTML formatting, gradient header, and quick reply button"
+        },
+        {
+          "type": "improved",
+          "description": "Implemented triple-redundancy system: KV storage, localStorage backup, and email notification"
+        },
+        {
+          "type": "fixed",
+          "description": "Added comprehensive error handling with graceful degradation - form works even when server is offline"
+        },
+        {
+          "type": "fixed",
+          "description": "Fixed admin dashboard total count to exclude archived messages (showing only active messages)"
+        },
+        {
+          "type": "added",
+          "description": "Created comprehensive documentation: CONTACT_FORM_SETUP_GUIDE.md, CONTACT_FORM_QUICK_START.md, CLOUDFLARE_CONFIG.md, and CONTACT_FORM_ARCHITECTURE.txt"
+        }
+      ]
+    },
+    {
       "version": "0.9.9-beta",
       "date": "2026-02-01",
-      "status": "current",
+      "status": "previous",
       "summary": "Added NiCE Approach to the Hard Problem of Consciousness publication",
       "changes": [
         {
