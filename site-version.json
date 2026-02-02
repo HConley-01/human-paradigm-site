@@ -1,16 +1,64 @@
 {
   "site": {
-    "version": "0.9.10-beta",
-    "codename": "Contact Form System Enhancement",
+    "version": "0.9.11-beta",
+    "codename": "Contact Form Deployment & Repository Restructure",
     "releaseDate": "2026-02-02",
     "status": "beta",
     "repository": "https://github.com/HConley-01/human-paradigm-site"
   },
   "changelog": [
     {
-      "version": "0.9.10-beta",
+      "version": "0.9.11-beta",
       "date": "2026-02-02",
       "status": "current",
+      "summary": "Contact form system fully deployed with Resend API and Cloudflare KV, repository restructured",
+      "changes": [
+        {
+          "type": "fixed",
+          "description": "Successfully deployed contact form system with Resend API integration - emails now sending to rkitcey@lernaean.net"
+        },
+        {
+          "type": "fixed",
+          "description": "Configured Cloudflare KV namespace (CONTACT_MESSAGES) for persistent message storage across both sites"
+        },
+        {
+          "type": "fixed",
+          "description": "Resolved repository structure issues by splitting Lernaean.org homepage into separate repository for clean parent/child architecture"
+        },
+        {
+          "type": "fixed",
+          "description": "Fixed UTF-8 encoding issues in send-email.js for Cloudflare Pages compatibility"
+        },
+        {
+          "type": "fixed",
+          "description": "Removed embedded git submodules causing deployment failures"
+        },
+        {
+          "type": "added",
+          "description": "Added wrangler.toml configuration files with pages_build_output_dir and KV namespace bindings"
+        },
+        {
+          "type": "added",
+          "description": "Configured encrypted RESEND_API_KEY secrets in Cloudflare for both humanparadigm.org and lernaean.net"
+        },
+        {
+          "type": "improved",
+          "description": "Verified Resend domain (humanparadigm.org) with DKIM, SPF, and DMARC for reliable email delivery"
+        },
+        {
+          "type": "known-issue",
+          "description": "Email indicator badge missing from humanparadigm.org main page (present on lernaean.net)"
+        },
+        {
+          "type": "known-issue",
+          "description": "Sitemap at /sitemap-visual.html requires comprehensive sitewide audit and elegant update"
+        }
+      ]
+    },
+    {
+      "version": "0.9.10-beta",
+      "date": "2026-02-02",
+      "status": "previous",
       "summary": "Enterprise-grade contact form with email delivery, message storage, and admin dashboard",
       "changes": [
         {
