@@ -56,6 +56,45 @@
         .glow-green:hover { box-shadow: 0 0 40px rgba(34,197,94,0.4); }
         .glow-blue:hover { box-shadow: 0 0 40px rgba(59,130,246,0.4); }
         .glow-amber:hover { box-shadow: 0 0 40px rgba(245,158,11,0.4); }
+        
+        /* Email indicator */
+        .email-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-left: 1rem;
+            font-size: 0.95rem;
+            color: #9ca3af;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        
+        .email-indicator:hover {
+            opacity: 1;
+        }
+        
+        .email-icon {
+            font-size: 1.1rem;
+        }
+        
+        .email-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 9px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .email-badge.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +115,10 @@
                     <a href="/interactive-lab.html" class="text-gray-400 hover:text-white transition-colors">Interactive Lab</a>
                     <a href="#cite" class="text-gray-400 hover:text-white transition-colors">How to Cite</a>
                     <a href="/sitemap-visual.html" class="text-gray-400 hover:text-white transition-colors">Site Map</a>
+                    <a href="/admin/contact-messages.html" class="email-indicator" id="email-indicator" title="Unread messages">
+                        <span class="email-icon">📧</span>
+                        <span class="email-badge hidden" id="email-count">0</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1206,6 +1249,49 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeCitationModal();
         });
+        
+        // Email indicator - updates unread message count
+        async function updateEmailIndicator() {
+            try {
+                // Try to fetch from API
+                const response = await fetch('/api/messages');
+                const data = await response.json();
+                
+                if (data.success && data.messages) {
+                    const unreadCount = data.messages.filter(m => m.status === 'new').length;
+                    updateBadge(unreadCount);
+                    return;
+                }
+            } catch (error) {
+                // Fallback to localStorage
+                console.log('Using localStorage for message count');
+            }
+            
+            // Fallback to localStorage
+            try {
+                const messages = JSON.parse(localStorage.getItem('nice-contact-messages') || '[]');
+                const unreadCount = messages.filter(m => m.status === 'new').length;
+                updateBadge(unreadCount);
+            } catch (error) {
+                console.warn('Error loading message count:', error);
+            }
+        }
+        
+        function updateBadge(count) {
+            const badge = document.getElementById('email-count');
+            if (badge && count > 0) {
+                badge.textContent = count > 99 ? '99+' : count;
+                badge.classList.remove('hidden');
+            } else if (badge) {
+                badge.classList.add('hidden');
+            }
+        }
+        
+        // Update on page load
+        updateEmailIndicator();
+        
+        // Update every 2 minutes (less frequent for homepage)
+        setInterval(updateEmailIndicator, 120000);
     </script>
 </body>
 </html>
