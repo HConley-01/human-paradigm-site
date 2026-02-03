@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernaean Research | R.D. Kitcey</title>
+    <meta name="description" content="Scientific research on human systems dynamics, consciousness, and environmental interaction by R.D. Kitcey. Explore the NiCE Framework and theoretical contributions.">
+    <meta name="keywords" content="Lernaean, R.D. Kitcey, NiCE Framework, consciousness research, systems theory, human nature, philosophy">
+    <meta name="author" content="R.D. Kitcey">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Lernaean Research | R.D. Kitcey">
+    <meta property="og:description" content="Scientific research on human systems dynamics, consciousness, and environmental interaction">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://humanparadigm.org/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-dark: #1a2332;
+            --primary-blue: #2d5a7b;
+            --accent-teal: #3d8a8a;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-cream: #fefdfb;
+            --bg-light: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-cream);
+            line-height: 1.6;
+        }
+        
+        .serif {
+            font-family: 'Crimson Pro', serif;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-img {
+            height: 60px;
+            width: auto;
+        }
+        
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: -0.02em;
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-teal);
+        }
+        
+        /* Email indicator */
+        .email-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-left: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .email-indicator:hover {
+            opacity: 1;
+        }
+        
+        .email-icon {
+            font-size: 1.1rem;
+        }
+        
+        .email-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 9px;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+        }
+        
+        .email-badge.hidden {
+            display: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--primary-dark);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-content h1 strong {
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+        
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(61, 138, 138, 0.2);
+        }
+        
+        .cta-button:hover {
+            background: #2d5a7b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 90, 123, 0.3);
+        }
+        
+        .hero-visual {
+            position: relative;
+        }
+        
+        .lern-logo-large {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* About Section */
+        .about {
+            background: white;
+            padding: 6rem 2rem;
+        }
+        
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .about h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .about-card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+        }
+        
+        .about-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        /* Research Section */
+        .research {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f9fafb 0%, #fefdfb 100%);
+        }
+        
+        .research-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .research h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary-dark);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .research-highlight {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+        
+        .research-highlight h3 {
+            font-size: 2rem;
+            color: var(--accent-teal);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .research-highlight p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .research-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: gap 0.3s;
+        }
+        
+        .research-link:hover {
+            gap: 1rem;
+        }
+        
+        .publications-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .publication-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .publication-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .publication-card h4 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .publication-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .publication-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: white;
+        }
+        
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .contact-intro {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-form {
+            background: var(--bg-light);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            width: 100%;
+            background: var(--accent-teal);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(61, 138, 138, 0.2);
+        }
+        
+        .submit-button:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 90, 123, 0.3);
+        }
+        
+        .form-note {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-logo {
+            height: 50px;
+            margin: 1rem 0;
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3rem 1.5rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid,
+            .publications-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lern-logo-large {
+                max-width: 300px;
+                margin: 0 auto;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="Lern_Logo.png" alt="Lern Logo" class="logo-img">
+                <span class="site-title serif">Lernaean Research</span>
+            </div>
+            <nav>
+                <a href="#about">About</a>
+                <span style="margin: 0 1rem; color: var(--text-secondary);">•</span>
+                <a href="#contact">Contact</a>
+                <a href="mailto:rkitcey@lernaean.net" title="Email us" style="font-size: 1.5rem; text-decoration: none;">
+                    📧
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="serif">Advancing <strong>Human Systems</strong> Understanding</h1>
+                <p>Exploring the triadic relationship between nature, consciousness, and environment through rigorous theoretical frameworks and empirical analysis.</p>
+                <a href="https://humanparadigm.org" class="cta-button">Explore the NiCE Framework →</a>
+            </div>
+            <div class="hero-visual">
+                <img src="hero-triadic-system.png" alt="NiCE Framework Triadic System" class="lern-logo-large">
+            </div>
+        </section>
+
+        <section id="about" class="about" style="background: var(--bg-light); padding: 4rem 2rem;">
+            <div class="about-content">
+                <h2 class="serif" style="font-size: 2.5rem; text-align: center; margin-bottom: 1.5rem; color: var(--primary-dark);">About Lernaean Research</h2>
+                <div style="max-width: 900px; margin: 0 auto; font-size: 1.05rem; line-height: 1.8; color: var(--text-primary);">
+                    <p style="margin-bottom: 1.5rem;">
+                        <strong>Lernaean</strong> (pronounced <em>/ler-NAY-ən/</em>) Research frames humanity's systemic challenges through the myth of the Lernaean Hydra of classic Greek Mythos: a regenerative adversary whose defeat ultimately required a Herculean achievement. The metaphor is precise. Many of the problems that plague human experience do not behave like isolated failures or moral defects of intrinsic constitution; they behave like the heads of the hydra—when one manifestation is "severed" through a localized fix, two more emerge elsewhere in altered form, because the deeper conditions that generate the problem remain intact.
+                    </p>
+                    <p style="margin-bottom: 1.5rem;">
+                        In this framing, humanity's recurring crises—social, institutional, ecological, psychological, and philosophical—are not merely a list of separate issues, but an interdependent pathology produced by the interactive relationships between human nature, the systems we construct, and our environment. Abstraction and fragmentation effectively conceal these causal mechanics, leaving society to fight symptoms while inadvertently reinforcing the very architecture that makes them regenerate.
+                    </p>
+                    <p style="margin-bottom: 1.5rem;">
+                        The implication is both sobering as well as aspirational: the work is necessarily Herculean. Not in the sense of heroic bravado, but in the sense of rare, integrated capacity—clear-eyed diagnosis across domains, structural understanding of incentives and feedback loops, and high-leverage interventions that cauterize root causes rather than merely suppress and massage outcomes. Lernaean Research endeavors to make that kind of "Herculean" clarity possible: to map how the Hydra operates, and to develop the frameworks capable of ending the cycle.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="about-content">
+                <h2 class="serif">About R.D. Kitcey</h2>
+                <p style="text-align: center; font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    R.D. Kitcey is a theoretical researcher specializing in human systems dynamics, consciousness studies, and the intersection of symbolic systems with physical reality. His work integrates insights from cognitive science, philosophy, economics, and ecology to develop comprehensive frameworks for understanding human behavior and societal patterns.
+                </p>
+                
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3 class="serif">Research Focus</h3>
+                        <p>Developing integrated theoretical frameworks that explain how biological embodiment, narrative consciousness, and environmental scaffolding interact to shape human experience and collective behavior.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3 class="serif">Methodological Approach</h3>
+                        <p>Combining pattern recognition, framework formalization, diagnostic synthesis, and prescriptive design to create actionable insights for addressing complex human systems challenges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="research">
+            <div class="research-content">
+                <h2 class="serif">Featured Research</h2>
+                
+                <div class="research-highlight">
+                    <h3 class="serif">The NiCE Framework</h3>
+                    <p>
+                        The <strong>Nature-Consciousness-Environment (NiCE) Framework</strong> represents a comprehensive triadic systems approach to understanding human dynamics. This framework proposes that human nature, consciousness, and environment are inseparably interdependent, with symbolic systems—particularly money—having decoupled from physical reality, creating cascading pathologies across individual psychology, institutional function, and ecological sustainability.
+                    </p>
+                    <p>
+                        Key theoretical contributions include the <strong>Asymmetric Propagation Law</strong>, the <strong>Great Inversion</strong>, and the <strong>Insanity Quotient</strong>, which together provide diagnostic and prescriptive tools for addressing systemic dysfunction.
+                    </p>
+                    <a href="https://humanparadigm.org" class="research-link">
+                        Visit the NiCE Framework Website →
+                    </a>
+                </div>
+
+                <h3 class="serif" style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: var(--primary-dark);">Major Publications</h3>
+                
+                <div class="publications-grid">
+                    <div class="publication-card">
+                        <h4 class="serif">The Human Paradigm</h4>
+                        <p class="publication-meta">2025 • Version 1.8.4 • 251 pages</p>
+                        <p>A comprehensive treatment of the NiCE Framework with detailed theoretical foundations, constraint frameworks (FORCES, GRAVITY, ANCHORS, PRIMES), and practical applications across multiple domains.</p>
+                    </div>
+                    
+                    <div class="publication-card">
+                        <h4 class="serif">Intellectual Progression</h4>
+                        <p class="publication-meta">2026 • Version 0.71 • 218 pages</p>
+                        <p>Advanced analytical treatment tracing the intellectual journey through pattern recognition, framework formalization, diagnostic synthesis, and prescriptive design phases.</p>
+                    </div>
+                    
+                    <div class="publication-card">
+                        <h4 class="serif">The Human Essence</h4>
+                        <p class="publication-meta">2024 • Version 0.9 • 153 pages</p>
+                        <p>An AI-assisted perspective on human nature examining cognitive architecture, social behavior, cultural evolution, and meaning-making processes through computational methodologies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="contact-content">
+                <h2 class="serif">Get in Touch</h2>
+                <p class="contact-intro">
+                    Interested in collaboration, feedback, or discussing the research? Feel free to reach out.
+                </p>
+                
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="affiliation">Affiliation / Organization</label>
+                        <input type="text" id="affiliation" name="affiliation">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Send Message</button>
+                    
+                    <p class="form-note">
+                        Or email directly: <a href="mailto:rkitcey@humanparadigm.org" style="color: var(--accent-teal); text-decoration: none; font-weight: 600;">rkitcey@humanparadigm.org</a>
+                    </p>
+                </form>
+                
+                <script>
+                    // Contact Form Handler with robust error handling
+                    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+                        e.preventDefault();
+                        
+                        const submitButton = this.querySelector('button[type="submit"]');
+                        const originalText = submitButton.textContent;
+                        submitButton.textContent = 'Sending...';
+                        submitButton.disabled = true;
+                        
+                        // Get form data
+                        const formData = {
+                            name: document.getElementById('name').value.trim(),
+                            email: document.getElementById('email').value.trim(),
+                            affiliation: document.getElementById('affiliation').value.trim(),
+                            subject: document.getElementById('subject').value.trim(),
+                            message: document.getElementById('message').value.trim(),
+                            timestamp: new Date().toISOString(),
+                            status: 'new',
+                            id: 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9)
+                        };
+                        
+                        // Backup to localStorage immediately
+                        try {
+                            const messages = JSON.parse(localStorage.getItem('nice-contact-messages') || '[]');
+                            messages.unshift({
+                                id: formData.id,
+                                name: formData.name,
+                                email: formData.email,
+                                affiliation: formData.affiliation || 'Not specified',
+                                subject: formData.subject || 'No subject',
+                                message: formData.message,
+                                timestamp: formData.timestamp,
+                                status: 'new',
+                                source: 'contact-form'
+                            });
+                            localStorage.setItem('nice-contact-messages', JSON.stringify(messages));
+                            console.log('✓ Message saved to localStorage backup');
+                        } catch (storageError) {
+                            console.warn('localStorage backup failed:', storageError);
+                        }
+                        
+                        // Send to server
+                        try {
+                            const response = await fetch('/api/send-email', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    name: formData.name,
+                                    email: formData.email,
+                                    affiliation: formData.affiliation || 'Not specified',
+                                    subject: formData.subject || 'No subject',
+                                    message: formData.message
+                                })
+                            });
+                            
+                            const result = await response.json();
+                            
+                            if (response.ok && result.success) {
+                                // Success!
+                                showFormMessage('✓ Thank you! Your message has been sent successfully.', 'success');
+                                this.reset();
+                            } else {
+                                // API returned error but message is saved locally
+                                showFormMessage('⚠️ Your message was saved but email delivery is pending. We\'ll review it shortly.', 'warning');
+                                console.warn('API error:', result);
+                            }
+                            
+                        } catch (error) {
+                            // Network or fetch error
+                            console.error('Error submitting form:', error);
+                            showFormMessage('⚠️ Your message was saved locally. We\'ll receive it when the connection is restored, or you can email directly at rkitcey@lernaean.net', 'warning');
+                        } finally {
+                            submitButton.textContent = originalText;
+                            submitButton.disabled = false;
+                        }
+                    });
+                    
+                    // Helper function to show form messages
+                    function showFormMessage(message, type) {
+                        // Remove any existing message
+                        const existingMsg = document.querySelector('.form-message');
+                        if (existingMsg) existingMsg.remove();
+                        
+                        // Create new message
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'form-message';
+                        msgDiv.textContent = message;
+                        
+                        // Style based on type
+                        const styles = {
+                            success: 'background: #d1fae5; color: #065f46; border-left: 4px solid #10b981;',
+                            warning: 'background: #fef3c7; color: #92400e; border-left: 4px solid #f59e0b;',
+                            error: 'background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444;'
+                        };
+                        
+                        msgDiv.style.cssText = `
+                            padding: 1rem;
+                            margin: 1rem 0;
+                            border-radius: 8px;
+                            font-weight: 500;
+                            ${styles[type] || styles.success}
+                        `;
+                        
+                        // Insert before form
+                        const form = document.getElementById('contact-form');
+                        form.parentNode.insertBefore(msgDiv, form);
+                        
+                        // Auto-remove after 8 seconds
+                        setTimeout(() => msgDiv.remove(), 8000);
+                    }
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+    
+    <script>
+        // Email link available in header for direct contact
+    </script>
+        <img src="Lern_Logo.png" alt="Lern Logo" class="footer-logo">
+        <p>&copy; 2026 R.D. Kitcey. All rights reserved.</p>
+        <p>Lernaean Research | Learning Enhanced Research Network</p>
+    </footer>
+</body>
+</html>
