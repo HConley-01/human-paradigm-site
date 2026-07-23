@@ -1,0 +1,170 @@
+name: Cloudflare Production Audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Audit humanparadigm.org production
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ZONE_NAME: humanparadigm.org
+      CF_PAGES_PROJECT: human-paradigm-site
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify audit credential is present
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${CF_API_TOKEN:-}" ]]; then
+            echo "CLOUDFLARE_API_TOKEN is not configured in GitHub Actions secrets." >&2
+            exit 1
+          fi
+
+      - name: Inventory Cloudflare production configuration
+        id: audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p cloudflare-audit
+
+          cf_get() {
+            local path="$1"
+            curl --fail-with-body --silent --show-error \
+              --retry 3 --retry-delay 2 \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              "https://api.cloudflare.com/client/v4${path}"
+          }
+
+          check_success() {
+            local file="$1"
+            if ! jq -e '.success == true' "$file" >/dev/null; then
+              echo "Cloudflare API request failed for $file" >&2
+              jq '{success, errors, messages}' "$file" >&2 || cat "$file" >&2
+              exit 1
+            fi
+          }
+
+          # Resolve the canonical zone first. The zone response gives us both the
+          # zone ID and owning account ID without requiring either value as a secret.
+          cf_get "/zones?name=${CF_ZONE_NAME}&status=active&per_page=50" > cloudflare-audit/zone-response.json
+          check_success cloudflare-audit/zone-response.json
+
+          ZONE_COUNT="$(jq '.result | length' cloudflare-audit/zone-response.json)"
+          if [[ "$ZONE_COUNT" -ne 1 ]]; then
+            echo "Expected exactly one active zone named ${CF_ZONE_NAME}; found ${ZONE_COUNT}." >&2
+            exit 1
+          fi
+
+          ZONE_ID="$(jq -r '.result[0].id' cloudflare-audit/zone-response.json)"
+          ACCOUNT_ID="$(jq -r '.result[0].account.id' cloudflare-audit/zone-response.json)"
+          ACCOUNT_NAME="$(jq -r '.result[0].account.name' cloudflare-audit/zone-response.json)"
+
+          echo "zone_id=${ZONE_ID}" >> "$GITHUB_OUTPUT"
+          echo "account_id=${ACCOUNT_ID}" >> "$GITHUB_OUTPUT"
+          echo "account_name=${ACCOUNT_NAME}" >> "$GITHUB_OUTPUT"
+
+          # Pages project and deployment history.
+          cf_get "/accounts/${ACCOUNT_ID}/pages/projects/${CF_PAGES_PROJECT}" > cloudflare-audit/pages-project.json
+          check_success cloudflare-audit/pages-project.json
+
+          cf_get "/accounts/${ACCOUNT_ID}/pages/projects/${CF_PAGES_PROJECT}/deployments?per_page=25" > cloudflare-audit/pages-deployments.json
+          check_success cloudflare-audit/pages-deployments.json
+
+          # Zone DNS and settings. These are read-only GET requests.
+          cf_get "/zones/${ZONE_ID}/dns_records?per_page=500" > cloudflare-audit/dns-records-raw.json
+          check_success cloudflare-audit/dns-records-raw.json
+          jq '{success, result: [.result[] | {id, type, name, content, proxied, ttl, comment, tags}], result_info}' \
+            cloudflare-audit/dns-records-raw.json > cloudflare-audit/dns-records.json
+          rm cloudflare-audit/dns-records-raw.json
+
+          cf_get "/zones/${ZONE_ID}/settings" > cloudflare-audit/zone-settings.json
+          check_success cloudflare-audit/zone-settings.json
+
+          # Account-level runtime inventory used by Pages Functions.
+          cf_get "/accounts/${ACCOUNT_ID}/storage/kv/namespaces?per_page=100" > cloudflare-audit/kv-namespaces.json
+          check_success cloudflare-audit/kv-namespaces.json
+
+          cf_get "/accounts/${ACCOUNT_ID}/workers/scripts" > cloudflare-audit/workers-scripts.json
+          check_success cloudflare-audit/workers-scripts.json
+
+          # Produce a compact, stable summary for comparison and human review.
+          jq -n \
+            --arg generated_at "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --arg zone_name "$CF_ZONE_NAME" \
+            --arg zone_id "$ZONE_ID" \
+            --arg account_id "$ACCOUNT_ID" \
+            --arg account_name "$ACCOUNT_NAME" \
+            --arg project "$CF_PAGES_PROJECT" \
+            --slurpfile p cloudflare-audit/pages-project.json \
+            --slurpfile d cloudflare-audit/pages-deployments.json \
+            --slurpfile dns cloudflare-audit/dns-records.json \
+            --slurpfile kv cloudflare-audit/kv-namespaces.json \
+            --slurpfile ws cloudflare-audit/workers-scripts.json \
+            '{
+              generated_at: $generated_at,
+              canonical_zone: {
+                name: $zone_name,
+                id: $zone_id,
+                account_id: $account_id,
+                account_name: $account_name
+              },
+              pages: {
+                project_name: $project,
+                project: $p[0].result,
+                latest_deployments: ($d[0].result | map({
+                  id,
+                  short_id,
+                  project_name,
+                  environment,
+                  url,
+                  created_on,
+                  modified_on,
+                  latest_stage,
+                  deployment_trigger,
+                  source
+                }))
+              },
+              dns_record_count: ($dns[0].result | length),
+              kv_namespaces: ($kv[0].result | map({id, title, supports_url_encoding})),
+              workers_scripts: ($ws[0].result | map({id, created_on, modified_on, etag}))
+            }' > cloudflare-audit/audit-summary.json
+
+          LATEST_ID="$(jq -r '.result[0].id // "unknown"' cloudflare-audit/pages-deployments.json)"
+          LATEST_ENV="$(jq -r '.result[0].environment // "unknown"' cloudflare-audit/pages-deployments.json)"
+          LATEST_URL="$(jq -r '.result[0].url // "unknown"' cloudflare-audit/pages-deployments.json)"
+          LATEST_CREATED="$(jq -r '.result[0].created_on // "unknown"' cloudflare-audit/pages-deployments.json)"
+
+          {
+            echo "## Cloudflare Production Audit"
+            echo ""
+            echo "- Zone: \`${CF_ZONE_NAME}\`"
+            echo "- Account: \`${ACCOUNT_NAME}\`"
+            echo "- Pages project: \`${CF_PAGES_PROJECT}\`"
+            echo "- Latest deployment ID: \`${LATEST_ID}\`"
+            echo "- Latest deployment environment: \`${LATEST_ENV}\`"
+            echo "- Latest deployment URL: \`${LATEST_URL}\`"
+            echo "- Latest deployment created: \`${LATEST_CREATED}\`"
+            echo "- DNS records inventoried: \`$(jq '.result | length' cloudflare-audit/dns-records.json)\`"
+            echo "- KV namespaces inventoried: \`$(jq '.result | length' cloudflare-audit/kv-namespaces.json)\`"
+            echo ""
+            echo "This workflow performs GET requests only. It does not deploy or modify Cloudflare resources."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload Cloudflare audit artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-production-audit-${{ github.run_id }}
+          path: cloudflare-audit/
+          if-no-files-found: error
+          retention-days: 7
